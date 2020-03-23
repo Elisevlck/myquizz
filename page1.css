@@ -1,0 +1,226 @@
+body
+{
+    width:100%;
+}
+
+header
+{
+    font-family : Courier New;
+    color:white;
+    list-style:none;
+    text-align:center;
+}
+
+header nav
+{
+    color : white;
+   
+
+}
+
+header nav ul
+{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+
+    
+}
+
+header nav ul li
+{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100px;
+    text-align:center;
+    background-color:black;
+    line-height:100px;
+    text-align:center;
+    font-weight:bold;
+    font-size:20px;
+    align-items:center;
+    
+}
+header nav li
+{
+ 
+    display: inline-block;
+    margin:0px 19px;
+    padding:10px;    
+
+}
+header nav ul li a
+{
+    display:block;
+    
+}
+
+header nav ul li a:hover
+{
+    background-color: grey;
+    opacity:0.4;
+
+    
+    
+}
+
+.sous
+{
+    display : flex;
+    flex-direction:column-reverse;
+
+    
+}
+
+.link
+{
+
+    color:white;
+    font-size:18px;
+    text-align:center;
+    font-weight:bold;   
+
+}
+
+link:hover
+
+{
+    color: #00FF00;
+
+    
+}
+
+header nav ul li ul li
+{
+
+
+    display:none;
+
+
+    
+}
+
+header nav ul li:hover ul li 
+
+{
+
+    display:flex;
+    background-color:grey;
+    height:60px;
+    width:100%;
+    line-height:60px;
+
+
+}
+
+
+
+
+.bouton
+
+{
+	
+display:block;
+width:170px;
+height : 70px;
+line-height:50px;
+text-align:center;
+vertical-align:middle;
+color:white;
+text-decoration:none;
+float : right;
+background-color:black;
+font-family : Courier New;
+margin-right : 2em;
+margin-top: 25em;
+font-weight:bold;
+
+}
+
+.bouton:hover 
+{
+	background-color : red;
+	color:black;
+}
+
+
+#carousel
+{
+	
+	margin-left : 25px;
+}
+
+
+.conteneur
+{
+    display: flex;
+    align-items:center;   
+    background: #EFEFEF;
+    width : 80%;
+	height: 600px;
+    margin-left :20px;
+	border-radius: 20px;
+    margin-top : 150px;
+   
+  
+}
+
+footer
+
+{
+    text-align:center;
+    color:black;
+    font-family:Courier New, Courier, monospace;
+}
+
+.description
+{
+
+    color:black;
+    font-family:Courier New, Courier, monospace;
+    text-align:center;
+    margin-left:40px;
+    align-items:center;
+    font-size:18px;
+}
+
+#logo{
+    margin-left:0;
+    padding-left:15px;
+    background-color:black;
+}
+
+
+
+.conteneurconex
+{
+
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-left:auto;   
+    margin-right:auto;
+    margin-top : 100px;
+    border-radius: 20px;   
+    width : 400px;
+	height: 470px;
+    display: flex;
+    align-items:center;   
+    background: #EFEFEF;
+    
+    
+	
+   
+}
+
+#connexion
+
+{
+    display: block;
+    margin-left: 90px;
+    text-align:center;
+ 
+    
+}
+
+
