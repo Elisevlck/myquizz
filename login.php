@@ -1,88 +1,80 @@
+<?php 
+		require_once "includes/function.php";		
+		session_start();
+		$quizs = getDb()->query('select * from utilisateur'); 
+?>
+
 <!DOCTYPE html>
-    <html>
 
-	<?php include('head.php'); ?>
-
+<html>
 	
-	  
-<body>
-
-<?php
-
-include('header.php'); 	
-
-include('function.php');
-//connexion db
-$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
-
-session_start();
-
-//formulaire rempli
-if(!empty($_POST['login']) AND !empty($_POST['password']))
-{
-	
-	//db
-	$requete = $bdd->prepare('select * from utilisateur where ut_login =? and ut_mdp =?');
-	
-	//récupère variable
-	$loginconnect = trim($_POST['login']);
-	$mdpconnect = trim($_POST['password']); 
-
+	<?php require_once "includes/head.php"; ?>
 		
-	$requete->execute(array($loginconnect,$mdpconnect));
-	$resultat = $requete->fetch();
+	<body>
 
+		<?php
+		include('includes/header.php'); 	
 
-	//mot de passe entrée même que celui de la db
-	if($mdpconnect == $resultat['ut_mdp']) //affiche erreur jsp pq
-	{
-		//reconnaissance de l'utilisateur
-		if($requete->rowCount() == 1)
+		//connexion db
+		//$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
+
+		//formulaire rempli
+		if(!empty($_POST['login']) AND !empty($_POST['password']))
 		{
 			
-			$_SESSION['login'] = $loginconnect;
-		
-			//si ut est admin
-			if($resultat['ut_statut'] == "admin")
+			//db
+			$requete = $bdd->prepare('select * from utilisateur where ut_login =? and ut_mdp =?');
 			
-			{
-				//echo "ok"; //vérif
-				//à compléter redirection vers page accueil pour admin (test)
-				redirect('mdpoublie.php'); 
+			//récupère variable
+			$loginconnect = trim($_POST['login']);
+			$mdpconnect = trim($_POST['password']); 
+			
+			$requete->execute(array($loginconnect,$mdpconnect));
+			$resultat = $requete->fetch();
 
-			}
-			//si ut est joueur			
-			else
+			//mot de passe entrée même que celui de la db
+			if($mdpconnect == $resultat['ut_mdp']) //affiche erreur jsp pq
 			{
-				//echo "okk"; //vérif
-				//à compléter redirection vers page accueil pour joueur (test)
-				redirect('mdpoublie.php');
+				//reconnaissance de l'utilisateur
+				if($requete->rowCount() == 1)
+				{
+					
+					$_SESSION['login'] = $loginconnect;
 				
+					//si ut est admin
+					if($resultat['ut_statut'] == "admin")
+					
+					{
+						//echo "ok"; //vérif
+						//à compléter redirection vers page accueil pour admin (test)
+						redirect('mdpoublie.php'); 
+
+					}
+					//si ut est joueur			
+					else
+					{
+						//echo "okk"; //vérif
+						//à compléter redirection vers page accueil pour joueur (test)
+						redirect('mdpoublie.php');
+						
+					}
+				
+				}
+				else
+				{
+					$erreur = "Utilisateur non reconnu !";
+				}
 			}
-		
+			else
+			{		
+				$erreur = "Mauvais login ou mdp !";		
+			}
 		}
+
 		else
 		{
-			$erreur = "Utilisateur non reconnu !";
+			$erreur = "Veuillez saisir tous les champs !";
 		}
-	}
-	else
-	{		
-		$erreur = "Mauvais login ou mdp !";		
-	}
-}
-
-else
-{
-	$erreur = "Veuillez saisir tous les champs !";
-}
-
-
-		
-	
-
-
-
 ?>
 
 <div class="conteneurconex">
@@ -122,8 +114,7 @@ else
 				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
 			}?>	
 	
-	<?php include('footer.php'); ?>
-
+	<?php include('includes/footer.php'); ?>
 	<?php include('scripts.php'); ?>		
 		
 	</body>

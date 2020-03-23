@@ -1,82 +1,96 @@
+<!-- <?php
+	require_once "includes/function.php";
+	session_start();
+	// Récuperer tous les quiz
+	$quizs = getDb()->query('select * from utilisateur'); 
+?>-->
+
 <!DOCTYPE html>
-    <html>
-<?php include('head.php'); ?>
-<?php include('header.php'); ?>
-	  
-<body>
 
-<?php
+<html>
 
-//connexion db
-$bdd=new PDO('mysql:host=127.0.0.1;dbname=phplogin','root','');
-
-
-//validation du bouton 
-if(isset($_POST['inscription']))
-{
-	//récupération variables (trim->sécuriser la variable)
-	$statut=trim($_POST['statut']);
-	$login = trim($_POST['login']);
-	$email = trim($_POST['email']);
-	$password = trim($_POST['password']);
-	$repeatpassword = trim($_POST['repeatpassword']);
+   <?php 
+		$pageTitle="Inscription";
+		require_once "includes/head.php"; 
+	?>
 	
-	//tout le formulaire rempli
-	if(!empty($statut) AND !empty($login) AND !empty($email) AND !empty($password) AND !empty($repeatpassword))
-	{
+	<body>
+	
+		<?php require_once "includes/header.php"; ?>
 		
-		//filtre mail, sécurité
-		if(filter_var($email, FILTER_VALIDATE_EMAIL))
-		{
-			
-		$reqlog = $bdd->prepare('select * from utilisateur where ut_login =?');
-		$reqlog->execute(array($login));
-		$logexist=$reqlog->rowCount();
+	<body>
 
-			//pseudo unique ou non
-			if($logexist == 0)			
-			{		
-				//même mdp
-				if($password == $repeatpassword)
+		<?php
+
+		//connexion db
+		$bdd=new PDO('mysql:host=127.0.0.1;dbname=phplogin','root','');
+
+
+		//validation du bouton 
+		if(isset($_POST['inscription']))
+		{
+			//récupération variables (trim->sécuriser la variable)
+			$role=trim($_POST['role']);
+			$login = trim($_POST['login']);
+			$email = trim($_POST['email']);
+			$password = trim($_POST['password']);
+			$repeatpassword = trim($_POST['repeatpassword']);
+			
+			//tout le formulaire rempli
+			if(!empty($role) AND !empty($login) AND !empty($email) AND !empty($password) AND !empty($repeatpassword))			{
+				
+				//filtre mail, sécurité
+				if(filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
 					
-					//caractère max pour le mdp(100) : création compte
-					$loginlength = strlen($login);
-					if($loginlength <= 100)
-					{
-						$insert_ut = $bdd->prepare("INSERT INTO utilisateur(ut_login,  ut_mdp, ut_mail, ut_statut) VALUES(?,?,?,?)");
-						$insert_ut->execute(array($login,$password,$email,$statut));
-						$erreur = "Votre compte a bien été créé";
-					
-						/*header('Location : 2.html');*/
-						//redirection vers page accueil html
+				$reqlog = $bdd->prepare('select * from utilisateur where ut_login =?');
+				$reqlog->execute(array($login));
+				$logexist=$reqlog->rowCount();
+
+					//pseudo unique ou non
+					if($logexist == 0)			
+					{		
+						//même mdp
+						if($password == $repeatpassword)
+						{
+							
+							//caractère max pour le mdp(100) : création compte
+							$loginlength = strlen($login);
+							if($loginlength <= 100)
+							{
+								$insert_ut = $bdd->prepare("INSERT INTO utilisateur(ut_login,  ut_mdp, ut_mail, ut_statut) VALUES(?,?,?,?)");
+								$insert_ut->execute(array($login,$password,$email,$statut));
+								$erreur = "Votre compte a bien été créé";
+							
+								/*header('Location : 2.html');*/
+								//redirection vers page accueil html
+							}
+							
+							else
+							{	 
+								$erreur = "Votre login ne doit pas dépasser 100 caractères.";
+							}
+						}
+						
+						else
+						{
+							$erreur = "Vos mot de passe ne correspondent pas !";
+						}
 					}
 					
 					else
-					{	 
-						$erreur = "Votre login ne doit pas dépasser 100 caractères.";
+					{
+						$erreur = "Login déjà utilisé !";				
 					}
 				}
 				
-				else
-				{
-					$erreur = "Vos mot de passe ne correspondent pas !";
-				}
+				else $erreur = "Votre email n'est pas valide !";
+				
 			}
+			else $erreur = "Veuillez saisir tous les champs";
 			
-			else
-			{
-				$erreur = "Login déjà utilisé !";				
-			}
 		}
-		
-		else $erreur = "Votre email n'est pas valide !";
-		
-	}
-	else $erreur = "Veuillez saisir tous les champs";
-	
-}
-?>
+		?>
 
 
 <div class="conteneurconex">
@@ -116,11 +130,11 @@ if(isset($_POST['inscription']))
 			
 
 </div>
+
+<?php include "includes/footer.php";
+include "includes/scripts.php";?>
  
-	<?php include('footer.php'); 
-	include('scripts.php'); 
-
-
+	<?php
 			if(isset($erreur))
 			{
 				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";

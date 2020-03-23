@@ -2,7 +2,7 @@
     <nav>        
         <ul>
              
-            <div id="logo">  <p><img src="logo1.png" width="80" /></p></div> 
+            <div id="logo">  <p><img src="images/logo1.png" width="80" /></p></div> 
             <li>MYQUIZZ</li>
 
             <li>Quizz par thème
@@ -20,4 +20,5 @@
                                      
         </ul>
     </nav>
+	<br/>
 </header>

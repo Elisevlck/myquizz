@@ -1,73 +1,41 @@
 <!DOCTYPE html>
-    <html>
-    <head>
+
+<html>
 	
-      <meta charset="UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	  <link rel="stylesheet" type="text/css" href="page1.css"/>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-
-      <title>MyQuizz</title>
-	  
-	  </head>
-
-<header>
-
-    <nav>
-        
-        <ul>
-             
-            <div id="logo">  <p><img src="logo1.png" width="80" /></p></div> 
-            <li>MYQUIZZ</li>
-
-
-            <li>Quizz par thème
-                <ul class="sous">
-                    <li ><a class="link" href ="sport.html">Sport</a></li>
-                    <li ><a class="link" href ="cinema.html">Cinéma</a></li>                                
-                </ul>
-            </li><!DOCTYPE html>
-    <html>
-<?php include('head.php'); ?>
-<?php include('header.php'); ?>
-
-	  
-	  
-<body>
-
-    
-     
-        
-<div  class="connexion"><a href ="login.php"><button type="button" class="bouton">JOUER !</button></a></div>     
-
-
-
-<div class="conteneur">		   
-	<div id="carousel" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="revision1.jpg"
-        alt="First slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="sport1.jpg"
-        alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="cinema1.jpg"
-        alt="Third slide">
-    </div>
+   <?php include "includes/head.php";?>
+   
+	<body>
 	
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+		<?php include "includes/header.php";?>
+				
+		<div  class="connexion"><a href ="login.php"><button type="button" class="bouton">JOUER !</button></a></div>   
+
+		<div class="conteneur">		   
+			<div id="carousel" class="carousel slide">
+		  <div class="carousel-inner">
+			<div class="carousel-item active">
+			  <img class="d-block w-100" src="revision1.jpg"
+				alt="First slide">
+			</div>
+			<div class="carousel-item">
+			  <img class="d-block w-100" src="sport1.jpg"
+				alt="Second slide">
+			</div>
+			<div class="carousel-item">
+			  <img class="d-block w-100" src="cinema1.jpg"
+				alt="Third slide">
+			</div>
+			
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
+			<span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+			<span class="carousel-control-next-icon"></span>
+			<span class="sr-only">Next</span>
+		  </a>
+		</div>
 
 
     <div class="description"><h2>Marre des révisions ?</h2>
@@ -77,8 +45,6 @@
     Il suffit juste de vous inscrire <br/>pour pouvoir profiter de nos quizz !<br/><br/>
 
     <mark>À vous de<font size="6pt"> JOUER !</font></mark></div>
-
-
 </div>
 
 
@@ -87,8 +53,8 @@
 
 
 
-<?php include('foooer.php'); ?>
-<?php include('scripts.php'); ?>
+<?php include('includes/footer.php'); ?>
+<?php include('includes/scripts.php'); ?>
 
 
 

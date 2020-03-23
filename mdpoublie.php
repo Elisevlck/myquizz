@@ -1,62 +1,66 @@
-<!DOCTYPE html>
-    <html>
-<?php include('head.php'); ?>
-<?php include('header.php'); ?>
-
-	  
-<body>
-
-
 <?php
+	require_once "includes/function.php";
+	session_start();
+	// Récuperer tous les quiz
+	//$quizs = getDb()->query('select * from quiz'); 
+?>
 
-    session_start();
-	$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
+<!DOCTYPE html>
+
+	<?php 
+		$pageTitle="Mot de passe oublié";
+		require_once "includes/head.php"; 
+	?>
 	
-	
-include('function.php');
-
-
-if (!empty($_POST['login']) AND !empty($_POST['nvpassword']) AND !empty($_POST['repeatnvpassword']))
-
-{	
-		$login = trim($_POST['login']);
-		$nvpassword = trim($_POST['nvpassword']);
-		$repeatnvpassword = trim($_POST['repeatnvpassword']);
+	<body>
 		
-		$requete = $bdd->prepare('select * from utilisateur where ut_login=?'); 	
-		$requete->execute(array($login));
-		$requete = $requete->fetch();
+		<?php require_once "includes/header.php";?>
 
-		if($nvpassword == $repeatnvpassword)
-		{
-			if($login == $requete['ut_login'])
+
+		<?php
+			
+			//$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
+			if (!empty($_POST['login']) AND !empty($_POST['nvpassword']) AND !empty($_POST['repeatnvpassword']))
+
+		{	
+				$login = trim($_POST['login']);
+				$nvpassword = trim($_POST['nvpassword']);
+				$repeatnvpassword = trim($_POST['repeatnvpassword']);
+				
+				$requete = $bdd->prepare('select * from utilisateur where ut_login=?'); 	
+				$requete->execute(array($login));
+				$requete = $requete->fetch();
+
+				if($nvpassword == $repeatnvpassword)
 				{
+					if($login == $requete['ut_login'])
+						{
+							
+							 $resultat=$bdd->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_login =?"); 
+							 $resultat->execute(array($nvpassword, $requete['ut_login']));
+							 $erreur = "Votre mot de passe a bien été changé !";
+							 redirect('login.php');
+											
+						}
+						else
+						{
+							$erreur = "Login introuvable !";
+											
+						}	
 					
-					 $resultat=$bdd->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_login =?"); 
-					 $resultat->execute(array($nvpassword, $requete['ut_login']));
-					 $erreur = "Votre mot de passe a bien été changé !";
-					 redirect('login.php');
-									
 				}
 				else
+				
 				{
-					$erreur = "Login introuvable !";
-									
-				}	
+					$erreur = "Les mots de passe ne correspondent pas !";
+				}
+				
+				
+		}
+					
 			
-		}
-		else
-		
-		{
-			$erreur = "Les mots de passe ne correspondent pas !";
-		}
-		
-		
-}
-            
-	
-?>
-		
+		?>
+				
 <div class="conteneurconex">
      
             <form method="post" action="mdpoublie.php">
@@ -93,8 +97,8 @@ if (!empty($_POST['login']) AND !empty($_POST['nvpassword']) AND !empty($_POST['
 
 
 <?php
-include('footer.php'); 
- include('scripts.php'); 
+			include('includes/footer.php'); 
+			include('includes/scripts.php'); 
 
 			if(isset($erreur))
 			{
