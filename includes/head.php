@@ -5,4 +5,6 @@
     <link rel="stylesheet" type="text/css" href="page1.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
 
+      <title>MyQuizz</title>
+	  
 </head>

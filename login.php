@@ -1,67 +1,130 @@
-<?php
-	require_once "includes/function.php";
-	session_start();
+<!DOCTYPE html>
+    <html>
 
-if (!empty($_POST['login']) and !empty($_POST['password'])) {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    $stmt = getDb()->prepare('select * from utilisateur where ut_identifiant=? and ut_mdp=?');
-    $stmt->execute(array($login, $password));
-    if ($stmt->rowCount() == 1) {
-        // Authentication successful
-        $_SESSION['login'] = $login;
-        redirect("index.php");
-    }
-    else {
-        $error = "Utilisateur non reconnu";
-    }
-}
-?>
+	<?php include('head.php'); ?>
 
-<!doctype html>
-<html>
-
-<?php 
-	$pageTitle = "Connexion";
-	require_once "includes/head.php";
-?>
-
+	
+	  
 <body>
-    <div class="container">
-        <?php require_once "includes/header.php"; ?>
 
-        <h2 class="text-center"><?= $pageTitle ?></h2>
+<?php
 
-        <?php if (isset($error)) { ?>
-            <div class="alert alert-danger">
-                <strong>Erreur !</strong> <?= $error ?>
-            </div>
-        <?php } ?>
+include('header.php'); 	
 
-        <div class="well">
-            <form class="form-signin form-horizontal" role="form" action="login.php" method="post">
-                <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                    <input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                        <input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                        <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Se connecter</button>
-                    </div>
-                </div>
+include('function.php');
+//connexion db
+$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
+
+session_start();
+
+//formulaire rempli
+if(!empty($_POST['login']) AND !empty($_POST['password']))
+{
+	
+	//db
+	$requete = $bdd->prepare('select * from utilisateur where ut_login =? and ut_mdp =?');
+	
+	//récupère variable
+	$loginconnect = trim($_POST['login']);
+	$mdpconnect = trim($_POST['password']); 
+
+		
+	$requete->execute(array($loginconnect,$mdpconnect));
+	$resultat = $requete->fetch();
+
+
+	//mot de passe entrée même que celui de la db
+	if($mdpconnect == $resultat['ut_mdp']) //affiche erreur jsp pq
+	{
+		//reconnaissance de l'utilisateur
+		if($requete->rowCount() == 1)
+		{
+			
+			$_SESSION['login'] = $loginconnect;
+		
+			//si ut est admin
+			if($resultat['ut_statut'] == "admin")
+			
+			{
+				//echo "ok"; //vérif
+				//à compléter redirection vers page accueil pour admin (test)
+				redirect('mdpoublie.php'); 
+
+			}
+			//si ut est joueur			
+			else
+			{
+				//echo "okk"; //vérif
+				//à compléter redirection vers page accueil pour joueur (test)
+				redirect('mdpoublie.php');
+				
+			}
+		
+		}
+		else
+		{
+			$erreur = "Utilisateur non reconnu !";
+		}
+	}
+	else
+	{		
+		$erreur = "Mauvais login ou mdp !";		
+	}
+}
+
+else
+{
+	$erreur = "Veuillez saisir tous les champs !";
+}
+
+
+		
+	
+
+
+
+?>
+
+<div class="conteneurconex">
+     
+            <form method="post" action="login.php">
+
+                <div id="connexion">
+                <fieldset><legend><strong>Qui êtes-vous ?</strong></legend>
+
+                <label for="login"><i>Login : </i> </label> <input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus>
+                                 
+               <br/>
+               
+                <label for="login"><i> Mot de passe : </i></label><input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                <br/>
+                    <a href="mdpoublie.php"><i>Mot de passe oublié ?</i></a><br />
+                <a href="inscription.php"><i>Nouveau sur le compte ? Inscrivez-vous</i></a>
+                <br/>
+<br />
+                
+                <button type="submit" name="connexion" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Se connecter</button>
+                <br/>
+
+                
+                </div>  
+
+
+                
+                </fieldset>
+                        
             </form>
-        </div>
 
-        <?php require_once "includes/footer.php"; ?>
-    </div>
+</div>
+			<?php
+			if(isset($erreur))
+			{
+				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
+			}?>	
+	
+	<?php include('footer.php'); ?>
 
-    <?php require_once "includes/scripts.php"; ?>
-</body>
-
-</html>
+	<?php include('scripts.php'); ?>		
+		
+	</body>
+    </html>
