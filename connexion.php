@@ -1,48 +1,17 @@
 <!DOCTYPE html>
-    <html>
-    <head>
+
+<html>
+
+<? 
+	require_once "includes/head.php";
+	require_once "includes/header.php";
+	include('fonction.php');
 	
-      <meta charset="UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	  <link rel="stylesheet" type="text/css" href="page1.css"/>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-
-      <title>Connexion</title>
-	  
-	  </head>
-
-<header>
-
-    <nav>
-        
-        <ul>
-             
-            <div id="logo">  <p><img src="logo1.png" width="80" /></p></div> 
-            <li>MYQUIZZ</li>
-
-
-            <li>Quizz par thème
-                <ul class="sous">
-                    <li ><a class="link" href ="sport.html">Sport</a></li>
-                    <li ><a class="link" href ="cinema.html">Cinéma</a></li>                                
-                </ul>
-            </li>
-            <li>Révisions
-                <ul class="sous">
-                    <li ><a class="link" href ="histgeo.html">Histoire/Géographie</a></li>
-                    <li ><a class="link" href ="maths.html">Maths</a></li>                 
-                </ul>
-            </li>                
-                                     
-        </ul>
-    </nav>
-</header>
-	  
 <body>
 
 <?php
 
-include('fonction.php');
+
 //connexion db
 $bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
 

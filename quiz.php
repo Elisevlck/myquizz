@@ -34,6 +34,29 @@
             </div>
         </div>
     </div>
+	
+	<fieldset><legend>Les records des jeux olympiques</legend>
+
+		<h1>Les records des jeux olympiques</h1>
+			
+		<?php			
+
+					
+			print 'Votre réponse est '.$_POST['titre'].'<br/>';
+			'<br/>';
+			
+			print 'Les pays sélectionnés sont :<ul>';
+			
+				echo '<li>'.$pay.'</li>';
+    }
+    
+			print '</ul>';
+			
+			print 'Votre temps sélectionné :' .$_POST['temps'].'<br/>';
+		?>
+		
+				
+	</fieldset>
 
     <?php require_once "includes/footer.php"; ?>
 </div>

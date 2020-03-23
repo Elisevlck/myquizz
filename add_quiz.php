@@ -1,36 +1,37 @@
 <?php
-require_once "includes/function.php";
-session_start();
+	require_once "includes/function.php";
+	session_start();
 
-if (isUserConnected()) {
-    
-    if (isset($_POST['title'])) {
-        // the movie form has been posted : retrieve movie parameters
-        $title = escape($_POST['title']);
-        $shortDescription = escape($_POST['shortDescription']);
-        $longDescription = escape($_POST['longDescription']);
-        $director = escape($_POST['director']);
-        $year = escape($_POST['year']);
-        
-        $tmpFile = $_FILES['image']['tmp_name'];
-        if (is_uploaded_file($tmpFile)) {
-            // upload movie image
-            $image = basename($_FILES['image']['name']);
-            $uploadedFile = "images/$image";
-            move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFile);
-        }
-        
-        // insert movie into BD
-        $stmt = getDb()->prepare('insert into movie
-        (mov_title, mov_description_short, mov_description_long, mov_director, mov_year, mov_image)
-        values (?, ?, ?, ?, ?, ?)');
-        $stmt->execute(array($title, $shortDescription, $longDescription,
-        $director, $year, $image));
-        redirect("index.php");
-    }
-    ?>
+	if (isUserConnected()) {
+		
+		if (isset($_POST['title'])) {
+			// the movie form has been posted : retrieve movie parameters
+			$title = escape($_POST['title']);
+			$shortDescription = escape($_POST['shortDescription']);
+			$longDescription = escape($_POST['longDescription']);
+			$director = escape($_POST['director']);
+			$year = escape($_POST['year']);
+			
+			$tmpFile = $_FILES['image']['tmp_name'];
+			
+			if (is_uploaded_file($tmpFile)) {
+				// upload movie image
+				$image = basename($_FILES['image']['name']);
+				$uploadedFile = "images/$image";
+				move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFile);
+			}
+			
+			// insert movie into BD
+			$stmt = getDb()->prepare('insert into movie
+			(mov_title, mov_description_short, mov_description_long, mov_director, mov_year, mov_image)
+			values (?, ?, ?, ?, ?, ?)');
+			$stmt->execute(array($title, $shortDescription, $longDescription,$director, $year, $image));
+			redirect("index.php");
+		}
+?>
 
   <!doctype html>
+  
   <html>
 
   <?php
@@ -43,6 +44,9 @@ if (isUserConnected()) {
         <?php require_once "includes/header.php"; ?>
 
           <h2 class="text-center">Ajout d'un quiz</h2>
+		  
+		  
+		  
           <div class="well">
             <form class="form-horizontal" role="form" enctype="multipart/form-data" action="quizz_add.php" method="post">
               <input type="hidden" name="id" value="<?= $movieId ?>">
