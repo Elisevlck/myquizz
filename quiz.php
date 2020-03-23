@@ -47,6 +47,7 @@
 			
 			print 'Les pays sélectionnés sont :<ul>';
 			
+			foreach($_POST['pays'] as $pay){
 				echo '<li>'.$pay.'</li>';
     }
     
