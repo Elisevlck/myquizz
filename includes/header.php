@@ -1,5 +1,6 @@
- 
- <nav>
+<header>
+
+    <nav>
         
         <ul>
              
@@ -9,16 +10,22 @@
 
             <li>Quizz par thème
                 <ul class="sous">
-                    <li ><a class="link" href ="sport.html">Sport</a></li>
-                    <li ><a class="link" href ="cinema.html">Cinéma</a></li>                                
+                    <li ><a class="link" href ="sport.php">Sport</a></li>
+                    <li ><a class="link" href ="cinema.php">Cinéma</a></li>                                
                 </ul>
             </li>
             <li>Révisions
                 <ul class="sous">
-                    <li ><a class="link" href ="histgeo.html">Histoire/Géographie</a></li>
-                    <li ><a class="link" href ="maths.html">Maths</a></li>                 
+                    <li ><a class="link" href ="histgeo.php">Histoire/Géographie</a></li>
+                    <li ><a class="link" href ="maths.php">Maths</a></li>                 
                 </ul>
             </li>                
-                                     
+                 
+                      
         </ul>
+
+
     </nav>
+
+
+</header>

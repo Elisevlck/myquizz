@@ -1,5 +1,5 @@
 <?php
-require_once "includes/function.php";
+include('function.php');
 session_start();
 
 if (isUserConnected()) {
@@ -35,12 +35,12 @@ if (isUserConnected()) {
 
   <?php
     $pageTitle = "Ajout d'un quiz";
-    require_once "includes/head.php";
+    include('head.php');
     ?>
 
     <body>
       <div class="container">
-        <?php require_once "includes/header.php"; ?>
+        <?php include('header.php'); ?>
 
           <h2 class="text-center">Ajout d'un quiz</h2>
           <div class="well">
@@ -95,10 +95,10 @@ if (isUserConnected()) {
             </form>
           </div>
 
-          <?php require_once "includes/footer.php"; ?>
+          <?php include('footer.php'); ?>
       </div>
 
-      <?php require_once "includes/scripts.php"; ?>
+      <?php include('scripts.php');  ?>
     </body>
 
   </html>

@@ -1,42 +1,7 @@
 <!DOCTYPE html>
     <html>
-    <head>
-	
-      <meta charset="UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	  <link rel="stylesheet" type="text/css" href="page1.css"/>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-
-      <title>Inscription</title>
-	  
-	  </head>
-
-<header>
-
-    <nav>
-        
-        <ul>
-             
-            <div id="logo">  <p><img src="logo1.png" width="80" /></p></div> 
-            <li>MYQUIZZ</li>
-
-
-            <li>Quizz par thème
-                <ul class="sous">
-                    <li ><a class="link" href ="sport.html">Sport</a></li>
-                    <li ><a class="link" href ="cinema.html">Cinéma</a></li>                                
-                </ul>
-            </li>
-            <li>Révisions
-                <ul class="sous">
-                    <li ><a class="link" href ="histgeo.html">Histoire/Géographie</a></li>
-                    <li ><a class="link" href ="maths.html">Maths</a></li>                 
-                </ul>
-            </li>                
-                                     
-        </ul>
-    </nav>
-</header>
+<?php include('head.php'); ?>
+<?php include('header.php'); ?>
 	  
 <body>
 
@@ -152,10 +117,10 @@ if(isset($_POST['inscription']))
 
 </div>
  
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<?php
+	<?php include('footer.php'); 
+	include('scripts.php'); 
+
+
 			if(isset($erreur))
 			{
 				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
