@@ -23,7 +23,7 @@
 		{
 			
 			//db
-			$requete = $bdd->prepare('select * from utilisateur where ut_login =? and ut_mdp =?');
+			$requete = getDb()->prepare('select * from utilisateur where ut_nom =? and ut_mdp =?');
 			
 			//récupère variable
 			$loginconnect = trim($_POST['login']);
@@ -42,7 +42,7 @@
 					$_SESSION['login'] = $loginconnect;
 				
 					//si ut est admin
-					if($resultat['ut_statut'] == "admin")
+					if($resultat['ut_role'] == "administrateur")
 					
 					{
 						//echo "ok"; //vérif
@@ -115,7 +115,7 @@
 			}?>	
 	
 	<?php include('includes/footer.php'); ?>
-	<?php include('scripts.php'); ?>		
+	<?php include('includes/scripts.php'); ?>		
 		
 	</body>
     </html>

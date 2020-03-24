@@ -2,7 +2,8 @@
 	require_once "includes/function.php";
 	session_start();
 	// Récuperer tous les quiz
-	$quizs = getDb()->query('select * from utilisateur'); 
+	$utilisateurs = getDb()->query('select * from utilisateur'); 
+	
 ?>-->
 
 <!DOCTYPE html>
@@ -22,10 +23,6 @@
 
 		<?php
 
-		//connexion db
-		$bdd=new PDO('mysql:host=127.0.0.1;dbname=phplogin','root','');
-
-
 		//validation du bouton 
 		if(isset($_POST['inscription']))
 		{
@@ -43,7 +40,7 @@
 				if(filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
 					
-				$reqlog = $bdd->prepare('select * from utilisateur where ut_login =?');
+				$reqlog = getDb()->prepare('select * from utilisateur where ut_nom=?'); 
 				$reqlog->execute(array($login));
 				$logexist=$reqlog->rowCount();
 
@@ -58,8 +55,8 @@
 							$loginlength = strlen($login);
 							if($loginlength <= 100)
 							{
-								$insert_ut = $bdd->prepare("INSERT INTO utilisateur(ut_login,  ut_mdp, ut_mail, ut_statut) VALUES(?,?,?,?)");
-								$insert_ut->execute(array($login,$password,$email,$statut));
+								$insert_ut = getDb()->prepare("INSERT INTO utilisateur(ut_nom ,ut_mdp, ut_mail, ut_role) VALUES(?,?,?,?)");
+								$insert_ut->execute(array($login,$password,$email,$role));
 								$erreur = "Votre compte a bien été créé";
 							
 								/*header('Location : 2.html');*/
@@ -100,8 +97,8 @@
                 <div id="connexion">
                 <fieldset><legend><strong>Inscription</strong></legend>
  <br/>
-                    <input type="radio" name="statut" value="admin"/><label for="admin">Administrateur</label>
-                    <input type="radio" name="statut" value="joueur"/><label for="joueur">Joueur</label><br/>
+                    <input type="radio" name="role" value="admin"/><label for="admin">Administrateur</label>
+                    <input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
                     
                 
                 <label for="login"><i>Login : </i> </label> <input type="text" name="login" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez votre login" required autofocus>

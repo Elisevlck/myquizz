@@ -27,17 +27,17 @@
 				$nvpassword = trim($_POST['nvpassword']);
 				$repeatnvpassword = trim($_POST['repeatnvpassword']);
 				
-				$requete = $bdd->prepare('select * from utilisateur where ut_login=?'); 	
+				$requete = getDb()->prepare('select * from utilisateur where ut_nom=?'); 	
 				$requete->execute(array($login));
 				$requete = $requete->fetch();
 
 				if($nvpassword == $repeatnvpassword)
 				{
-					if($login == $requete['ut_login'])
+					if($login == $requete['ut_nom'])
 						{
 							
-							 $resultat=$bdd->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_login =?"); 
-							 $resultat->execute(array($nvpassword, $requete['ut_login']));
+							 $resultat=getDb()->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_nom =?"); 
+							 $resultat->execute(array($nvpassword, $requete['ut_nom']));
 							 $erreur = "Votre mot de passe a bien été changé !";
 							 redirect('login.php');
 											

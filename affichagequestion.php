@@ -36,7 +36,6 @@
 					<input type="text" name ="titre" size="17" /><br/>
 				<?php } ?>
 								
-				
 				<?php	
 				
 				if ($question['ques_type']=="radio"){

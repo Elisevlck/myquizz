@@ -14,15 +14,15 @@
 			<div id="carousel" class="carousel slide">
 		  <div class="carousel-inner">
 			<div class="carousel-item active">
-			  <img class="d-block w-100" src="revision1.jpg"
+			  <img class="d-block w-100" src="images/revision1.jpg"
 				alt="First slide">
 			</div>
 			<div class="carousel-item">
-			  <img class="d-block w-100" src="sport1.jpg"
+			  <img class="d-block w-100" src="images/sport1.jpg"
 				alt="Second slide">
 			</div>
 			<div class="carousel-item">
-			  <img class="d-block w-100" src="cinema1.jpg"
+			  <img class="d-block w-100" src="images/cinema1.jpg"
 				alt="Third slide">
 			</div>
 			
