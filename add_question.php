@@ -3,7 +3,6 @@
 	session_start();
 	// Récuperer tous les quiz
 	$quizs = getDb()->query('select * from quiz'); 
-	
 ?>-->
 
 <!DOCTYPE html>
@@ -18,8 +17,6 @@
 	<body>
 	
 		<?php require_once "includes/header.php"; ?>
-		
-	<body>
 
 		<?php
 
@@ -63,20 +60,16 @@
             <form method="post" action="add_quiz.php">
 
                 <div id="connexion">
-                <fieldset><legend><strong>Ajouter un quiz</strong></legend>
+                <fieldset><legend><strong>Ajouter des questions </strong></legend>
  <br/>
                 
-                <label for="quiz"><i>Nom du quiz : </i> </label> <input type="text" name="nom" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nom du quiz" required autofocus>                                 
+                <label for="quiz"><i>Type : </i> </label> <input type="text" name="nom" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nom du quiz" required autofocus>                                 
                <br/>
 			   
-			   <label for="quiz"><i>Nombre de questions : </i> </label> <input type="text" name="nbquestions" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nombre de questions :" required autofocus>                                 
+			   <label for="quiz"><i>Intitulé : </i> </label> <input type="text" name="intitule" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez l'intitulé de la question :" required autofocus>                                 
                <br/>	 
 			   
-			   <?php foreach ($themes as $theme){?>			   
-					
-					<input type="radio" name="theme" value="<?= $theme['theme_nom']?>"/><label for="themes"><?= $theme['theme_nom']?></label><br/>
-               
-			   <?php }?>
+			   
 			   
                 <button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 

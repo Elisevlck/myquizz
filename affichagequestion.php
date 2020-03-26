@@ -4,6 +4,8 @@
 	// Récuperer tous les quiz
 	$questions = getDb()->query('select * from question'); 
 	$reponses = getDb()->query('select * from reponse');
+	
+	
 ?>
 
 <!doctype html>

@@ -3,13 +3,19 @@
 	session_start();
 
 	$quizId = $_GET['id'];
+	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
 	$quiz = $stmt->fetch(); // Access first (and only) result line
+		
+	$stmt2 = getDb()->prepare('select * from question where quiz_id=?');
+	$stmt2->execute(array($quizId));
+	$questions = $stmt2->fetch(); // Access first (and only) result line	
+	
+	$reponses = getDb()->query('select * from reponse');	
 ?>
 
 <!doctype html>
-
 <html>
 
 	<?php 
@@ -17,52 +23,63 @@
 		require_once "includes/head.php"; 
 	?>
 
-<body>
-    <div class="container">
-        <?php require_once "includes/header.php"; ?>
+	<body>
+		<div class="container">
+			<?php require_once "includes/header.php"; ?>
 
-        <div class="jumbotron">
-            <div class="row">
-                <div class="col-md-5 col-sm-7">
-                    <!--<img class="img-responsive quizImage" src="images/<?= $quiz['quiz_image'] ?>" title="<?= $quiz['quiz_nom'] ?>" />-->
-                </div>
-                <div class="col-md-7 col-sm-5">
-                    <h2><?= $quiz['quiz_intitule'] ?></h2>
-                    <p><?= $quiz['nbquestions'] ?>, <?= $quiz['theme_nom'] ?></p>
-                    <p><small><?= $quiz['quiz_datecreation'] ?></small></p>
-                </h2>
-            </div>
-        </div>
-    </div>
-	
-	<fieldset><legend>Les records des jeux olympiques</legend>
-
-		<h1>Les records des jeux olympiques</h1>
-			
-		<?php			
-
-					
-			print 'Votre réponse est '.$_POST['titre'].'<br/>';
-			'<br/>';
-			
-			print 'Les pays sélectionnés sont :<ul>';
-			
-			foreach($_POST['pays'] as $pay){
-				echo '<li>'.$pay.'</li>';
-    }
-    
-			print '</ul>';
-			
-			print 'Votre temps sélectionné :' .$_POST['temps'].'<br/>';
-		?>
-		
+			<div class="jumbotron">
 				
-	</fieldset>
+				<h2><?= $quiz['quiz_nom'] ?></h2>
+				<p>Nombre de questions : <?= $quiz['nbquestions'] ?> questions</p>
+				<p>Thème : <?= $quiz['theme_nom'] ?></p>
+				<p><small>Date de création : <?= $quiz['datecreation'] ?></small></p>
+				
+				<?php foreach ($questions as $question) { ?>
+				
+				<p><?= $question['ques_cont'] ?></p>
+				
+				<?php	
+				if ($question['ques_type']=="texte")
+				{?>
+					<input type="text" name ="titre" size="17" /><br/>
+				<?php } ?>
+								
+				<?php	
+				
+				if ($question['ques_type']=="radio"){
+				
+					foreach ($reponses as $reponse) { ?>
+							
+							<?php if ($reponse['ques_id']==$question['ques_id']){ ?>
+								
+								<label><input type="radio" name="repp[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label>							
+													
+				<?php } } } ?>
+				
+				<?php	
+				if ($question['ques_type']=="checkbox"){?>
+					
+					<?php foreach ($reponses as $reponse) { ?>
+						
+						<?php if ($reponse['ques_id']==$question['ques_id']){ ?>
+							
+							<label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label>
+												
+				<?php } } } ?>
+				<br/><br/>				
+			
+			<?php } ?>
+				
+				
+						
+						
+				
+			</div>
 
-    <?php require_once "includes/footer.php"; ?>
-</div>
+			<?php require_once "includes/footer.php"; ?>
+		</div>
 
-<?php require_once "includes/scripts.php"; ?>
-</body>
+		<?php require_once "includes/scripts.php"; ?>
+	</body>
 
 </html>
