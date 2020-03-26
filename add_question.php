@@ -2,7 +2,7 @@
 	require_once "includes/function.php";
 	session_start();
 	// Récuperer tous les quiz
-	$themes = getDb()->query('select theme_nom from theme'); 
+	$quizs = getDb()->query('select * from quiz'); 
 	
 ?>-->
 
@@ -11,7 +11,7 @@
 <html>
 
    <?php 
-		$pageTitle="Ajout d'un quiz";
+		$pageTitle="Ajout de question(s)";
 		require_once "includes/head.php"; 
 	?>
 	
@@ -74,7 +74,7 @@
 			   
 			   <?php foreach ($themes as $theme){?>			   
 					
-					<input type="radio" name="theme" value="<?= $theme['theme_nom']?>"/><label for="themes">    <?= $theme['theme_nom']?></label><br/>
+					<input type="radio" name="theme" value="<?= $theme['theme_nom']?>"/><label for="themes"><?= $theme['theme_nom']?></label><br/>
                
 			   <?php }?>
 			   
