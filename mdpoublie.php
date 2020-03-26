@@ -2,7 +2,7 @@
 	require_once "includes/function.php";
 	session_start();
 	// Récuperer tous les quiz
-	//$quizs = getDb()->query('select * from quiz'); 
+	$quizs = getDb()->query('select * from quiz'); 
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +19,10 @@
 
 		<?php
 			
-			//$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
+			
 			if (!empty($_POST['login']) AND !empty($_POST['nvpassword']) AND !empty($_POST['repeatnvpassword']))
 
-		{	
+			{	
 				$login = trim($_POST['login']);
 				$nvpassword = trim($_POST['nvpassword']);
 				$repeatnvpassword = trim($_POST['repeatnvpassword']);
