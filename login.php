@@ -49,9 +49,12 @@
 							{
 								
 								$_SESSION['role'] = $roleconnect;
-								$_SESSION['email'] = $resultat['ut_mail'];								
-								//à compléter redirection vers page accueil pour admin (test)
-								redirect('profil.php'); 
+								$_SESSION['email'] = $resultat['ut_mail'];	
+								// $resultat['lastlogin'] = time();
+								// $_SESSION['lastlogin'] = $resultat['lastlogin'];
+								$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
+								
+								redirect('profil.php');
 
 								
 								
@@ -62,7 +65,10 @@
 								
 								$_SESSION['role'] = $roleconnect;	
 								$_SESSION['email'] = $resultat['ut_mail'];								
-								//à compléter redirection vers page accueil pour joueur (test)
+								$resultat['lastlogin'] = time();
+								$_SESSION['lastlogin'] = $resultat['lastlogin'];
+								$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
+								
 								redirect('profil.php');
 								
 							}				
