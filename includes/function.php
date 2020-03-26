@@ -25,8 +25,23 @@ function getDb() {
 }
 
 // Vérifier si un utilisateur est connecté
-function isUserConnected() {
+function isUserConnected() 
+{
     return isset($_SESSION['login']);
+}
+
+function role()
+{
+	
+	
+		if(isset($_SESSION['login']))
+		{
+			
+		}
+		else
+		{
+			return ("joueur");
+		}
 }
 
 // Rediriger sur une url

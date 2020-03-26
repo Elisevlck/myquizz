@@ -15,59 +15,71 @@
 		<?php
 		include('includes/header.php'); 	
 
-		//connexion db
-		//$bdd=new PDO('mysql:host=localhost;dbname=phplogin','root','');
-
 		//formulaire rempli
-		if(!empty($_POST['login']) AND !empty($_POST['password']))
+		if(!empty($_POST['login']) AND !empty($_POST['password']) AND !empty($_POST['role']))
 		{
-			
-			//db
-			$requete = getDb()->prepare('select * from utilisateur where ut_nom =? and ut_mdp =?');
 			
 			//récupère variable
 			$loginconnect = trim($_POST['login']);
-			$mdpconnect = trim($_POST['password']); 
+			$mdpconnect = trim($_POST['password']);
+			$roleconnect = trim($_POST['role']);	
 			
+			
+			//db
+			$requete = getDb()->prepare('select * from utilisateur where ut_nom =? and ut_mdp =?');
 			$requete->execute(array($loginconnect,$mdpconnect));
 			$resultat = $requete->fetch();
 
-			//mot de passe entrée même que celui de la db
-			if($mdpconnect == $resultat['ut_mdp']) //affiche erreur jsp pq
-			{
 				//reconnaissance de l'utilisateur
 				if($requete->rowCount() == 1)
-				{
-					
-					$_SESSION['login'] = $loginconnect;
-				
-					//si ut est admin
-					if($resultat['ut_role'] == "administrateur")
-					
-					{
-						//echo "ok"; //vérif
-						//à compléter redirection vers page accueil pour admin (test)
-						redirect('mdpoublie.php'); 
+				{	
 
-					}
-					//si ut est joueur			
-					else
-					{
-						//echo "okk"; //vérif
-						//à compléter redirection vers page accueil pour joueur (test)
-						redirect('mdpoublie.php');
+					if($mdpconnect == $resultat['ut_mdp'])
+					{	
+						$_SESSION['login'] = $loginconnect;	
+						$_SESSION['password'] = $mdpconnect;
 						
-					}
-				
+						
+	
+						if($roleconnect == $resultat['ut_role'])
+						{
+							//si ut est admin
+							if($resultat['ut_role'] == "administrateur")
+							
+							{
+								
+								$_SESSION['role'] = $roleconnect;
+								$_SESSION['email'] = $resultat['ut_mail'];								
+								//à compléter redirection vers page accueil pour admin (test)
+								redirect('profil.php'); 
+
+								
+								
+							}
+							//si ut est joueur			
+							else
+							{
+								
+								$_SESSION['role'] = $roleconnect;	
+								$_SESSION['email'] = $resultat['ut_mail'];								
+								//à compléter redirection vers page accueil pour joueur (test)
+								redirect('profil.php');
+								
+							}				
+						}
+						else
+						{
+							$erreur="Vous n'êtes pas un ".$roleconnect;
+						}
 				}
 				else
 				{
-					$erreur = "Utilisateur non reconnu !";
+					$erreur = "Mauvais mdp !";
 				}
 			}
 			else
 			{		
-				$erreur = "Mauvais login ou mdp !";		
+				$erreur = "Utilisateur non reconnu !";		
 			}
 		}
 
@@ -75,6 +87,7 @@
 		{
 			$erreur = "Veuillez saisir tous les champs !";
 		}
+		
 ?>
 
 <div class="conteneurconex">
@@ -83,6 +96,9 @@
 
                 <div id="connexion">
                 <fieldset><legend><strong>Qui êtes-vous ?</strong></legend>
+				
+				<input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
+                <input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
 
                 <label for="login"><i>Login : </i> </label> <input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus>
                                  

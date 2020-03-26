@@ -19,10 +19,12 @@
             </li> 
 			
 				<?php if (isUserConnected()) { ?>
-					<li> Bienvenue, <?= $_SESSION['login'] ?> <b class="caret"></b>
+					<li> Bienvenue <?= $_SESSION['login'] ?><b class="caret"></b>
 						<ul class="sous">
-							<li ><a class="link" href ="profil.php">Mon profil</a></li>
-							<li ><a class="link" href ="logout.php">Déconnexion</a></li>  
+							<li ><a class="link" href ="logout.php">Déconnexion</a></li> 							
+							<li ><a class="link" href ="hist.php">Historique/statistique</a></li>  
+							 <li ><a class="link" href ="profil.php">Mon profil</a></li>
+
 						</ul>
 					</li>
 														

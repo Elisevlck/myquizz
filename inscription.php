@@ -43,35 +43,51 @@
 				$reqlog = getDb()->prepare('select * from utilisateur where ut_nom=?'); 
 				$reqlog->execute(array($login));
 				$logexist=$reqlog->rowCount();
+				
+				
+				
+				$reqmail = getDb()->prepare('select * from utilisateur where ut_mail=?'); 
+				$reqmail->execute(array($email));
+				$mailexist=$reqmail->rowCount();
 
-					//pseudo unique ou non
+					//pseudo et mail unique ou non
 					if($logexist == 0)			
 					{		
-						//même mdp
-						if($password == $repeatpassword)
+						
+						if($mailexist == 0)
 						{
-							
-							//caractère max pour le mdp(100) : création compte
-							$loginlength = strlen($login);
-							if($loginlength <= 100)
+							//même mdp
+							if($password == $repeatpassword)
 							{
-								$insert_ut = getDb()->prepare("INSERT INTO utilisateur(ut_nom ,ut_mdp, ut_mail, ut_role) VALUES(?,?,?,?)");
-								$insert_ut->execute(array($login,$password,$email,$role));
-								$erreur = "Votre compte a bien été créé";
-							
-								/*header('Location : 2.html');*/
-								//redirection vers page accueil html
+								
+								//caractère max pour le mdp(100) : création compte
+								$loginlength = strlen($login);
+								if($loginlength <= 100)
+								{
+									$insert_ut = getDb()->prepare("INSERT INTO utilisateur(ut_nom ,ut_mdp, ut_mail, ut_role) VALUES(?,?,?,?)");
+									$insert_ut->execute(array($login,$password,$email,$role));
+									$erreur = "Votre compte a bien été créé !";
+								
+									redirect('Location : login.php');
+									//redirection vers page accueil html
+								}
+								
+								else
+								{	 
+									$erreur = "Votre login ne doit pas dépasser 100 caractères.";
+								}
 							}
 							
 							else
-							{	 
-								$erreur = "Votre login ne doit pas dépasser 100 caractères.";
-							}
+							{
+								$erreur = "Vos mot de passe ne correspondent pas !";
+							}	
 						}
 						
 						else
 						{
-							$erreur = "Vos mot de passe ne correspondent pas !";
+							$erreur = "Mail déjà utilisé !";
+							
 						}
 					}
 					
@@ -97,7 +113,7 @@
                 <div id="connexion">
                 <fieldset><legend><strong>Inscription</strong></legend>
  <br/>
-                    <input type="radio" name="role" value="admin"/><label for="admin">Administrateur</label>
+                    <input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
                     <input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
                     
                 
