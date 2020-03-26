@@ -68,8 +68,8 @@
 									$insert_ut->execute(array($login,$password,$email,$role));
 									$erreur = "Votre compte a bien été créé !";
 								
-									redirect('Location : login.php');
-									//redirection vers page accueil html
+									redirect('login.php');
+			
 								}
 								
 								else

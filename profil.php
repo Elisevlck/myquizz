@@ -4,16 +4,33 @@
 <?php 
 		require_once "includes/function.php";		
 		session_start();
-		$quizs = getDb()->query('select * from utilisateur'); 
-	
- include "includes/head.php";?>
-   
-   
+		$quizs = getDb()->query('select * from utilisateur'); 	
+		include "includes/head.php";?>
+      
 	<body>
-	
-		<?php include "includes/header.php";
+<?php include "includes/header.php";
 		
-		?>
+		/*if(isset($_SESSION['login']))
+		{
+			$reqtime=getDb()->prepare("select * from utilisateur where lastlogin=? and ut_nom='".$_SESSION['login']."' ");
+			
+					
+			$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
+	
+
+}*/ 
+
+	if(isset($_SESSION['login']))    	
+{	 
+	$requete=getDb()->query("select * from utilisateur where ut_nom='".$_SESSION['login']."' ");
+	$dnn=$requete->fetch(); 
+} 
+
+
+
+?>	
+		
+
 
 <div class="monprofil">		
 	<h1> MON PROFIL </h1> 
@@ -22,13 +39,18 @@
 	<br/><br/>
 	<h6>
 		Statut : <?= $_SESSION['role']?>
-		<br/>Dernière connexion : 
-		<br/>Pseudo : <?= $_SESSION['login']?>
-		<br/>Adresse mail : <?= $_SESSION['email']?>
-		<br/>Mot de passe : <?= $_SESSION['password']?>	 
+		<br/><br/>Dernière connexion : 
+		<?php echo 'Le '.date("d/m/Y \a H:i", $_SESSION['lastlogin']);?> 
+		<?php if ($dnn['lastlogin'] == 0){ echo 'Cet utilisateur ne c\'est jamais connecté(e).'; } else { echo date('d/m/Y \a H:i',$dnn['lastlogin']);} ?>
+		<br/><br/>Pseudo : <?= $_SESSION['login']?>
+		<br/><br/>Adresse mail : <?= $_SESSION['email']?>
+		<br/><br/>Mot de passe : <?= $_SESSION['password']?>	 
 	</h6> 
 
 </div>
+
+<a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>
+
 	<?php
 	if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name'])) 
 	
@@ -90,10 +112,16 @@
 				<img src="membres/avatars/<?php echo $logexist['avatar'];} ?>
 		
 		
-		
 
-<?php include('includes/footer.php'); ?>
-<?php include('includes/scripts.php'); ?>
+<?php
+			include('includes/footer.php'); 
+			include('includes/scripts.php'); 
+
+			if(isset($erreur))
+			{
+				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
+			}
+?>	
 
 
 	</body>
