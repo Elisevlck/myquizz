@@ -7,10 +7,11 @@
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
 	$quiz = $stmt->fetch(); // Access first (and only) result line
+	
 		
 	$stmt2 = getDb()->prepare('select * from question where quiz_id=?');
 	$stmt2->execute(array($quizId));
-	$questions = $stmt2->fetch(); // Access first (and only) result line	
+	$questions = $stmt2->fetchAll(); // Access first (and only) result line	
 	
 	$reponses = getDb()->query('select * from reponse');	
 ?>
@@ -34,45 +35,43 @@
 				<p>Thème : <?= $quiz['theme_nom'] ?></p>
 				<p><small>Date de création : <?= $quiz['datecreation'] ?></small></p>
 				
-				<?php foreach ($questions as $question) { ?>
+				<h1> Répondre aux questions suivantes : </h1>
 				
-				<p><?= $question['ques_cont'] ?></p>
+				<form action="quiz.php" Method="POST">
 				
-				<?php	
-				if ($question['ques_type']=="texte")
-				{?>
-					<input type="text" name ="titre" size="17" /><br/>
-				<?php } ?>
+					<?php $i=1;?>
 								
-				<?php	
-				
-				if ($question['ques_type']=="radio"){
-				
-					foreach ($reponses as $reponse) { ?>
-							
-							<?php if ($reponse['ques_id']==$question['ques_id']){ ?>
-								
-								<label><input type="radio" name="repp[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label>							
-													
-				<?php } } } ?>
-				
-				<?php	
-				if ($question['ques_type']=="checkbox"){?>
+					<?php foreach ($questions as $question) { ?>
 					
-					<?php foreach ($reponses as $reponse) { ?>
+						<p><?=$i?>) <?= $question['ques_cont'] ?></p><?php
+						$i++;
 						
-						<?php if ($reponse['ques_id']==$question['ques_id']){ ?>
+						// type texte
+						if ($question['ques_type']=="texte"){?>
+							<input type="text" name ="titre" size="17" /><br/>
+						<?php }	
+						
+						// type checkbox					
+						if ($question['ques_type']=="checkbox"){
+									
+							foreach ($reponses as $reponse) { 
+								if ($reponse['ques_id']==$question['ques_id']){ ?>
+									<label><input type="checkbox" name="repmultiple" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+						
+						} } } 
+						
+						// type radio
+						if ($question['ques_type']=="radio" ){
 							
-							<label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label>
-												
-				<?php } } } ?>
-				<br/><br/>				
-			
-			<?php } ?>
-				
-				
+							foreach ($reponses as $reponse) { 
+								if ($reponse['ques_id']==$question['ques_id']){ ?>
+									<label><input type="radio" name="repunique" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php						
+						} } } 							
 						
-						
+					?><br/><br/>				
+				
+				<?php } ?>			
+			</form>
 				
 			</div>
 

@@ -59,32 +59,17 @@
      
             <form method="post" action="add_quiz.php">
 
-                <div id="connexion">
-                <fieldset><legend><strong>Ajouter des questions </strong></legend>
- <br/>
-                
-                <label for="quiz"><i>Type : </i> </label> <input type="text" name="nom" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nom du quiz" required autofocus>                                 
-               <br/>
-			   
-			   <label for="quiz"><i>Intitulé : </i> </label> <input type="text" name="intitule" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez l'intitulé de la question :" required autofocus>                                 
-               <br/>	 
-			   
-			   
-			   
-                <button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+				<div id="connexion">
+					<fieldset><legend><strong>Ajouter des questions </strong></legend><br/> 
+					
+					<label for="quiz"><i>Type : </i> </label> <input type="text" name="nom" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nom du quiz" required autofocus><br/>                     
+					<label for="quiz"><i>Intitulé : </i> </label> <input type="text" name="intitule" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez l'intitulé de la question :" required autofocus><br/>                              
+					
+					<button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 
-                
-                </div>  
-
-
-                
-                </fieldset>
-                        
+					</fieldset>
+                </div>             
             </form>
-			
-		
-			
-
 </div>
 
 <?php include "includes/footer.php";
