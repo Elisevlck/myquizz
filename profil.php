@@ -35,7 +35,7 @@
 <div class="monprofil">		
 	<h1> MON PROFIL </h1> 
 	<br/>
-	<br/>Avatar : <?= $_SESSION['login']?>
+
 	<br/><br/>
 	<h6>
 		Statut : <?= $_SESSION['role']?>
@@ -47,81 +47,37 @@
 		<br/><br/>Mot de passe : <?= $_SESSION['password']?>	 
 	</h6> 
 
-</div>
 
-<a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>
-
-	<?php
-	if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name'])) 
-	
-	
-	
-	{
-	   $tailleMax = 2097152;
-	   $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-	   
-	   if($_FILES['avatar']['size'] <= $tailleMax) 
-	   
-	   {
-	      $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1));
-	      if(in_array($extensionUpload, $extensionsValides)) 
-		  {
-	         $chemin = "membres/avatars/".$_SESSION['login'].".".$extensionUpload;
-			 
-	         $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin);
-			 
-	         if($resultat) 
-			 {
-	            $updateavatar = getDb()->prepare('UPDATE utilisateur SET avatar = :avatar WHERE ut_id = :ut_id');
-	            $updateavatar->execute(array(
-	               'avatar' => $_SESSION['login'].".".$extensionUpload,
-	               'ut_id' => $_SESSION['login']
-	               ));
-	            header('Location: profil.php?id='.$_SESSION['login']);
-	         } else {
-	            $msg = "Erreur durant l'importation de votre photo de profil";
-	         }
-	      } else {
-	         $msg = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
-	      }
-	   } else {
-	      $msg = "Votre photo de profil ne doit pas dépasser 2Mo";
-	   }
-	}
-	?>
-
-
-<div align="left" action="">
-
-	<form method="POST" action="" enctype="multipart/form-data">
-		<label>Avatar :</label>
-		<input type="file" name="avatar" /> <br/><br/>
-		<input type="submit" value="Mettre à jour mon profil !" />
-		
-				
+	<br/>Avatar : 			
 				<?php 
 				
-				$getlogin = intval($_GET['login']);
-				$reqlog = getDb()->prepare('select * from utilisateur where avatar=?'); 
-				$reqlog->execute(array($getlogin));
-				$logexist=$reqlog->rowCount();
+				// $getlogin = intval($_GET['login']);
+				$reqlog = getDb()->prepare('select avatar from utilisateur where ut_nom="'.$_SESSION['login'].'" '); 
+				$reqlog->execute(array($_SESSION['login']));
+				$reqlog=$reqlog->fetch();
 				
-				if(!empty($logexist['avatar'])) 
+				if(!empty($reqlog)) 
 				{ 
 				?>
-				<img src="membres/avatars/<?php echo $logexist['avatar'];} ?>
-		
-		
+				<img src="membres/avatars/<?php echo $reqlog['avatar']; ?>"  width="180"/>
+			
+				
+<br/><br/>		
+<a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>		
 
-<?php
+</div>
+
+				<?php
+				
+				}
 			include('includes/footer.php'); 
 			include('includes/scripts.php'); 
 
 			if(isset($erreur))
 			{
 				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
-			}
-?>	
+			}?>	
+				
 
 
 	</body>
