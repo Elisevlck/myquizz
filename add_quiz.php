@@ -19,8 +19,6 @@
 	
 		<?php require_once "includes/header.php"; ?>
 		
-	<body>
-
 		<?php
 
 		//validation du bouton 
@@ -44,6 +42,9 @@
 								$insert_theme = getDb()->prepare("INSERT INTO quiz(quiz_nom, nbquestions, theme_nom) VALUES(?,?,?)");
 								$insert_theme->execute(array($nom,$nbquestions,$theme));
 								$erreur = "Votre quiz a bien été créé";
+								
+								?><a class="quizTitle" href="add_question.php?quiz_id=<?= $theme['theme_id'] ?>"><?= $theme['theme_nom'] ?></a>    <?php
+								//redirect(add_question.php);
 							
 								/*header('Location : index.php');*/
 								//redirection vers page accueil html
@@ -57,10 +58,12 @@
 		}
 		?>
 
+		
+
 
 <div class="conteneurconex">
      
-            <form method="post" action="add_quiz.php">
+            <form method="post" action="add_question.php">
 
                 <div id="connexion">
                 <fieldset><legend><strong>Ajouter un quiz</strong></legend>

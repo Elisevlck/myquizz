@@ -12,7 +12,7 @@
 <html>
 	
 	<?php 
-		$pageTitle="Liste des Quiz";
+		$pageTitle="Liste des Thèmes";
 		require_once "includes/head.php"; 
 	?>
 
@@ -37,7 +37,7 @@
 				<?php foreach ($revisions as $revision) { ?>
 				
 					<article>
-						<h3><a class="quizTitle" href="quiz.php?quiz_id=<?= $revision['theme_id'] ?>"><?= $revision['theme_nom'] ?></a></h3>
+						<h3><a class="quizTitle" href="index_quiz.php?quiz_id=<?= $revision['theme_id'] ?>"><?= $revision['theme_nom'] ?></a></h3>
 						<!--<p class="quizContent">Thème : <?= $quiz['theme_nom'] ?></p>-->
 					</article>
 								

@@ -60,13 +60,15 @@
 						
 						} } } 
 						
-						// type radio
-						if ($question['ques_type']=="radio" ){
-							
+						// type radio					
+						if ($question['ques_type']=="radio"){
+									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ ?>
-									<label><input type="radio" name="repunique" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php						
-						} } } 							
+									<label><input type="radio" name="repunique" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+						
+						} } } 
+												
 						
 					?><br/><br/>				
 				
