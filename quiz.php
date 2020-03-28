@@ -6,38 +6,41 @@
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
-	$quiz = $stmt->fetch(); // Access first (and only) result line
+	$quizs = $stmt->fetch(); // Access first (and only) result line
 	
-		
 	$stmt2 = getDb()->prepare('select * from question where quiz_id=?');
 	$stmt2->execute(array($quizId));
 	$questions = $stmt2->fetchAll(); // Access first (and only) result line	
 	
-	$reponses = getDb()->query('select * from reponse');	
+	$stmt3 = getDb()->prepare('select * from reponse');
+	$stmt3->execute(array());
+	$reponses = $stmt3->fetchAll(); // Access first (and only) result line	
 ?>
 
 <!doctype html>
 <html>
 
 	<?php 
-		$pageTitle = $quiz['quiz_nom'];
+		$pageTitle = $quizs['quiz_nom'];
 		require_once "includes/head.php"; 
 	?>
 
 	<body>
+	
+	
 		<div class="container">
 			<?php require_once "includes/header.php"; ?>
 
 			<div class="jumbotron">
 				
-				<h2><?= $quiz['quiz_nom'] ?></h2>
-				<p>Nombre de questions : <?= $quiz['nbquestions'] ?> questions</p>
-				<p>Thème : <?= $quiz['theme_nom'] ?></p>
-				<p><small>Date de création : <?= $quiz['datecreation'] ?></small></p>
+				<h2><?= $quizs['quiz_nom'] ?></h2>
+				<p>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</p>
+				<p>Thème : <?= $quizs['theme_nom'] ?></p>
+				<p><small>Date de création : <?= $quizs['datecreation'] ?></small></p>
 				
 				<h1> Répondre aux questions suivantes : </h1>
 				
-				<form action="quiz.php" Method="POST">
+				<form action="resultat.php" Method="POST">
 				
 					<?php $i=1;?>
 								
@@ -48,31 +51,33 @@
 						
 						// type texte
 						if ($question['ques_type']=="texte"){?>
-							<input type="text" name ="titre" size="17" /><br/>
-						<?php }	
+							<input type="text" name ="rep[]" size="17" /><br/>
+						<?php }						
 						
 						// type checkbox					
-						if ($question['ques_type']=="checkbox"){
+						if ($question['ques_type']=="multiple"){
 									
 							foreach ($reponses as $reponse) { 
-								if ($reponse['ques_id']==$question['ques_id']){ ?>
-									<label><input type="checkbox" name="repmultiple" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+								if ($reponse['ques_id']==$question['ques_id']){
+									?><label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						
 						} } } 
 						
 						// type radio					
-						if ($question['ques_type']=="radio"){
+						if ($question['ques_type']=="unique"){
 									
 							foreach ($reponses as $reponse) { 
-								if ($reponse['ques_id']==$question['ques_id']){ ?>
-									<label><input type="radio" name="repunique" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
-						
+								if ($reponse['ques_id']==$question['ques_id']){ 
+									?><label><input type="radio" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						} } } 
 												
 						
-					?><br/><br/>				
+					?><br/><br/>	
+                			
 				
 				<?php } ?>			
+				
+				<button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>		
 			</form>
 				
 			</div>
