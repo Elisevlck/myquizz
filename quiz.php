@@ -46,12 +46,11 @@
 								
 					<?php foreach ($questions as $question) { ?>
 					
-						<p><?=$i?>) <?= $question['ques_cont'] ?></p><?php
-						$i++;
+						<strong><?=$i?>) <?= $question['ques_cont'] ?></strong><br/><?php
 						
 						// type texte
 						if ($question['ques_type']=="texte"){?>
-							<input type="text" name ="rep[]" size="17" /><br/>
+							<input type="text" name ="rep$i" size="17" /><br/>
 						<?php }						
 						
 						// type checkbox					
@@ -59,7 +58,7 @@
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){
-									?><label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+									?><label><input type="checkbox" name="rep$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						
 						} } } 
 						
@@ -68,9 +67,10 @@
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ 
-									?><label><input type="radio" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
-						} } } 
-												
+									?><label><input type="radio" name="rep$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+						} } }
+						
+						$i++;						
 						
 					?><br/><br/>	
                 			
