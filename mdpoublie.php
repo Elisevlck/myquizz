@@ -20,31 +20,32 @@
 		<?php
 			
 			
-			if (!empty($_POST['login']) AND !empty($_POST['nvpassword']) AND !empty($_POST['repeatnvpassword']))
+			if (isset($_POST['mail'])
 
 			{	
-				$login = trim($_POST['login']);
-				$nvpassword = trim($_POST['nvpassword']);
-				$repeatnvpassword = trim($_POST['repeatnvpassword']);
+				$email = trim($_POST['email']);
 				
-				$requete = getDb()->prepare('select * from utilisateur where ut_nom=?'); 	
-				$requete->execute(array($login));
+				
+				$requete = getDb()->prepare('select * from utilisateur where ut_mail=?'); 	
+				$requete->execute(array($email));
 				$requete = $requete->fetch();
 
-				if($nvpassword == $repeatnvpassword)
-				{
-					if($login == $requete['ut_nom'])
+					if($email == $requete['ut_mail'])
 						{
 							
-							 $resultat=getDb()->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_nom =?"); 
-							 $resultat->execute(array($nvpassword, $requete['ut_nom']));
+							$nvpassword = randomnb(8);
+							
+							 $resultat=getDb()->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_mail =?"); 
+							 $resultat->execute(array($nvpassword, $requete['ut_mail']));
 							 $erreur = "Votre mot de passe a bien été changé !";
 							 redirect('login.php');
+							 
+							 //redaction du mail 
 											
 						}
 						else
 						{
-							$erreur = "Login introuvable !";
+							$erreur = "Mail introuvable !";
 											
 						}	
 					
@@ -52,11 +53,11 @@
 				else
 				
 				{
-					$erreur = "Les mots de passe ne correspondent pas !";
+					
 				}
 				
 				
-		}
+		
 					
 			
 		?>

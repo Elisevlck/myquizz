@@ -30,18 +30,11 @@ function isUserConnected()
     return isset($_SESSION['login']);
 }
 
-function role()
+function randomnb($nb)
 {
 	
 	
-		if(isset($_SESSION['login']))
-		{
-			
-		}
-		else
-		{
-			return ("joueur");
-		}
+	
 }
 
 // Rediriger sur une url
