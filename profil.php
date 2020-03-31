@@ -56,27 +56,42 @@
 				$reqlog->execute(array($_SESSION['login']));
 				$reqlog=$reqlog->fetch();
 				
-				if(!empty($reqlog)) 
+				if($reqlog['avatar'] == NULL) 
 				{ 
+					echo "Vous n'avez pas d'avatar !";
+			
+				}
+				else
+				{
+					$_SESSION['avatar'] = $reqlog['avatar'];
+					
+				
 				?>
 				<img src="membres/avatars/<?php echo $reqlog['avatar']; ?>"  width="180"/>
 			
 				
-<br/><br/>		
-<a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>		
 
-</div>
 
 				<?php
 				
 				}
+				?>
+				
+	<br/><br/>		
+<a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>		
+
+</div>			
+				
+				
+				
+				<?php if(isset($erreur))
+			{
+				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
+			}
 			include('includes/footer.php'); 
 			include('includes/scripts.php'); 
 
-			if(isset($erreur))
-			{
-				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
-			}?>	
+			?>	
 				
 
 
