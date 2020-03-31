@@ -20,7 +20,7 @@
 		<?php
 			
 			
-			if (isset($_POST['mail'])
+			if (isset($_POST['mdpoublie']))
 
 			{	
 				$email = trim($_POST['email']);
@@ -40,7 +40,16 @@
 							 $erreur = "Votre mot de passe a bien été changé !";
 							 redirect('login.php');
 							 
-							 //redaction du mail 
+							
+							ini_set('SMTP','smtp.gmail.com');
+							$destinataire = $_POST['email'];
+							$envoyeur ='dubozemma@gmail.com';
+							$sujet = 'Mot de passe oublié';
+							$message = "Bonjour !\r\Votre mot de passe est $nvpassword !";
+							$headers = 'From: '.$envoyeur."\r\n".
+							           'Reply-To: '.$envoyeur."\r\n".'X-Mailer: PHP/'. phpversion();
+							
+							$envoye = mail($destinataire, $sujet, $message, $headers);
 											
 						}
 						else
@@ -50,15 +59,6 @@
 						}	
 					
 				}
-				else
-				
-				{
-					
-				}
-				
-				
-		
-					
 			
 		?>
 				
@@ -73,14 +73,8 @@
                     
            
                
-                <label for="login"><i> Login : </i></label><input type="text" name="login" class="form-control" placeholder="Entrez votre login" required>
-                <br/>
-                    
-				<label for="mdp"><i> Nouveau mot de passe : </i></label><input type="password" name="nvpassword" class="form-control" placeholder="Entrez votre mot de passe" required>
+                     <label for="login"><i> Adresse mail : </i></label><input type="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" class="form-control" placeholder="Entrez votre adresse mail" required>
                <br/>
-                    <label for="mdp"><i>Confirmation nouveau mot de passe : </i></label><input type="password" name="repeatnvpassword" class="form-control" placeholder="Confirmer votre mot de passe" required>
-            
-                <br/>
                 
                 <button type="submit" name="mdpoublie" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Récupérer mon mot de passe</button>
                 <br/>

@@ -29,10 +29,11 @@ function isUserConnected()
 {
     return isset($_SESSION['login']);
 }
-
+// Génère un mot de passe aléatoire
 function randomnb($nb)
 {
-	
+	$alphabet='azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN0123456789';
+	return(substr(str_shuffle(str_repeat($alphabet, $nb)),0,$nb));
 	
 	
 }
