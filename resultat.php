@@ -13,7 +13,8 @@
 			
 			for ($i=1;$i<=5;$i++)
 			{			
-				print 'La '.$i.'ème réponse est '.$_POST['rep.$i'].'<br/>';
+				print 'La '.$i.'ème réponse est '.$_POST['rep['.$i.']'].'<br/>';
+				print_r(rep[1]);
 				//$rep=$_POST['rep$i'];
 				//$score=$score.' '.$rep; 
 			}	

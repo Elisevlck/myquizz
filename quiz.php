@@ -52,7 +52,7 @@
 						
 						// type texte
 						if ($question['ques_type']=="texte"){?>
-							<input type="text" name ="rep$i" size="17" /><br/>
+							<input type="text" name ='rep['.$i.']' size="17" /><br/>
 						<?php }	
 						
 						// type radio					
@@ -60,7 +60,7 @@
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ 
-									?><label><input type="radio" name="rep.$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+									?><label><input type="radio" name='rep['.$i.']' value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						} } }
 						
 						// type checkbox					
@@ -68,7 +68,7 @@
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){
-									?><label><input type="checkbox" name="rep.$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+									?><label><input type="checkbox" name='rep['.$i.']' value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						
 						} } } 												
 						$i++;						
@@ -78,7 +78,9 @@
 				
 				<?php } ?>			
 				
-				<button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>		
+				<button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+				
+				
 			</form>
 				
 			</div>
