@@ -18,6 +18,7 @@
 ?>
 
 <!doctype html>
+
 <html>
 
 	<?php 
@@ -33,12 +34,13 @@
 
 			<div class="jumbotron">
 				
-				<h2><?= $quizs['quiz_nom'] ?></h2>
-				<p>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</p>
-				<p>Thème : <?= $quizs['theme_nom'] ?></p>
-				<p><small>Date de création : <?= $quizs['datecreation'] ?></small></p>
+				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
+				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
+				<p><em>Thème : <?= $quizs['theme_nom'] ?></em></p>
+				<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
+				<hr/>
 				
-				<h1> Répondre aux questions suivantes : </h1>
+				<h2> <strong>Répondre aux questions suivantes : </strong></h2><br/>
 				
 				<form action="resultat.php" Method="POST">
 				
@@ -51,25 +53,24 @@
 						// type texte
 						if ($question['ques_type']=="texte"){?>
 							<input type="text" name ="rep$i" size="17" /><br/>
-						<?php }						
-						
-						// type checkbox					
-						if ($question['ques_type']=="multiple"){
-									
-							foreach ($reponses as $reponse) { 
-								if ($reponse['ques_id']==$question['ques_id']){
-									?><label><input type="checkbox" name="rep$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
-						
-						} } } 
+						<?php }	
 						
 						// type radio					
 						if ($question['ques_type']=="unique"){
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ 
-									?><label><input type="radio" name="rep$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+									?><label><input type="radio" name="rep.$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						} } }
 						
+						// type checkbox					
+						if ($question['ques_type']=="multiple"){
+									
+							foreach ($reponses as $reponse) { 
+								if ($reponse['ques_id']==$question['ques_id']){
+									?><label><input type="checkbox" name="rep.$i" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+						
+						} } } 												
 						$i++;						
 						
 					?><br/><br/>	

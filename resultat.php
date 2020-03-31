@@ -1,4 +1,4 @@
-	<?php
+<?php
 	require_once "includes/function.php";
 	session_start();
 ?>
@@ -9,16 +9,20 @@
 		//validation du bouton 
 		if(isset($_POST['inscription']))
 		{		
-			$score="";			
+			$score="";	
+			
 			for ($i=1;$i<=5;$i++)
 			{			
-				print 'La '.$i.'ème réponse est '.$_POST['rep$i'].'<br/>';
+				print 'La '.$i.'ème réponse est '.$_POST['rep.$i'].'<br/>';
 				//$rep=$_POST['rep$i'];
 				//$score=$score.' '.$rep; 
 			}	
-		
-		//print 'Votre reponse : '.$score.'<br/>';
+						
+			//print 'Les pays sélectionnés sont :<ul>';
 			
-			//redirect('index_theme.php');
+			//foreach($_POST['rep[]'] as $rep){
+			//	echo '<li>'.$pay.'</li>';    }
+    
+			//print '</ul>';
 		}
 	?>

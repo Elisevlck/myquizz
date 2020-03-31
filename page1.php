@@ -1,19 +1,22 @@
 <!DOCTYPE html>
+<?php
+	require_once "includes/function.php";
+	session_start();
+	$quizs = getDb()->query('select * from utilisateur'); 
+?>
+
+<!doctype html>
 
 <html>
-<?php 
-		require_once "includes/function.php";		
-		session_start();
-		$quizs = getDb()->query('select * from utilisateur'); 
-	
- include "includes/head.php";?>
-   
+
+	<?php 
+		$pageTitle = "Page d'accueil";
+		require_once "includes/head.php"; 
+	?>
    
 	<body>
 	
-		<?php include "includes/header.php";
-		
-		?>
+		<?php include "includes/header.php";?>
 				
 		<div  class="connexion"><a href ="login.php"><button type="button" class="bouton">JOUER !</button></a></div>   
 
@@ -53,11 +56,6 @@
 
     <mark>À vous de<font size="6pt"> JOUER !</font></mark></div>
 </div>
-
-
-
-
-
 
 
 <?php include('includes/footer.php'); ?>

@@ -6,7 +6,7 @@
 	
 	$stmt = getDb()->prepare('select * from quiz where theme_id=?');
 	$stmt->execute(array($themeId));
-	$quizs = $stmt->fetchAll(); // Access first (and only) result line
+	$quizs = $stmt->fetchAll();
 	
 	$stmt2 = getDb()->prepare('select * from theme where theme_id=?');
 	$stmt2->execute(array($themeId));
@@ -14,6 +14,7 @@
 ?>
 
 <!doctype html>
+
 <html>
 
 	<?php 
@@ -21,12 +22,12 @@
 		require_once "includes/head.php"; 
 	?>
 
-	<body>
-	
+	<body>	
+		
 		<div class="container">
 			
-			<?php require_once "includes/header.php"; ?>			
-
+			<?php include "includes/header.php"; ?>
+			
 				<h1> Catégorie : <?=$themes['theme_nom'] ?> </h1>
 				<h5> Liste des quiz associés : </h5>
 				
