@@ -38,10 +38,10 @@
 							 $resultat=getDb()->prepare("UPDATE utilisateur SET ut_mdp = ? WHERE ut_mail =?"); 
 							 $resultat->execute(array($nvpassword, $requete['ut_mail']));
 							 $erreur = "Votre mot de passe a bien été changé !";
-							 redirect('login.php');
+							 
 							 
 							
-							ini_set('SMTP','smtp.gmail.com');
+							// ini_set('SMTP','smtp.orange.fr');
 							$destinataire = $_POST['email'];
 							$envoyeur ='dubozemma@gmail.com';
 							$sujet = 'Mot de passe oublié';
@@ -49,7 +49,9 @@
 							$headers = 'From: '.$envoyeur."\r\n".
 							           'Reply-To: '.$envoyeur."\r\n".'X-Mailer: PHP/'. phpversion();
 							
-							$envoye = mail($destinataire, $sujet, $message, $headers);
+							$envoye=mail($destinataire, $sujet, $message, $headers);
+							
+							redirect('login.php');
 											
 						}
 						else

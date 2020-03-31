@@ -13,6 +13,7 @@
 	
 		<?php include "includes/header.php";
 		
+		
 		?>
 				
 		<div  class="connexion"><a href ="login.php"><button type="button" class="bouton">JOUER !</button></a></div>   
