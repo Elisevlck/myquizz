@@ -4,7 +4,7 @@
 
 	$themeId = $_GET['id'];
 	
-	$stmt = getDb()->prepare('select * from quiz where theme_id=?');
+	$stmt = getDb()->prepare('select * from quiz where id_theme=?');
 	$stmt->execute(array($themeId));
 	$quizs = $stmt->fetchAll();
 	
