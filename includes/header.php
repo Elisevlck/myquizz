@@ -1,11 +1,11 @@
 <?php 
 	require_once "includes/function.php";
 	
-	$stmt = getDb()->prepare('select * from theme where genre_id="1"');
+	$stmt = getDb()->prepare('select * from theme where genre_nom="Thèmes"');
 	$stmt->execute(array());
 	$autres = $stmt->fetchAll(); 
 	
-	$stmt2 = getDb()->prepare('select * from theme where genre_id="2"');
+	$stmt2 = getDb()->prepare('select * from theme where genre_nom="Révisions"');
 	$stmt2->execute(array());
 	$revisions = $stmt2->fetchAll()
 ?>

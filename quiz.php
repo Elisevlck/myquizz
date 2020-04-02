@@ -28,7 +28,6 @@
 
 	<body>
 	
-	
 		<div class="container">
 			<?php require_once "includes/header.php"; ?>
 
@@ -42,33 +41,33 @@
 				
 				<h2> <strong>Répondre aux questions suivantes : </strong></h2><br/>
 				
-				<form action="resultat.php" Method="POST">
+				<form action="resultat.php?id=<?= $quizs['quiz_id'] ?>" Method="POST">
 				
 					<?php $i=1;?>
 								
 					<?php foreach ($questions as $question) { ?>
 					
-						<strong><?=$i?>) <?= $question['ques_cont'] ?></strong><br/><?php
+						<em><?=$i?>) <?= $question['ques_cont'] ?></em><br/><?php
 						
 						// type texte
 						if ($question['ques_type']=="texte"){?>
-							<input type="text" name ='rep['.$i.']' size="17" /><br/>
+							<input type="text" name='<?= $question["ques_id"]?>' size="17" /><br/>
 						<?php }	
 						
 						// type radio					
 						if ($question['ques_type']=="unique"){
 									
 							foreach ($reponses as $reponse) { 
-								if ($reponse['ques_id']==$question['ques_id']){ 
-									?><label><input type="radio" name='rep['.$i.']' value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+								if ($reponse['ques_id']==$question['ques_id']){ ?>
+									<label><input type="radio" name='<?= $question["ques_id"]?>' value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						} } }
 						
 						// type checkbox					
 						if ($question['ques_type']=="multiple"){
 									
 							foreach ($reponses as $reponse) { 
-								if ($reponse['ques_id']==$question['ques_id']){
-									?><label><input type="checkbox" name='rep['.$i.'][]' value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+								if ($reponse['ques_id']==$question['ques_id']){ ?>
+									<label><input type="checkbox" name='<?= $question["ques_id"]?>.[]' value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						
 						} } } 												
 						$i++;						
@@ -78,7 +77,7 @@
 				
 				<?php } ?>			
 				
-				<button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+				<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 				
 				
 			</form>
