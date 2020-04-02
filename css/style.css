@@ -234,18 +234,6 @@ footer
    
 }
 
-.conteneurprofil
-{
-	 font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	 border-radius: 20px; 
-	 background: #EFEFEF;
-	 width : 100px;
-    height: 150px;
-	float:left;
-	display: flex;
-	
-}
-
 #connexion
 {
     display: block;

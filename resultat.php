@@ -5,16 +5,23 @@
 	
 	
 	<?php
-
+		
+		//$rep=$_POST['rep'];
+		
 		//validation du bouton 
 		if(isset($_POST['inscription']))
 		{		
 			$score="";	
 			
-			for ($i=1;$i<=5;$i++)
+			foreach ($_POST as $fieled => $value){
+				echo '<b>'.$fieled.'</b> : '.$value.'<br/>';
+			}
+			echo '<br/><br/>';
+			
+			/*for ($i=1;$i<=5;$i++)
 			{			
 				print 'La '.$i.'ème réponse est '.$_POST['rep['.$i.']'].'<br/>';
-				print_r(rep[1]);
+				print_r($rep);
 				//$rep=$_POST['rep$i'];
 				//$score=$score.' '.$rep; 
 			}	
@@ -24,6 +31,6 @@
 			//foreach($_POST['rep[]'] as $rep){
 			//	echo '<li>'.$pay.'</li>';    }
     
-			//print '</ul>';
+			//print '</ul>';*/
 		}
 	?>
