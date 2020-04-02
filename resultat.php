@@ -37,9 +37,12 @@
 				<h2><strong>Correction : </strong></h2><br/>
 								
 					<?php $i=1;
+							$score=0;
 						
 							foreach ($_POST as $fieled => $value)
 							{		
+								echo $fieled.'<br/>';
+								
 								$req = getDb()->prepare('select * from question where ques_id=?');
 								$req->execute(array($fieled));
 								$laquestion = $req->fetch();
@@ -53,6 +56,11 @@
 									echo "<strong>".$i.") ".$laquestion['ques_cont'].'<br/></strong>';
 									echo 'Votre réponse '.$fieled.' est : '.$value.'<br/>';
 									echo "La bonne réponse était : ".$labonnereponse['rep_cont'].'<br/>';
+									
+									if ($value==$labonnereponse['rep_cont'])
+									{
+										$score++;
+									}									
 								}
 								
 								if ($laquestion['ques_type']=="unique") //radio OK
@@ -60,6 +68,11 @@
 									echo "<strong>".$i.") ".$laquestion['ques_cont'].'<br/></strong>';
 									echo 'Votre réponse '.$fieled.' est : '.$value.'<br/>';
 									echo "La bonne réponse était : ".$labonnereponse['rep_cont'].'<br/>';
+									
+									if ($value==$labonnereponse['rep_cont'])
+									{
+										$score++;
+									}
 								}
 								
 								echo '<br/>';
@@ -67,11 +80,11 @@
 							
 								// PROBLEME AVEC LE CHECKBOX
 							
-								if ($laquestion['ques_type']=="multiple")
+								/*if ($laquestion['ques_type']=="multiple")
 								{
 									$checkbox="";
 									
-									foreach($fieled as $rep)
+									foreach($_POST['rep'] as $rep)
 									{					
 										$checkbox=$checkbox." ".$rep;
 									}
@@ -83,8 +96,9 @@
 									{
 										echo "Element ".$i."= ".$choix[$i]."<br/>";
 									}
-								}								
+								}*/								
 							}
+							echo "Le score est de : ".$score."/".$quizs['nbquestions'];;
 				}
 						
 						

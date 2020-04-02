@@ -38,6 +38,8 @@
 						<!--<p class="quizContent">Thème : <?= $quiz['theme_nom'] ?></p>-->
 					</article>
 				<?php } ?>				
+				
+				<a class="QuizTitle" href="add_quiz.php?id=<?= $themeId?>">Ajouter un nouveau quiz :</a>
 			
 		</div>
 

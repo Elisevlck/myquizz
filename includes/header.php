@@ -19,9 +19,14 @@
             <li>Quizz par thème
                 <ul class="sous">
 				
+					
+				
                     <?php foreach ($autres as $theme) { ?>				
 						<li><a class="link" href="index_quiz.php?id=<?= $theme['theme_id'] ?>"><?= $theme['theme_nom'] ?></a></li>						
-				<?php } ?>                             
+				<?php } ?>                           
+				
+				<li><a class="link" href="add_theme.php?id=1">Ajouter un thème </a></li>	
+				
                 </ul>
             </li>
 			
@@ -33,7 +38,8 @@
 				
 						<li><a class="link" href="index_quiz.php?id=<?= $revision['theme_id'] ?>"><?= $revision['theme_nom'] ?></a></li>
 						
-				<?php } ?>	                
+				<?php } ?>
+				<li><a class="link" href="add_theme.php?id=2">Ajouter une révision </a></li	 >               
                 </ul>
             </li> 
 			

@@ -2,7 +2,14 @@
 	require_once "includes/function.php";
 	session_start();
 	// Récuperer tous les quiz
-	$themes = getDb()->query('select theme_nom from theme'); 
+	
+	$themeId = $_GET['id'];
+	
+	$stmt = getDb()->prepare('select * from theme where theme_id=?');
+	$stmt->execute(array($themeId));
+	$themes = $stmt->fetch();
+	$themeNom=$themes['theme_nom'];
+	
 	
 ?>-->
 
@@ -22,15 +29,14 @@
 		<?php
 
 		//validation du bouton 
-		if(isset($_POST['inscription']))
+		if(isset($_POST['validation']))
 		{
 			//récupération variables (trim->sécuriser la variable)
 			$nom=trim($_POST['nom']);
 			$nbquestions = trim($_POST['nbquestions']);
-			$theme = trim($_POST['theme']);
 			
 			//tout le formulaire rempli
-			if(!empty($nom) AND !empty($nbquestions)AND !empty($theme)){
+			if(!empty($nom) AND !empty($nbquestions)){
 				
 				$reqlog = getDb()->prepare('select * from quiz where quiz_nom=?'); 
 				$reqlog->execute(array($nom));
@@ -39,15 +45,16 @@
 					//pseudo unique ou non
 					if($logexist == 0)			
 					{		
-								$insert_theme = getDb()->prepare("INSERT INTO quiz(quiz_nom, nbquestions, theme_nom) VALUES(?,?,?)");
-								$insert_theme->execute(array($nom,$nbquestions,$theme));
+								$insert_quiz = getDb()->prepare("INSERT INTO quiz(quiz_nom, nbquestions, theme_id, theme_nom) VALUES(?,?,?,?)");
+								$insert_quiz->execute(array($nom,$nbquestions,$themeId,$themeNom));
 								$erreur = "Votre quiz a bien été créé";
 								
-								?><a class="quizTitle" href="add_question.php?quiz_id=<?= $theme['theme_id'] ?>"><?= $theme['theme_nom'] ?></a>    <?php
-								//redirect(add_question.php);
-							
-								/*header('Location : index.php');*/
-								//redirection vers page accueil html
+								$recup_quizid = getDb()->prepare("SELECT * FROM QUIZ WHERE quiz_nom=?");
+								$recup_quizid->execute(array($nom));
+								$lenvquiz = $recup_quizid->fetch();
+								$quizid=$lenvquiz['quiz_id'];
+								
+								header("Location: add_question.php?id=".$quizid);
 					}					
 					else
 					{
@@ -63,25 +70,20 @@
 
 <div class="conteneurconex">
      
-            <form method="post" action="add_question.php">
+            <form method="post" action="add_quiz.php?id=<?=$themeId?>">
 
                 <div id="connexion">
-                <fieldset><legend><strong>Ajouter un quiz</strong></legend>
- <br/>
+				
+				<h1> Thème : <?=$themeNom?> </h1>				
+                <fieldset><legend><strong>Ajouter un quiz</strong></legend><br/> 
                 
-                <label for="quiz"><i>Nom du quiz : </i> </label> <input type="text" name="nom" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nom du quiz" required autofocus>                                 
+                <label for="quiz"><i>Nom du quiz : </i> </label> <input type="text" name="nom" class="form-control" placeholder="Entrez le nom du quiz" required autofocus>                                 
                <br/>
 			   
-			   <label for="quiz"><i>Nombre de questions : </i> </label> <input type="text" name="nbquestions" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez le nombre de questions :" required autofocus>                                 
+			   <label for="quiz"><i>Nombre de questions : </i> </label> <input type="text" name="nbquestions" class="form-control" placeholder="Entrez le nombre de questions :" required autofocus>                                 
                <br/>	 
 			   
-			   <?php foreach ($themes as $theme){?>			   
-					
-					<input type="radio" name="theme" value="<?= $theme['theme_nom']?>"/><label for="themes">    <?= $theme['theme_nom']?></label><br/>
-               
-			   <?php }?>
-			   
-                <button type="submit" name="inscription" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+                <button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 
                 
                 </div>  
