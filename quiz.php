@@ -15,6 +15,10 @@
 	$stmt3 = getDb()->prepare('select * from reponse');
 	$stmt3->execute(array());
 	$reponses = $stmt3->fetchAll(); // Access first (and only) result line	
+	
+	$stmt4 = getDb()->prepare('select * from theme where theme_id =?');
+	$stmt4->execute(array($_GET['id']));
+	$themes = $stmt4->fetch(); // Access first (and only) result line	
 ?>
 
 <!doctype html>
@@ -35,7 +39,7 @@
 				
 				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
 				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
-				<p><em>Thème : <?= $quizs['theme_nom'] ?></em></p>
+				<p><em>Thème : <?= $themes['theme_nom'] ?></em></p>
 				<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
 				<hr/>
 				
@@ -49,13 +53,15 @@
 					
 						<em><?=$i?>) <?= $question['ques_cont'] ?></em><br/><?php
 						
+						
+						
 						// type texte
 						if ($question['ques_type']=="texte"){?>
 							<input type="text" name='<?= $question["ques_id"]?>' size="17" /><br/>
 						<?php }	
 						
 						// type radio					
-						if ($question['ques_type']=="unique"){
+						if ($question['ques_type']=="radio"){
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ ?>
@@ -63,7 +69,7 @@
 						} } }
 						
 						// type checkbox					
-						if ($question['ques_type']=="multiple"){
+						if ($question['ques_type']=="checkbox"){
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ ?>
@@ -75,11 +81,11 @@
 					?><br/><br/>	
                 			
 				
-				<?php } ?>			
+				<?php 		  } ?>			
 				
 				<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 				
-				
+			
 			</form>
 				
 			</div>
