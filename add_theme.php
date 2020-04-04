@@ -45,7 +45,7 @@
 					//pseudo unique ou non
 					if($logexist == 0)			
 					{		
-								$insert_theme = getDb()->prepare("INSERT INTO theme(theme_nom ,genre_nom) VALUES(?,?)");
+								$insert_theme = getDb()->prepare("INSERT INTO theme(theme_nom ,genre_id) VALUES(?,?)");
 								$insert_theme->execute(array($nom,$genreNom));
 								$erreur = "Votre thème a bien été créé";
 							

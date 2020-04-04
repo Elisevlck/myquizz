@@ -27,14 +27,14 @@
 		if(isset($_POST['inscription']))
 		{
 			//récupération variables (trim->sécuriser la variable)
-			$role=trim($_POST['role']);
+		
 			$login = trim($_POST['login']);
 			$email = trim($_POST['email']);
 			$password = trim($_POST['password']);
 			$repeatpassword = trim($_POST['repeatpassword']);
 			
 			//tout le formulaire rempli
-			if(!empty($role) AND !empty($login) AND !empty($email) AND !empty($password) AND !empty($repeatpassword))			{
+			if(!empty($login) AND !empty($email) AND !empty($password) AND !empty($repeatpassword))			{
 				
 				//filtre mail, sécurité
 				if(filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -44,15 +44,19 @@
 				$reqlog->execute(array($login));
 				$logexist=$reqlog->rowCount();
 				
+				$reqlog = getDb()->prepare('select * from utilisateur where ut_mail=?'); 
+				$reqlog->execute(array($email));
+				$logexist=$reqlog->rowCount();
 				
 				
-				$reqmail = getDb()->prepare('select * from utilisateur where ut_mail=?'); 
-				$reqmail->execute(array($email));
-				$mailexist=$reqmail->rowCount();
+				
+		
 
 					//pseudo et mail unique ou non
 					if($logexist == 0)			
 					{		
+					
+						
 						
 						if($mailexist == 0)
 						{
@@ -65,10 +69,10 @@
 								if($loginlength <= 100)
 								{
 									$insert_ut = getDb()->prepare("INSERT INTO utilisateur(ut_nom ,ut_mdp, ut_mail, ut_role) VALUES(?,?,?,?)");
-									$insert_ut->execute(array($login,$password,$email,$role));
+									$insert_ut->execute(array($login,$password,$email,"joueur"));
 									$erreur = "Votre compte a bien été créé !";
 								
-									redirect('login.php');
+									redirect('profil.php');
 			
 								}
 								
@@ -113,8 +117,7 @@
                 <div id="connexion">
                 <fieldset><legend><strong>Inscription</strong></legend>
  <br/>
-                    <input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
-                    <input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
+                   
                     
                 
                 <label for="login"><i>Login : </i> </label> <input type="text" name="login" value="<?php if(isset($login)) {echo $login;} ?>" class="form-control" placeholder="Entrez votre login" required autofocus>
