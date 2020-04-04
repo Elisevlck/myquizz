@@ -25,19 +25,19 @@
  <div id="carouselExampleControls" class="carousel slide">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="images/maths.jpg"
+      <img class="d-block w-100" src="images/bolt1.jpg"
         alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="images/jo.jpg"
+      <img class="d-block w-100" src="images/simpson1.png"
         alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="images/2000.jpg"
+      <img class="d-block w-100" src="images/20001.jpg"
         alt="Third slide">
     </div>
 	<div class="carousel-item">
-      <img class="d-block w-100" src="images/géo.png"
+      <img class="d-block w-100" src="images/géo1.png"
         alt="Fourth slide">
     </div>
   </div>
