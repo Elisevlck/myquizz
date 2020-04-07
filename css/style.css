@@ -62,7 +62,7 @@ header nav ul li
     text-align:center;
     background-color:black;
     line-height:100px;
-    text-align:center;
+    
     font-weight:bold;
     font-size:20px;
     align-items:center;
@@ -79,23 +79,20 @@ header nav li
 header nav ul li a
 {
     display:block;
+	text-align:center;
     
 }
 
 header nav ul li a:hover
 {
-    opacity:0.4;
-
-    
-    
+    opacity:0.5;
 }
 
 .sous
 {
     display : flex;
     flex-direction:column-reverse;
-
-    
+   
 }
 
 .link
@@ -103,15 +100,17 @@ header nav ul li a:hover
 
     color:white;
     font-size:18px;
-    text-align:center;
+    margin-left:auto;
+	margin-right:auto;
     font-weight:bold;   
 
 }
 
-link:hover
+.link:hover
 
 {
-    color: #00FF00; 
+    color: white; 
+
 }
 
 header nav ul li ul li
@@ -133,9 +132,19 @@ header nav ul li:hover ul li
     height:60px;
     width:100%;
     line-height:60px;
-    text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
 
 
+}
+
+nav ul::after
+{
+	
+	content:"";
+	display:table;
+	clear:both;
 }
 
 .bouton

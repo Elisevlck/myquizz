@@ -8,7 +8,8 @@
 
 <html>
 	
-	<?php require_once "includes/head.php"; ?>
+	<?php $pageTitle="Connexion";
+	require_once "includes/head.php"; ?>
 		
 	<body>
 
