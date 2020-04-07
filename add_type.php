@@ -38,7 +38,7 @@
 				$insert_ques = getDb()->prepare("UPDATE question SET ques_type=? WHERE ques_id=? ");
 				$insert_ques->execute(array($value,$fieled));
 
-				header("Location: add_reponse.php?id=".$quizid);				
+				header("Location: add_reponse.php?id=".$quizId);				
 			}
 		}
 		?>

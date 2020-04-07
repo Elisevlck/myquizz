@@ -63,13 +63,13 @@
 						} } }
 						
 						// type checkbox					
-						if ($question['ques_type']=="multiple"){
+						/*if ($question['ques_type']=="multiple"){
 									
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ ?>
 									<label><input type="checkbox" name="[rep]['.<?=$question["ques_id"]?>.']" value="<?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
 						
-						} } } 												
+						} } } 	*/											
 						$i++;						
 						
 					?><br/><br/>	

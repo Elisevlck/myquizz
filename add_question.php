@@ -34,7 +34,7 @@
 				$insert_ques = getDb()->prepare("INSERT INTO question(ques_cont, quiz_id) VALUES(?,?)");
 				$insert_ques->execute(array($value,$quizId));
 
-				header("Location: add_type.php?id=".$quizid);				
+				header("Location: add_type.php?id=".$quizId);		
 			}
 		}
 		?>

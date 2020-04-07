@@ -7,6 +7,7 @@
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
 	$quizs = $stmt->fetch(); // Access first (and only) result line
+	$quizNom=$quizs['quiz_nom'];
 	
 	$stmt2 = getDb()->prepare('select * from question where quiz_id=?');
 	$stmt2->execute(array($quizId));
@@ -99,6 +100,9 @@
 								}*/								
 							}
 							echo "Le score est de : ".$score."/".$quizs['nbquestions'];;
+							
+							$insert_partie = getDb()->prepare("INSERT INTO partie(part_score, quiz_nom) VALUES(?,?)");
+							$insert_partie->execute(array($score,$quizNom));
 				}
 						
 						
