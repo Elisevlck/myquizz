@@ -1,7 +1,6 @@
 <?php
 	require_once "includes/function.php";
 	session_start();
-	// Récuperer tous les quiz
 	
 	$genreId=$_GET['id'];
 	

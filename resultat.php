@@ -44,7 +44,10 @@
 						
 							foreach ($_POST as $fieled => $value)
 							{		
-								echo $fieled.' = '.$value.'<br/>';
+								/*print_r($fieled);
+								var_dump($fieled);
+								print_r($value);
+								echo $fieled.' = '.$value.'<br/>';*/
 								
 								$req = getDb()->prepare('select * from question where ques_id=?');//je récupère les info de chaque question
 								$req->execute(array($fieled));
@@ -52,67 +55,28 @@
 								
 								$req1 = getDb()->prepare('select * from reponse where ques_id=? AND rep_estVrai="vrai"');//la réponse effectivement vraie
 								$req1->execute(array($fieled));
-								$labonnereponse = $req1->fetch();
-								
-								if ($laquestion['ques_type']=="texte")//texte OK
-								{
+								$labonnereponse = $req1->fetch();	
+									
+								if ($laquestion['ques_type']=="texte" OR $laquestion['ques_type']=="radio"){
 									echo "<strong>".$i.") ".$laquestion['ques_cont'].'<br/></strong>';
-									echo 'Votre réponse '.$fieled.' est : '.$value.'<br/>';
+									echo 'Votre réponse est : '.$value.'<br/>';
 									echo "La bonne réponse était : ".$labonnereponse['rep_cont'].'<br/>';
 									
 									if ($value==$labonnereponse['rep_cont'])
 									{
 										$score++;
 									}	
-								}
-								
-								if ($laquestion['ques_type']=="radio") //radio OK
-								{
-									echo "<strong>".$i.") ".$laquestion['ques_cont'].'<br/></strong>';
-									echo 'Votre réponse '.$fieled.' est : '.$value.'<br/>';
-									echo "La bonne réponse était : ".$labonnereponse['rep_cont'].'<br/>';
-									
-									if ($value==$labonnereponse['rep_cont'])
-									{
-										$score++;
-									}	
-								}
-											
-								// PROBLEME AVEC LE CHECKBOX
-							
-								if ($laquestion['ques_type']=="checkbox")
-								{
-									echo "<strong>".$i.") ".$laquestion['ques_cont'].'<br/></strong>';
-									$checkbox="";
-									/*
-									foreach($_POST['rep'] as $rep)
-									{					
-										$checkbox=$checkbox." ".$rep;
-									}
-									echo "La chaine contient : ".$checkbox."<br/>";
-						
-									$choix = explode(" ", $checkbox);
-								
-									for($i=1;$i<count($choix);$i++)
-									{
-										echo "Element ".$i."= ".$choix[$i]."<br/>";
-									}
-									$i++;
-									*/
-								}		
+								}	
 								$i++;
-								echo "Votre score est : ".$score.'<br/>';
-								echo '<br/>';		
-							}
-							echo "Le score est de : ".$score."/".$quizs['nbquestions'];;
+							}	
+						
+									
+				}
+							echo "Le score est de : ".$score."/".$quizs['nbquestions']."<br/>";
 							/*
 							$insert_partie = getDb()->prepare("INSERT INTO partie(part_score, quiz_id) VALUES(?,?)");
 							$insert_partie->execute(array($score,$quizId));*/
-				}
-						
-						
-					echo '<br/>';	
-									 
+					
 				 ?>
 				
 			</div>

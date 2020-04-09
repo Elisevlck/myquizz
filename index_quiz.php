@@ -39,9 +39,9 @@
 				
 					<article>
 						<strong><?= $quiz['quiz_nom']?></strong>
-						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&niv=facile">Facile </a>
-						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&niv=moyen">Moyen </a>
-						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&niv=difficile">Difficile</a>
+						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile">Facile </a>
+						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen">Moyen </a>
+						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile">Difficile</a>
 						<a class="QuizTitle" href="index_question.php?id=<?= $quiz['quiz_id'] ?>">Modifier</a>
 					</article>
 				<?php } ?>				

@@ -4,6 +4,7 @@
 
 	$quizId = $_GET['id'];
 	$niveau = $_GET['niv'];
+	$themeId=$_GET['tId'];
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -33,7 +34,7 @@
 	$reponses = $stmt3->fetchAll();
 	}
 	$stmt4 = getDb()->prepare('select * from theme where theme_id =?');
-	$stmt4->execute(array($_GET['id']));
+	$stmt4->execute(array($themeId));
 	$themes = $stmt4->fetch(); // Access first (and only) result line	
 	shuffle($reponses);
 ?>
@@ -63,7 +64,8 @@
 				
 				<h2> <strong>Répondre aux questions suivantes : </strong></h2><br/>
 				
-				<form action="resultat.php?id=<?= $quizs['quiz_id'] ?>" Method="POST">
+				
+				<form action="resutest.php?id=<?= $quizs['quiz_id'] ?>&niv=<?= $niveau?>" Method="POST">
 				
 					<?php $i=1;?>
 								
@@ -89,13 +91,12 @@
 						} } }
 						
 						// type checkbox					
-						if ($question['ques_type']=="checkbox"){
-									
+						if ($question['ques_type']=="checkbox"){?>
+							<?php
 							foreach ($reponses as $reponse) { 
 								if ($reponse['ques_id']==$question['ques_id']){ ?>
-									<label><input type="checkbox" name="reponse'.<?=$question["ques_id"]?>.'" value=" <?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
-						
-						} } } 									
+									<label><input type="checkbox" name="reponse<?=$question["ques_id"]?>[]" value=" <?= $reponse['rep_cont'] ?>"/><?= $reponse['rep_cont'] ?></label><?php
+						} } } 							
 						$i++;						
 						
 					?><br/><br/>	
