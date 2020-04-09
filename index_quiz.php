@@ -4,7 +4,7 @@
 
 	$themeId = $_GET['id'];
 	
-	$stmt = getDb()->prepare('select * from quiz where id_theme=?');
+	$stmt = getDb()->prepare('select * from quiz where theme_id=?');
 	$stmt->execute(array($themeId));
 	$quizs = $stmt->fetchAll();
 	
@@ -29,17 +29,24 @@
 			<?php include "includes/header.php"; ?>
 			
 				<h1> Catégorie : <?=$themes['theme_nom'] ?> </h1>
-				<h5> Liste des quiz associés : </h5>
+				<a class="QuizTitle" href="add_quiz.php?id=<?= $themeId?>">Ajout de quiz </a><br/>
+					<a class="QuizTitle" href="suppr_quiz.php?id=<?= $themeId ?>">Suppression de quiz</a>
+				<br/><br/><br/>
+				
+				<h3> Liste des quiz associés : </h3>
 				
 				<?php foreach ($quizs as $quiz) { ?>
 				
 					<article>
-						<h3><a class="quizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>"><?= $quiz['quiz_nom'] ?></a></h3>
-						<!--<p class="quizContent">Thème : <?= $quiz['theme_nom'] ?></p>-->
+						<strong><?= $quiz['quiz_nom']?></strong>
+						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&niv=facile">Facile </a>
+						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&niv=moyen">Moyen </a>
+						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&niv=difficile">Difficile</a>
+						<a class="QuizTitle" href="index_question.php?id=<?= $quiz['quiz_id'] ?>">Modifier</a>
 					</article>
 				<?php } ?>				
 				
-				<a class="QuizTitle" href="add_quiz.php?id=<?= $themeId?>">Ajouter un nouveau quiz :</a>
+				
 			
 		</div>
 

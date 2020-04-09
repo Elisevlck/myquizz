@@ -3,6 +3,7 @@
 	session_start();
 	
 	$quizId = $_GET['id'];
+	$nbquestions = $_GET['nb'];
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -38,20 +39,18 @@
 				$insert_ques = getDb()->prepare("UPDATE question SET ques_type=? WHERE ques_id=? ");
 				$insert_ques->execute(array($value,$fieled));
 
-				header("Location: add_reponse.php?id=".$quizId);				
+				header("Location: add_reponse.php?id=".$quizId."&nb=".$nbquestions);				
 			}
 		}
 		?>
 		
 		
 		
-		<form method="post" action="add_type.php?id=<?=$quizId?>">
+		<form method="post" action="add_type.php?id=<?=$quizId?>&nb=<?=$nbquestions?>">
 
 			<div id="connexion">
 			
 				<fieldset><legend><strong>Ajouter des types </strong></legend><br/> 
-								
-				
 				<?php 
 				
 				$numquestion=1;
@@ -64,8 +63,8 @@
 					<label for="quiz"><i> Type :</i></label> <br/>
 					
 					<input type="radio" name="<?=$question['ques_id']?>" value="texte"/><label for="type">Question ouverte</label><br/>
-					<input type="radio" name="<?=$question['ques_id']?>" value="unique"/><label for="type">Réponse unique</label><br/>
-					<input type="radio" name="<?=$question['ques_id']?>" value="multiple"/><label for="type">Choix multiples</label><br/>
+					<input type="radio" name="<?=$question['ques_id']?>" value="radio"/><label for="type">Réponse unique</label><br/>
+					<input type="radio" name="<?=$question['ques_id']?>" value="checkbox"/><label for="type">Choix multiples</label><br/>
 					<hr/>
 				<?php $numquestion++;
 				} ?>

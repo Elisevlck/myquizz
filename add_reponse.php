@@ -3,6 +3,7 @@
 	session_start();
 	
 	$quizId = $_GET['id'];
+	$nbquestion = $_GET['nb'];
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -26,7 +27,6 @@
 	
 		<?php require_once "includes/header.php"; ?>
 		
-		
 		<?php
 
 		//validation du bouton 
@@ -39,21 +39,17 @@
 				$insert_ques = getDb()->prepare("INSERT INTO reponse(rep_cont, ques_id) VALUES(?,?)");
 				$insert_ques->execute(array($value,$fieled));
 
-				redirect('page1.php');				
+				redirect('index_question.php?id='.$quizId);				
 			}
 		}	
 		
 		?>		
 		
-		
-		
-		
-		<form method="post" action="add_reponse.php?id="<?=$quizId?>">
+		<form method="post" action="add_reponse.php?id=<?=$quizId?>&nb=<?=$nbquestions?>">
 
 			<div id="connexion">
 			
 				<fieldset><legend><strong>Ajouter des réponses </strong></legend><br/>
-				
 				
 				<?php 
 				
@@ -66,7 +62,6 @@
 					<h3> Intitulé : <?=$question['ques_cont']?> </h3>
 					<h4> Type : <?=$question['ques_type']?></h4>
 					
-					
 										
 					<?php if($question['ques_type']=='texte') //QUESTION DE TYPE TEXTE
 					{ ?>
@@ -76,24 +71,24 @@
 					
 					
 					
-					<?php if($question['ques_type']=='unique')//QUESTION DE TYPE choix unique
+					<?php if($question['ques_type']=='radio')//QUESTION DE TYPE choix unique
 					{ ?>
 						<input type="text" name="<?=$numquestion?>" class="form-control" placeholder="Entrez la réponse correcte :" required autofocus><br/> 
 						
 						<?php for($k=1; $k<=3; $k++)
 						{ ?>								
-							<input type="text" name="<?=$numquestion?>" class="form-control" placeholder="Entrez les autres reponses:" required autofocus><br/> 
+							<input type="text" name="<?=$numquestion?>$k" class="form-control" placeholder="Entrez les autres reponses:" required autofocus><br/> 
 								
 						<?php } 
 					} ?>
 					
 					
-					<?php if($question['ques_type']=='multiple')//QUESTION DE TYPE choix multiples
+					<?php if($question['ques_type']=='checkbox')//QUESTION DE TYPE choix multiples
 					{ ?>
 												
 						<?php for($k=1; $k<=4; $k++)
 						{ ?>								
-							<input type="text" name="<?=$numquestion?>" class="form-control" placeholder="Entrez les autres reponses:" required autofocus><br/> 
+							<input type="text" name="<?=$numquestion?>$k" class="form-control" placeholder="Entrez les autres reponses:" required autofocus><br/> 
 								
 						<?php } 
 					} ?>

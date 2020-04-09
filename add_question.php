@@ -3,6 +3,11 @@
 	session_start();
 	
 	$quizId = $_GET['id'];
+	$nbquestions=$_GET['nb'];
+	
+	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
+	$stmt->execute(array($quizId));
+	$quizs = $stmt->fetch();
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -31,10 +36,12 @@
 			{			
 				//echo $fieled.' => '.$value.'<br/>';
 				
-				$insert_ques = getDb()->prepare("INSERT INTO question(ques_cont, quiz_id) VALUES(?,?)");
-				$insert_ques->execute(array($value,$quizId));
+				if(!empty($value)) {
+					$insert_ques = getDb()->prepare("INSERT INTO question(ques_cont, quiz_id) VALUES(?,?)");
+					$insert_ques->execute(array($value,$quizId));
+				}
 
-				header("Location: add_type.php?id=".$quizId);		
+				header("Location: add_type.php?id=".$quizId."&nb=".$nbquestions);		
 			}
 		}
 		?>
@@ -47,7 +54,7 @@
 			
 				<fieldset><legend><strong>Ajouter des questions </strong></legend><br/> 
 													
-					<?php for($numquestion=1; $numquestion<=$lequiz['nbquestions']; $numquestion++) 
+					<?php for($numquestion=1; $numquestion<=$nbquestions; $numquestion++) 
 					{?>
 							
 							<h2><strong>Question n° <?=$numquestion?> : </strong></h2><br/>		
