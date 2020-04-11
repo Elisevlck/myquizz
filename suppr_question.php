@@ -37,12 +37,12 @@
 						$suppr_quiz->execute(array($choix));
 						$erreur = "Votre question a bien été supprimé";
 						
-						header("Location: index_ques.php?id=".$quizId);
+						header("Location: index_question.php?id=".$quizId);
 					}
 				}
 				?>
      
-				<form method="post" action="suppr_quiz.php?id=<?=$themeId?>">
+				<form method="post" action="suppr_question.php?id=<?=$quizId?>">
 
 					<div id="connexion">
 					

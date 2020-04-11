@@ -5,9 +5,9 @@
 	$quizId = $_GET['id'];
 	$nbquestions=$_GET['nb'];
 	
-	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
-	$stmt->execute(array($quizId));
-	$quizs = $stmt->fetch();
+	$recup_quiz = getDb()->prepare('select * from quiz where quiz_id=?');
+	$recup_quiz->execute(array($quizId));
+	$quizs = $recup_quiz->fetch();
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -32,17 +32,19 @@
 		//validation du bouton 
 		if(isset($_POST['validation']))
 		{
+			$i=1;
 			foreach ($_POST as $fieled => $value)
 			{			
 				//echo $fieled.' => '.$value.'<br/>';
 				
 				if(!empty($value)) {
-					$insert_ques = getDb()->prepare("INSERT INTO question(ques_cont, quiz_id) VALUES(?,?)");
-					$insert_ques->execute(array($value,$quizId));
+					$insert_ques = getDb()->prepare("INSERT INTO question(ques_cont, quiz_id, ques_num) VALUES(?,?,?)");
+					$insert_ques->execute(array($value,$quizId,$id));
 				}
-
-				header("Location: add_type.php?id=".$quizId."&nb=".$nbquestions);		
+				$i++;
+				
 			}
+			header("Location: add_type.php?id=".$quizId."&nb=".$nbquestions);		
 		}
 		?>
 		
