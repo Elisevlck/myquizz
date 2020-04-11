@@ -44,13 +44,17 @@
 	<?php 
 		$pageTitle = $quizs['quiz_nom'];
 		require_once "includes/head.php"; 
+
 	?>
 	
 	<body>
 	<?php
+	
+	
 		//validation du bouton 
 		if(isset($_POST['validation']))
 		{	
+			
 			$id=$question['ques_id'];
 			
 			if ($question['ques_type']=="texte" OR $question['ques_type']=="radio"){
@@ -135,9 +139,14 @@
 	
 		<?php 
 			
-			if ($numQues>$quizs['nbquestions']){
-				redirect('resultat1par1.php?id='.$quizId.'&tId='.$themeId.'&niv='.$niveau.'&num='.$numQues.'&score='.$scoreActu);
-			}
+			if ($numQues>$quizs['nbquestions'])
+			{ echo $time_start;?>
+		
+				<form action="resultat1par1.php?id=<?= $quizId ?>&tId=<?=$themeId?>&niv=<?=$niveau?>&num=<?=$numQues?>&score=<?=$scoreActu?>" Method="POST">
+
+				<button type="submit" name="var1" value="<?php=$time_start?>"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+		
+ <?php }
 			
 			else{			
 			?>
@@ -145,13 +154,14 @@
 			<div class="container">
 				<?php require_once "includes/header.php"; ?>
 				
-				<div class="jumbotron">
+				<div class="jumbotron"><img src="images\chrono.gif" style="float:right;" width="300"></img>
 					
 					<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
 					<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
 					<p><em>Thème : <?= $themes['theme_nom'] ?></em></p>
 					<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
 					<p><em>Niveau choisi : <?=$niveau?></em></p>
+					<h5><strong>ATTENTION</strong> le temps est compté !</h5>
 					<hr/>
 					
 					<form action="quiz1par1.php?id=<?= $quizId ?>&tId=<?=$themeId?>&niv=<?=$niveau?>&num=<?=$numQues?>&score=<?=$scoreActu?>" Method="POST">
@@ -183,7 +193,7 @@
 									<label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/> <?= $reponse['rep_cont'] ?></label><br/><?php
 						} } } ?>				
 						
-						<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+						<button type="submit" name="validation" ><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 					
 					</form>
 				</div>

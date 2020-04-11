@@ -32,5 +32,21 @@
 				Votre score est : <?=$scoreActu?>. <br/>
 				Il y avait : <?=$quizs['nbquestions']?> questions.<br/>
 				
+			<?php	
+			$time_start = $_POST['var1'];
+			
+			$time = time()- $time_start;
+
+			echo  $time." secondes\n";
+			/*echo '<br/>';
+			
+			$time = time() - $debut;
+			echo  "Chronomètre : ".$time." secondes\n";	*/	
+			$date = date("Y-m-d");
+			echo '<br/>';
+			echo '<br/>';
+			echo '<br/>';
+			?>
+				
 			</div>
 		</div>

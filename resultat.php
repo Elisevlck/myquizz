@@ -151,8 +151,8 @@
 			echo "Le score est : ".$score.'/'.$nbQues;
 			echo '<br/>';
 			$rapport_score = $score/$nbQues;
-			$nbr = round($rapport_score, 2);
-			echo "Taux de réussite : ".$nbr.' %';
+			$nbr = round($rapport_score, 3);
+			echo "Taux de réussite : ".$nbr*100 .' %';
 			
 							
 			echo '<br/>';
@@ -174,17 +174,17 @@
 			$parties=$resultat->fetch();
 			
 	
-			if($parties['part_score'] == 1.00)
+			if($parties['part_score'] == 1.000)
 			{				
 				//requete chrono min
-				$resultat=getDb()->prepare("select * from partie where part_score=? order by part_score limit 1");
-				$resultat->execute(array("1"));
+				$resultat=getDb()->prepare("select * from partie where part_score=? order by part_temps limit 1");
+				$resultat->execute(array("1.000"));
 				$chrono=$resultat->fetch();
 				
 				
-				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100;
+				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
 				echo '<br/>';
-				echo "Avec pour chronomètre : ".$chrono['part_temp'];
+				echo "Avec pour chronomètre : ".$chrono['part_temps'];
 			
 			}
 			else

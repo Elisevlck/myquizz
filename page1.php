@@ -17,8 +17,22 @@
 	<body>
 	
 		<?php include "includes/header.php";?>
-			
+	
+					<?php 
+					if(isset($_SESSION['login']))
+					{?>
+							
 		<a href="quiz.php"><button type="button" class="bouton">JOUER !</button></a></div>
+		
+					<?php 
+					}
+					else 
+					{
+					?>
+					<a href="login.php"><button type="button" class="bouton">JOUER !</button></a></div>
+					<?php 
+					}  
+					?>
 
 		<div class="conteneur">		   
 			
