@@ -18,7 +18,7 @@
 
 <html>
 
-   <?php 
+	<?php 
 		$pageTitle="Ajout de(s) type(s)";
 		require_once "includes/head.php"; 
 	?>
@@ -27,23 +27,20 @@
 	
 		<?php require_once "includes/header.php"; ?>
 		
-		<?php
+		<?php		
+			if(isset($_POST['validation']))
+			{
+				foreach ($_POST as $fieled => $value)
+				{			
+					//echo $fieled.' => '.$value.'<br/>';
+					
+					$insert_ques = getDb()->prepare("UPDATE question SET ques_type=? WHERE ques_id=? ");
+					$insert_ques->execute(array($value,$fieled));
 
-		//validation du bouton 
-		if(isset($_POST['validation']))
-		{
-			foreach ($_POST as $fieled => $value)
-			{			
-				//echo $fieled.' => '.$value.'<br/>';
-				
-				$insert_ques = getDb()->prepare("UPDATE question SET ques_type=? WHERE ques_id=? ");
-				$insert_ques->execute(array($value,$fieled));
-
-				header("Location: add_reponse.php?id=".$quizId."&nb=".$nbquestions);				
+					header("Location: add_reponse.php?id=".$quizId."&nb=".$nbquestions);				
+				}
 			}
-		}
 		?>
-		
 		
 		
 		<form method="post" action="add_type.php?id=<?=$quizId?>&nb=<?=$nbquestions?>">

@@ -39,10 +39,9 @@
 				
 				if(!empty($value)) {
 					$insert_ques = getDb()->prepare("INSERT INTO question(ques_cont, quiz_id, ques_num) VALUES(?,?,?)");
-					$insert_ques->execute(array($value,$quizId,$id));
+					$insert_ques->execute(array($value,$quizId,$i));
 				}
 				$i++;
-				
 			}
 			header("Location: add_type.php?id=".$quizId."&nb=".$nbquestions);		
 		}
