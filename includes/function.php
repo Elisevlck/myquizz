@@ -1,7 +1,11 @@
 <?php
 
 // Se connecter à la base de données. Retourne un PDO objet
-
+function microtime_float() 
+{
+  list($usec, $sec) = explode(" ", microtime());
+  return ((float)$usec + (float)$sec);
+}
 function getDb() {
 	
 	//On essaie de se connecter

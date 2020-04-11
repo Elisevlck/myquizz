@@ -148,12 +148,13 @@
 						<li><a class="link"><?= $revision['theme_nom'] ?></a></li>
 						
 				<?php } ?>
+				
                 </ul>
             </li> 
 			
 			<li>Non connecté
 					<ul class="sous">
-						<li><a class="link" href="login.php">Se connecter</a></li>
+						<li><a class="link" href="login.php">Connexion - Inscription</a></li>
 					</ul>
 			</li>					
 <?php

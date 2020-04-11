@@ -60,6 +60,7 @@
 				<p><em>Thème : <?= $themes['theme_nom'] ?></em></p>
 				<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
 				<p><em>Niveau choisi : <?=$niveau?></em></p>
+				<h5><strong>ATTENTION</strong> le temps est compté !</h5>
 				<hr/>
 				
 				<h2> <strong>Répondre aux questions suivantes : </strong></h2><br/>
