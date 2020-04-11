@@ -53,6 +53,7 @@ function isJoueur()
 	
     
 }
+
 // Génère un mot de passe aléatoire
 function randomnb($nb)
 {
@@ -62,16 +63,7 @@ function randomnb($nb)
 	
 }
 
-function chrono($chrono)
-{
-	
-	while(time()<=$chrono);
-	
-	redirect('resultat.php');
-	
-	echo 'Le temps est fini';	
-	
-}
+
 
 // Rediriger sur une url
 function redirect($url) {

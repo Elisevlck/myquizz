@@ -48,10 +48,6 @@
 				$reqlog->execute(array($email));
 				$logexist=$reqlog->rowCount();
 				
-				
-				
-		
-
 					//pseudo et mail unique ou non
 					if($logexist == 0)			
 					{		

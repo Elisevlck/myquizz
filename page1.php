@@ -17,8 +17,8 @@
 	<body>
 	
 		<?php include "includes/header.php";?>
-				
-		<div  class="connexion"><a href ="login.php"><button type="button" class="bouton">JOUER !</button></a></div>   
+			
+		<a href="quiz.php"><button type="button" class="bouton">JOUER !</button></a></div>
 
 		<div class="conteneur">		   
 			

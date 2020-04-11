@@ -53,7 +53,7 @@
 		<div class="container">
 			<?php require_once "includes/header.php"; ?>
 
-			<div class="jumbotron">
+			<div class="jumbotron"><img src="images\chrono.gif" style="float:right;" width="300"></img>
 				
 				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
 				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
@@ -67,7 +67,9 @@
 				
 				<form action="resultat.php?id=<?= $quizs['quiz_id'] ?>&tId=<?=$themeId?>&niv=<?= $niveau?>" Method="POST">
 				
-					<?php $i=1;?>
+					<?php $i=1;
+						$debut=time();
+					?>
 								
 					<?php foreach ($questions as $question) { ?>
 					
@@ -104,7 +106,7 @@
 				
 				<?php 		  } ?>			
 				
-				<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+				<button type="submit" name="validation" value="<?=$debut?>"><><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 				
 			
 			</form>

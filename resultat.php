@@ -15,9 +15,14 @@
 	$stmt2->execute(array($quizId));
 	$questions = $stmt2->fetchAll(); 
 	
-	$stmt4 = getDb()->prepare('select * from theme where theme_id =?');
-	$stmt4->execute(array($themeId));
-	$themes = $stmt4->fetch(); //
+	$stmt3 = getDb()->prepare('select * from theme where theme_id =?');
+	$stmt3->execute(array($themeId));
+	$themes = $stmt3->fetch(); 
+		
+	$stmt4 = getDb()->prepare('select * from utilisateur where ut_nom=?');
+	$stmt4->execute(array($_SESSION['login']));
+	$Id = $stmt4->fetch(); 
+	$utId = $Id['ut_id'];
 ?>
 
 <html>
@@ -144,6 +149,51 @@
 			}//--------------------------FIN DU FOREACH QUESTION
 			
 			echo "Le score est : ".$score.'/'.$nbQues;
+			echo '<br/>';
+			$rapport_score = $score/$nbQues;
+			$nbr = round($rapport_score, 2);
+			echo "Taux de réussite : ".$nbr.' %';
+			
+							
+			echo '<br/>';
+			$debut = $_POST['validation'];
+			$time = time() - $debut;
+			echo  "Chronomètre : ".$time." secondes\n";		
+			$date = date("Y-m-d");
+			echo '<br/>';
+			echo '<br/>';
+			echo '<br/>';
+							
+			//insertion resultat partie
+			$insert_partie=getDb()->prepare("INSERT INTO partie(part_score, part_temps,part_date,quiz_nom,ut_id) VALUES(?,?,?,?,?)");
+			$insert_partie->execute(array($rapport_score,$time,$date,$quizNom,$utId));
+						
+			//meilleur résultat
+			$resultat=getDb()->prepare("select * from partie where ut_id=? and quiz_nom=? order by part_score desc limit 1");
+			$resultat->execute(array($utId,$quizNom));
+			$parties=$resultat->fetch();
+			
+	
+			if($parties['part_score'] == 1.00)
+			{				
+				//requete chrono min
+				$resultat=getDb()->prepare("select * from partie where part_score=? order by part_score limit 1");
+				$resultat->execute(array("1"));
+				$chrono=$resultat->fetch();
+				
+				
+				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100;
+				echo '<br/>';
+				echo "Avec pour chronomètre : ".$chrono['part_temp'];
+			
+			}
+			else
+			{
+				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
+			}
+			
+		
+			
 		?>
 		</div>
 		</div>

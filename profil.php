@@ -51,7 +51,7 @@
 	<br/>Avatar : 			
 				<?php 
 				
-				// $getlogin = intval($_GET['login']);
+				
 				$reqlog = getDb()->prepare('select avatar from utilisateur where ut_nom="'.$_SESSION['login'].'" '); 
 				$reqlog->execute(array($_SESSION['login']));
 				$reqlog=$reqlog->fetch();
@@ -68,9 +68,6 @@
 				
 				?>
 				<img src="membres/avatars/<?php echo $reqlog['avatar']; ?>"  width="180"/>
-			
-				
-
 
 				<?php
 				
@@ -79,7 +76,8 @@
 				
 	<br/><br/>		
 <a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>		
-
+<a href ="editerprofil.php"><button type="button" class="button">Voir mon historique</button></a>		
+<br/><br/>
 </div>			
 				
 				

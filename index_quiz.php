@@ -4,7 +4,7 @@
 
 	$themeId = $_GET['id'];
 	
-	$recup_quizs = getDb()->prepare('select * from quiz where theme_id=?');
+	$recup_quizs = getDb()->prepare('select * from quiz where id_theme=?');
 	$recup_quizs->execute(array($themeId));
 	$quizs = $recup_quizs->fetchAll();
 	
@@ -28,7 +28,7 @@
 			
 			<?php include "includes/header.php"; ?>
 			
-				<h1> Catégorie : <?=$theme['theme_nom'] ?> </h1>
+				<h1> Catégorie : <?=$pageTitle; ?> </h1>
 				<a class="QuizTitle" href="add_quiz.php?id=<?= $themeId?>">Ajout de quiz </a><br/>
 				<a class="QuizTitle" href="suppr_quiz.php?id=<?= $themeId ?>">Suppression de quiz</a>
 				<br/><br/><br/>
