@@ -47,9 +47,9 @@
 						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile">Difficile</a>
 						<br/>
 						Affichage question par question :
-						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile&num=0&score=0">Facile </a>
-						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen&num=0&score=0">Moyen </a>
-						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile&num=1&score=0">Difficile</a>
+						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile&num=0&score=0&tps=<?=time()?>">Facile </a>
+						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen&num=0&score=0&tps=<?=time()?>">Moyen </a>
+						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile&num=1&score=0&tps=<?=time()?>">Difficile</a>
 						<br/><br/>
 					</article>
 					

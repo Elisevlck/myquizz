@@ -7,6 +7,8 @@
 	$themeId=$_GET['tId'];
 	$numQues=$_GET['num'];
 	$scoreActu=$_GET['score'];
+
+	$temps = $_GET['tps'];
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -54,8 +56,9 @@
 		//validation du bouton 
 		if(isset($_POST['validation']))
 		{	
-			
+		
 			$id=$question['ques_id'];
+			$tps=time();
 			
 			if ($question['ques_type']=="texte" OR $question['ques_type']=="radio"){
 				
@@ -133,20 +136,18 @@
 			$scoreActu=$scoreActu+$point;
 			$numQues=$numQues+1;
 						
-			redirect('quiz1par1.php?id='.$quizId.'&tId='.$themeId.'&niv='.$niveau.'&num='.$numQues.'&score='.$scoreActu);
+			redirect('quiz1par1.php?id='.$quizId.'&tId='.$themeId.'&niv='.$niveau.'&num='.$numQues.'&score='.$scoreActu.'&tps='.$temps);
 		}
 	?>
 	
 		<?php 
 			
 			if ($numQues>$quizs['nbquestions'])
-			{ echo $time_start;?>
+			{ 
 		
-				<form action="resultat1par1.php?id=<?= $quizId ?>&tId=<?=$themeId?>&niv=<?=$niveau?>&num=<?=$numQues?>&score=<?=$scoreActu?>" Method="POST">
-
-				<button type="submit" name="var1" value="<?php=$time_start?>"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+				redirect('resultat1par1.php?id='.$quizId.'&tId='.$themeId.'&niv='.$niveau.'&num='.$numQues.'&score='.$scoreActu.'&tps='.$temps);				
 		
- <?php }
+			}
 			
 			else{			
 			?>
@@ -164,7 +165,7 @@
 					<h5><strong>ATTENTION</strong> le temps est compté !</h5>
 					<hr/>
 					
-					<form action="quiz1par1.php?id=<?= $quizId ?>&tId=<?=$themeId?>&niv=<?=$niveau?>&num=<?=$numQues?>&score=<?=$scoreActu?>" Method="POST">
+					<form action="quiz1par1.php?id=<?= $quizId ?>&tId=<?=$themeId?>&niv=<?=$niveau?>&num=<?=$numQues?>&score=<?=$scoreActu?>&tps=<?=$temps?>" Method="POST">
 				
 						<strong>Question <?=$numQues?> : <?=$question['ques_cont']?></strong><br/>
 						
@@ -193,7 +194,7 @@
 									<label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/> <?= $reponse['rep_cont'] ?></label><br/><?php
 						} } } ?>				
 						
-						<button type="submit" name="validation" ><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+						<button type="submit" name="validation"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 					
 					</form>
 				</div>
