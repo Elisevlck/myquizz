@@ -9,12 +9,12 @@
 <html>
 	
 	<?php $pageTitle="Connexion";
-	require_once "includes/head.php"; ?>
-		
+	require_once "includes/head.php"; ?>		
+	
 	<body>
-
+	
 		<?php
-		include('includes/header.php'); 	
+		require_once"includes/header.php"; 	
 
 		//formulaire rempli
 		if(!empty($_POST['login']) AND !empty($_POST['password']) AND !empty($_POST['role']))
@@ -31,114 +31,102 @@
 			$requete->execute(array($loginconnect,$mdpconnect));
 			$resultat = $requete->fetch();
 
-				//reconnaissance de l'utilisateur
-				if($requete->rowCount() == 1)
+			//reconnaissance de l'utilisateur
+			if($requete->rowCount() == 1)
+			{	
+
+				if($mdpconnect == $resultat['ut_mdp'])
 				{	
-
-					if($mdpconnect == $resultat['ut_mdp'])
-					{	
-						$_SESSION['login'] = $loginconnect;	
-						$_SESSION['password'] = $mdpconnect;
-						
-						
-	
-						if($roleconnect == $resultat['ut_role'])
-						{
-							//si ut est admin
-							if($resultat['ut_role'] == "administrateur")
+					$_SESSION['login'] = $loginconnect;	
+					$_SESSION['password'] = $mdpconnect;
+								
+					if($roleconnect == $resultat['ut_role'])
+					{
+						//si ut est admin
+						if($resultat['ut_role'] == "administrateur")							
+						{	
+							$_SESSION['role'] = $roleconnect;
+							$_SESSION['email'] = $resultat['ut_mail'];	
+							// $resultat['lastlogin'] = time();
+							// $_SESSION['lastlogin'] = $resultat['lastlogin'];
+							$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
+								
+							redirect('profil.php');
 							
-							{
-								
-								$_SESSION['role'] = $roleconnect;
-								$_SESSION['email'] = $resultat['ut_mail'];	
-								// $resultat['lastlogin'] = time();
-								// $_SESSION['lastlogin'] = $resultat['lastlogin'];
-								$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
-								
-								redirect('profil.php');
-
-								
-								
-							}
-							//si ut est joueur			
-							else
-							{
-								
-								$_SESSION['role'] = $roleconnect;	
-								$_SESSION['email'] = $resultat['ut_mail'];								
-								$resultat['lastlogin'] = time();
-								$_SESSION['lastlogin'] = $resultat['lastlogin'];
-								$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
-								
-								redirect('profil.php');
-								
-							}				
 						}
+						//si ut est joueur			
 						else
 						{
-							$erreur="Vous n'êtes pas un ".$roleconnect;
-						}
+								
+							$_SESSION['role'] = $roleconnect;	
+							$_SESSION['email'] = $resultat['ut_mail'];								
+							$resultat['lastlogin'] = time();
+							$_SESSION['lastlogin'] = $resultat['lastlogin'];
+							$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
+								
+							redirect('profil.php');
+								
+						}				
+					}
+					else
+					{
+						$msg="Vous n'êtes pas un ".$roleconnect;
+					}
 				}
 				else
 				{
-					$erreur = "Mauvais mdp !";
+					$msg = "Mauvais mdp !";
 				}
 			}
 			else
 			{		
-				$erreur = "Utilisateur non reconnu !";		
+				$msg = "Utilisateur non reconnu !";		
 			}
 		}
-
 		else
 		{
-			$erreur = "Veuillez saisir tous les champs !";
+			$msg = "Veuillez saisir tous les champs !";
 		}
 		
 ?>
 
-<div class="conteneurconex">
-     
-            <form method="post" action="login.php">
+		<div class="conteneurconex">
+			 
+			<form method="post" action="login.php">
 
-                <div id="connexion">
-                <fieldset><legend><strong>Qui êtes-vous ?</strong></legend>
-				
-				<input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
-                <input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
+				<div id="connexion">
+					<fieldset><legend><strong>Qui êtes-vous ?</strong></legend>
+						
+						<input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
+						<input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
 
-                <label for="login"><i>Login : </i> </label> <input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus>
-                                 
-               <br/>
-               
-                <label for="login"><i> Mot de passe : </i></label><input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
-                <br/>
-                    <a href="mdpoublie.php"><i>Mot de passe oublié ?</i></a><br />
-                <a href="inscription.php"><i>Nouveau sur le compte ? Inscrivez-vous</i></a>
-                <br/>
-<br />
-                
-                <button type="submit" name="connexion" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Se connecter</button>
-                <br/>
+						<label for="login"><i>Login : </i> </label> <input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus>				 
+					    <br/>
+					   
+						<label for="login"><i> Mot de passe : </i></label><input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+						<br/>
+						
+						<a href="mdpoublie.php"><i>Mot de passe oublié ?</i></a><br />
+						<a href="inscription.php"><i>Nouveau sur le compte ? Inscrivez-vous</i></a>
+						<br/>
+						<br/>
+						
+						<button type="submit" name="connexion" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Se connecter</button>
+						<br/>
 
-                
-                </div>  
-
-
-                
-                </fieldset>
-                        
-            </form>
-
-</div>
+					</fieldset>	
+				</div>  							
+			</form>
+		</div>
+		
 			<?php
-			if(isset($erreur))
+			if(isset($msg))
 			{
-				echo '<font color="blue"; text-align:center;>'.$erreur."</font>";
+				echo '<font color="blue"; text-align:center;>'.$msg."</font>";
 			}?>	
 	
-	<?php include('includes/footer.php'); ?>
-	<?php include('includes/scripts.php'); ?>		
+	<?php require_once"includes/footer.php"; ?>
+	<?php require_once"includes/scripts.php"; ?>		
 		
 	</body>
     </html>
