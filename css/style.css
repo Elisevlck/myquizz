@@ -1,6 +1,8 @@
 
 
-.footer {
+.footer 
+
+{
     border-top: 1px solid #ccc;
     padding-top: 10px;
     margin-bottom: 10px;
@@ -31,6 +33,7 @@ body
 
 header
 {
+	width:100%;
     font-family : Courier New;
     color:white;
     list-style:none;
@@ -254,10 +257,49 @@ footer
 
 .monprofil
 {
-	
+
 	color:black;
     font-family:Courier New, Courier, monospace;
-    text-align:center;
+	
 	margin-top: 60px;
     font-size:18px;
+	margin-left:500px;
+	text-align:center;
+
+}
+
+.edition
+{
+	
+	font-family : Courier New;
+    align-items:center;   
+    background: #EFEFEF;
+    width : 40%;
+    height: 500px;
+    margin-left :50px;
+    border-radius: 20px;
+    margin-top : 200px;
+	float:left;
+	
+	padding-top:40px;
+	
+   
+}
+
+.editionavatar
+{
+	font-family : Courier New;
+	align-items:center;   
+    background: #EFEFEF;
+    width : 40%;
+    height: 500px;
+    margin-right :50px;
+    border-radius: 20px;
+    margin-top : 200px;
+	float:right;
+	
+	padding-top:100px;
+	padding-bottom:auto;
+	
+	
 }

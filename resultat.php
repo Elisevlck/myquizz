@@ -53,7 +53,8 @@
 			$score=0;
 			$nbQues=0;
 		
-			foreach ($questions as $question){
+			foreach ($questions as $question)
+			{
 				
 				$nbQues++;
 				$point=0;
