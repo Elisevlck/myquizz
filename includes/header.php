@@ -51,11 +51,11 @@
 					if(!empty($_SESSION['avatar']))
 					{?>
 						
-						<img src="membres/avatars/<?php echo $_SESSION['avatar']; ?>"  style="margin-left:10px;" width="100" />
+						<img src="membres/avatars/<?php echo $_SESSION['avatar']; ?>"  style="margin-left:10px; " width="100" />
 			<?php	}?>
 					<ul class="sous">
 							<li ><a class="link" href ="logout.php">Déconnexion</a></li> 							
-							<li ><a class="link" href ="hist.php">Historique/statistique</a></li>  
+							<li ><a class="link" href ="histo.php">Historique/statistique</a></li>  
 							<li ><a class="link" href ="profil.php">Mon profil</a></li>
 
 						</ul>
@@ -114,7 +114,7 @@
 			
 			<ul class="sous">
 						<li ><a class="link" href ="logout.php">Déconnexion</a></li> 							
-						<li ><a class="link" href ="hist.php">Historique/statistique</a></li>  
+						<li ><a class="link" href ="histo.php">Historique/statistique</a></li>  
 						<li ><a class="link" href ="profil.php">Mon profil</a></li>
 
 					</ul>

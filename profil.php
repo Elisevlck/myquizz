@@ -21,21 +21,33 @@
 	} 
 
 ?>	
-		<div class="monprofil">		
+<img src="images\profil.gif" style="float:left; margin-left:150px; margin-top:200px;" width="400"></img>	
+		<div class="monprofil">	
 			<h1> MON PROFIL </h1> 
 			<br/><br/><br/>
 			
-			<h6>
-			Statut : <?= $_SESSION['role']?>
-			<br/><br/>Dernière connexion : 
-			<?php echo 'Le '.date("d/m/Y \a H:i", $_SESSION['lastlogin']);?> 
-			<?php if ($dnn['lastlogin'] == 0){ echo 'Cet utilisateur ne c\'est jamais connecté(e).'; } else { echo date('d/m/Y \a H:i',$dnn['lastlogin']);} ?>
-			<br/><br/>Pseudo : <?= $_SESSION['login']?>
-			<br/><br/>Adresse mail : <?= $_SESSION['email']?>
-			<br/><br/>Mot de passe : <?= $_SESSION['password']?>	 
-			</h6> 
+		
+			<strong>Statut :</strong> <?= $_SESSION['role']?>
+			<br/><br/><strong>Dernière connexion :</strong> 
 			
-			<br/>Avatar : 
+			<?php 
+			if ($dnn['lastlogin'] == 0)
+			{ 
+				echo 'Cet utilisateur ne c\'est jamais connecté(e).'; 
+			} 		
+			else 
+			{ 
+				echo date('d/m/Y \à H:i',$dnn['lastlogin']);
+				$requete=getDb()->query("UPDATE utilisateur SET lastlogin='". time() ."' WHERE ut_nom='".$_SESSION['login']."' ");
+			} ?>
+			
+			<br/><br/><strong>Pseudo :</strong> <?= $_SESSION['login']?>
+				
+			<br/><br/><strong>Adresse mail :</strong> <?= $_SESSION['email']?>
+			<br/><br/><strong>Mot de passe :</strong> <?= $_SESSION['password']?>	 
+			 
+			
+			<br/><strong>Avatar :</strong> 
 			
 						<?php 
 						
@@ -54,10 +66,10 @@
 												
 				<?php	}  ?>
 						
-			<br/><br/>		
+			<br/><br/><br/><br/	
 			<a href ="editerprofil.php"><button type="button" class="button">Editer mon profil</button></a>		
 			<a href ="editerprofil.php"><button type="button" class="button">Voir mon historique</button></a>		
-			<br/><br/>
+			<br/><br/><br/><br/>
 		</div>			
 						
 			<?php 

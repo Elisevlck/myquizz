@@ -27,8 +27,7 @@ if(isset($_SESSION['login']))
 	//voir si mail existe
 	$mailexist = $reqmail->rowCount();
 	
-	if(isset($_POST['newpseudo']) AND !empty($_POST['newpseudo']) AND $_POST['newpseudo'] != $user['ut_nom']) 
-						   
+	if(isset($_POST['newpseudo']) AND !empty($_POST['newpseudo']) AND $_POST['newpseudo'] != $user['ut_nom']) 						   
 	{
 		if($userexist == 1)  
 		{							   
@@ -46,8 +45,7 @@ if(isset($_SESSION['login']))
 						
 	}
 						 
-	if(isset($_POST['newmail']) AND !empty($_POST['newmail']) AND $_POST['newmail'] != $user['ut_mail']) 
-					   
+	if(isset($_POST['newmail']) AND !empty($_POST['newmail']) AND $_POST['newmail'] != $user['ut_mail']) 					   
 	{
 						   
 						   if($mailexist == 1)
@@ -109,8 +107,7 @@ if(isset($_SESSION['login']))
 					$updateavatar->execute(array(
 						'avatar' => $_SESSION['login'].".".$extensionUpload, //nom fichier
 						'ut_nom' => $_SESSION['login']));
-									   
-					redirect('profil.php');
+
 				} 
 				else 
 				{
@@ -131,10 +128,11 @@ if(isset($_SESSION['login']))
 } ?>
   
    <body>
-      <div align="center">
-         <h2>Edition de mon profil</h2>
+       
         
             <form method="POST" action="" enctype="multipart/form-data">
+			<div class="edition" align="center">
+				<h2><strong>Edition de mon profil</strong></h2><br /><br />
                <label>Pseudo :</label>
 					<input type="text" name="newpseudo" placeholder="Pseudo"/><br /><br />
                <label>Mail :</label>
@@ -143,29 +141,36 @@ if(isset($_SESSION['login']))
 					<input type="text" name="newmdp1" placeholder="Mot de passe"/><br /><br />
                <label>Confirmer votre mot de passe :</label>
 					<input type="text" name="newmdp2" placeholder="Confirmation du mot de passe" /><br /><br />
-     
+		
 			   <button type="submit" name="edition" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Editer mon profil</button>
 				<br/>
 				<br/>				
 				<a href="logout.php"> Reconnectez-vous pour actualiser vos données</a><br/><br/>	
 	
+			
+		</div>
+		
+		<div class="editionavatar" align="center">
+			<h2><strong>Modifier mon avatar<strong/></h2><br /><br />
 				<label>Avatar :</label>
 				<input type="file" name="avatar" /> <br/><br/>
-				<input type="submit" value="Mettre à jour mon avatar !" />
-
-          </form>
+				<input type="submit" value="Mettre à jour mon avatar !" /> 
      
-      </div>
+		</div>
+		</form>
+	</body>
+	
 	  
 <?php
-			include('includes/footer.php'); 
-			include('includes/scripts.php'); 
+			 
 
 			if(isset($msg))
 			{
 				echo '<font color="blue"; text-align:center;>'.$msg."</font>";
 			}
+	
+			include('includes/scripts.php');
 ?>	
 
-	</body>
 </html>
+
