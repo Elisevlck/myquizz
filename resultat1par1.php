@@ -35,12 +35,10 @@
 			<div id="connexion">
 			
 				<h1> Correction : <?=$quizs['quiz_nom']?> </h1>
-				Votre score est : <?=$scoreActu?>. <br/>
-				Il y avait : <?=$quizs['nbquestions']?> questions.<br/>
 				
 			<?php
 			
-			echo "Le score est : ".$scoreActu.'/'.$quizs['nbquestions'];
+			//echo "Le score est : ".$scoreActu.'/'.$quizs['nbquestions'];
 			echo '<br/>';
 			$rapport_score = $scoreActu/$quizs['nbquestions'];
 			echo '<br/>';
@@ -54,17 +52,14 @@
 			echo '<br/>';
 		
 			$date = date("Y-m-d");
-			echo '<br/>';
-			echo '<br/>';
-			echo '<br/>';
 			
 			//insertion resultat partie
-			$insert_partie=getDb()->prepare("INSERT INTO partie(part_score, part_temps,part_date,quiz_nom,ut_id) VALUES(?,?,?,?,?)");
-			$insert_partie->execute(array($rapport_score,$time,$date,$quizNom,$utId));
+			$insert_partie=getDb()->prepare("INSERT INTO partie(part_score, part_temps,part_date,quiz_id,ut_id,quiz_niveau) VALUES(?,?,?,?,?,?)");
+			$insert_partie->execute(array($rapport_score,$time,$date,$quizId,$utId,$niveau));
 						
 			//meilleur résultat
-			$resultat=getDb()->prepare("select * from partie where ut_id=? and quiz_nom=? order by part_score desc limit 1");
-			$resultat->execute(array($utId,$quizNom));
+			$resultat=getDb()->prepare("select * from partie where ut_id=? and quiz_id=? order by part_score desc limit 1");
+			$resultat->execute(array($utId,$quizId));
 			$parties=$resultat->fetch();
 			
 	
@@ -85,9 +80,14 @@
 			{
 				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
 			}
-		
-			
 			?>
+			
+			<br/>
+			<a class="option" href="page1.php">Retour à l'acceuil</a>
 				
 			</div>
 		</div>
+		<?php include "includes/footer.php";
+		include 'includes/scripts.php';?>
+	</body>
+</html>

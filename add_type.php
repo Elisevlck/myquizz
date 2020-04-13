@@ -42,18 +42,33 @@
 			}
 		?>
 		
+		<div class="containeurGlobal">
+		
+			<div class="infoBase">
+					
+				<div id="infoBaseInt">
+					
+					<h1><strong><?=$lequiz['quiz_nom'] ?> </strong></h1>
+					<em>Ajouter les types des questions </em>
+					
+				</div>
+					
+			</div>
+		
+		
 		
 		<form method="post" action="add_type.php?id=<?=$quizId?>&nb=<?=$nbquestions?>">
-
-			<div id="connexion">
-			
-				<fieldset><legend><strong>Ajouter des types </strong></legend><br/> 
+ 
 				<?php 
 				
 				$numquestion=1;
 				
 				foreach ($questions as $question)
 				{?>				
+					<div class="element">
+			
+					<div id='elementInt'>
+					
 					<h2><strong>Question n° <?=$numquestion?> : </strong></h2><br/>	
 					<h3> <?=$question['ques_cont']?> </h3>
 					
@@ -62,8 +77,9 @@
 					<input type="radio" name="<?=$question['ques_id']?>" value="texte"/><label for="type">Question ouverte</label><br/>
 					<input type="radio" name="<?=$question['ques_id']?>" value="radio"/><label for="type">Réponse unique</label><br/>
 					<input type="radio" name="<?=$question['ques_id']?>" value="checkbox"/><label for="type">Choix multiples</label><br/>
-					<hr/>
+					<hr/></div></div>
 				<?php $numquestion++;
+			
 				} ?>
 		
 		<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button><br/><br/>

@@ -50,10 +50,13 @@
 
 	<body>
 	
-		<div class="container">
-			<?php require_once "includes/header.php"; ?>
+		<?php require_once "includes/header.php"; ?>
+		
+		<div class="containeurGlobal">
 
-			<div class="jumbotron"><img src="images\chrono.gif" style="float:right;" width="300"></img>
+			<div class="infoBase"><img src="images\chrono.gif" style="float:right;" width="300"></img>
+			
+			<div id="infoBaseInt">
 				
 				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
 				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
@@ -62,8 +65,9 @@
 				<p><em>Niveau choisi : <?=$niveau?></em></p>
 				<h5><strong>ATTENTION</strong> le temps est compté !</h5>
 				<hr/>
-				
-				<h2> <strong>Répondre aux questions suivantes : </strong></h2><br/>
+			
+			</div>
+			</div>
 				
 				
 				<form action="resultat.php?id=<?= $quizs['quiz_id'] ?>&tId=<?=$themeId?>&niv=<?= $niveau?>" Method="POST">
@@ -74,6 +78,10 @@
 								
 					<?php foreach ($questions as $question) { ?>
 					
+						<div class="element">
+						
+						<div id="elementInt">
+						
 						<em><?=$i?>) <?= $question['ques_cont'] ?></em><br/><?php
 						
 						// type texte
@@ -101,9 +109,9 @@
 									<label><input type="checkbox" name="reponse<?=$question["ques_id"]?>[]" value=" <?= $reponse['rep_cont'] ?>"/> <?= $reponse['rep_cont'] ?></label><?php
 						} } } 							
 						$i++;						
-						
-					?><br/><br/>	
+						?>
                 			
+					</div></div>
 				
 				<?php 		  } ?>			
 				

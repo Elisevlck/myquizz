@@ -47,30 +47,43 @@
 		}
 		?>
 		
+		<div class="containeurGlobal">
+		
+			<div class="infoBase">
+					
+				<div id="infoBaseInt">
+					
+					<h1><strong><?=$lequiz['quiz_nom'] ?> </strong></h1>
+					<em>Ajouter des questions </em>
+					
+				</div>
+					
+			</div>
 		
 		     
 		<form method="post" action="add_question.php?id=<?=$quizId?>">
-
-			<div id="connexion">
+								
+			<?php for($numquestion=1; $numquestion<=$nbquestions; $numquestion++) {?>
+				
+				<div class="element">
 			
-				<fieldset><legend><strong>Ajouter des questions </strong></legend><br/> 
-													
-					<?php for($numquestion=1; $numquestion<=$nbquestions; $numquestion++) 
-					{?>
-							
+					<div id='elementInt'>
 							<h2><strong>Question n° <?=$numquestion?> : </strong></h2><br/>		
 							 
 							<label for="quiz"><i>Intitulé :</i></label> 
-							<input type="text" name="<?=$numquestion?>" class="form-control" placeholder="Entrez l'intitulé de la question :" required autofocus><br/> 
+							<input type="text" name="<?=$numquestion?>" class="texteForme" style="width:90%" placeholder="Entrez l'intitulé de la question :" required autofocus><br/> 
 							
 							<hr/>
+					</div>
+				</div>
 						
 					<?php } ?>
-						
-				</fieldset>
-				<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button><br/><br/>
+			
+				<button type="submit" name="validation" class="boutonC"></span> Valider</button>
+				
+				</form>
             </div>             
-        </form>
+        
 		
 	<?php include "includes/footer.php";
 	include "includes/scripts.php";?>

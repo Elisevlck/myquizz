@@ -2,14 +2,52 @@
 	require_once "includes/function.php";
 	session_start();
 
-	$quesId = $_GET['idq'];
-	$themeId = $_GET['idt'];
+	$quizId = $_GET['id'];
+	$quesId = $_GET['num'];
 	
-	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
-	$stmt->execute(array($quizId));
-	$quizs = $stmt->fetch();
-	
-	$stmt2 = getDb()->prepare('select * from question where quiz_id=?');
-	$stmt2->execute(array($quizId));
-	$themes = $stmt2->fetchAll();	
+	$stmt2 = getDb()->prepare('select * from question where ques_id=?');
+	$stmt2->execute(array($quesId));
+	$question = $stmt2->fetch();
+
+	$recup_reponses=getDb()->prepare('select * from reponse where ques_id=?');
+	$recup_reponses->execute(array($quesId));
+	$reponses=$recup_reponses->fetchAll();
 ?>
+
+<!doctype html>
+
+<html>
+
+	<?php 
+		$pageTitle = "Modifier une question";
+		require_once "includes/head.php"; 
+	?>
+
+	<body>	
+		
+		<?php include "includes/header.php"; ?>
+		
+		<div class="containeurGlobal">
+		
+			<div class="infoBase">
+					
+				<div id="infoBaseInt">
+					
+					<h5><strong><?=$question['ques_cont'] ?> </strong></h5>
+					<em>Modifier la question</em>
+					
+				</div>
+					
+			</div>
+			
+			
+		</div>
+	</body>
+</html>
+		
+		
+		
+		
+		
+		
+		

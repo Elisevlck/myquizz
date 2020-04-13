@@ -34,20 +34,15 @@
 	
 	<body>
 	
-	<div class="container">
 			<?php require_once "includes/header.php"; ?>
 
-			<div class="jumbotron">
+			<div class="conteneurconex">
+		
+			<div id="connexion">
+			
+				<h1> Correction : <?=$quizNom?> </h1>
 				
-				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
-				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
-				<p><em>Thème : <?= $themes['theme_nom'] ?></em></p>
-				<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
-				<p><em>Niveau choisi : <?=$niveau?></em></p>
-				<hr/>
 				
-				<h2> <strong>Correction : </strong></h2><br/>
-	
 		<?php
 		
 			$score=0;
@@ -57,7 +52,7 @@
 				
 				$nbQues++;
 				$point=0;
-				echo "<strong>".$question['ques_cont'].'<br/></strong>';
+				//echo "<strong>".$question['ques_cont'].'<br/></strong>';
 				$id=$question['ques_id'];
 				
 				// LES QUESTIONS TEXTE ET RADIO --------------------------------------------------------------------------------------------------------------
@@ -73,7 +68,7 @@
 					
 					if ($_POST[$id]==$bonnerep['rep_cont'])
 						$point=1;
-					echo "Votre réponse : ".$_POST[$id]." donc ".$point." point(s)<br/>";
+					//echo "Votre réponse : ".$_POST[$id]." donc ".$point." point(s)<br/>";
 				}
 								
 				// LES QUESTIONS MULTIPLES--------------------------------------------------------------------------------------------------------------
@@ -139,38 +134,31 @@
 					if ($nbVrai==$nbChoix && $nbChoix==$nbBonneRep)
 						$point=1;
 					
-					echo "Votre réponse : ".$chaine." donc ".$point." point(s) (".$nbBonneRep."/".$nbVrai.")<br/>";
+					//echo "Votre réponse : ".$chaine." donc ".$point." point(s) (".$nbBonneRep."/".$nbVrai.")<br/>";
 					
 				}//------------------------FIN DU IF CHECKBOX
 				
 				
 				$score=$score+$point;
-				echo '<br/>';
 			}//--------------------------FIN DU FOREACH QUESTION
 			
-			echo "Le score est : ".$score.'/'.$nbQues;
-			echo '<br/>';
+			//echo "Le score est : ".$score.'/'.$nbQues;
 			$rapport_score = $score/$nbQues;
 			$nbr = round($rapport_score, 3);
-			echo "Taux de réussite : ".$nbr*100 .' %';
+			echo "Taux de réussite : ".$nbr*100 .' %<br/>';
 			
-							
-			echo '<br/>';
 			$debut = $_POST['validation'];
 			$time = time() - $debut;
-			echo  "Chronomètre : ".$time." secondes\n";		
+			echo  "Chronomètre : ".$time." secondes<br/>";		
 			$date = date("Y-m-d");
-			echo '<br/>';
-			echo '<br/>';
-			echo '<br/>';
 							
 			//insertion resultat partie
-			$insert_partie=getDb()->prepare("INSERT INTO partie(part_score, part_temps,part_date,quiz_nom,ut_id) VALUES(?,?,?,?,?)");
-			$insert_partie->execute(array($rapport_score,$time,$date,$quizNom,$utId));
+			$insert_partie=getDb()->prepare("INSERT INTO partie(part_score, part_temps,part_date,quiz_niveau,quiz_id,ut_id) VALUES(?,?,?,?,?,?)");
+			$insert_partie->execute(array($rapport_score,$time,$date,$niveau,$quizId,$utId));
 						
 			//meilleur résultat
-			$resultat=getDb()->prepare("select * from partie where ut_id=? and quiz_nom=? order by part_score desc limit 1");
-			$resultat->execute(array($utId,$quizNom));
+			$resultat=getDb()->prepare("select * from partie where ut_id=? and quiz_id=? order by part_score desc limit 1");
+			$resultat->execute(array($utId,$quizId));
 			$parties=$resultat->fetch();
 			
 	
@@ -192,9 +180,10 @@
 				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
 			}
 			
-		
+			?>
+			<br/><a class="option" href="page1.php">Retour à l'acceuil</a>
 			
-		?>
+		
 		</div>
 		</div>
 		

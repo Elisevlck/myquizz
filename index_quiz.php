@@ -23,35 +23,42 @@
 	?>
 
 	<body>	
+		<?php include "includes/header.php"; ?>
 		
-		<div class="container">
-			
-			<?php include "includes/header.php"; ?>
-			
-				<h1> Catégorie : <?=$pageTitle; ?> </h1>
-				<a class="QuizTitle" href="add_quiz.php?id=<?= $themeId?>">Ajout de quiz </a><br/>
-				<a class="QuizTitle" href="suppr_quiz.php?id=<?= $themeId ?>">Suppression de quiz</a>
-				<br/><br/><br/>
+		<div class="containeurGlobal">
+		
+			<div class="infoBase">
 				
-				<h3> Liste des quiz associés : </h3>
+				<div id="infoBaseInt">
+					<strong><FONT size="7"><?=$pageTitle; ?></font></strong>   
+					<a class="option" href="add_quiz.php?id=<?= $themeId?>">Ajout de quiz</a>  
+					<a class="option" href="suppr_quiz.php?id=<?= $themeId ?>">Suppression de quiz</a>				
+				</div>
 				
+			</div>
+			
 				<?php foreach ($quizs as $quiz) { ?>
 				
-					<article>
-						<strong><?= $quiz['quiz_nom']?></strong>
-						<a class="QuizTitle" href="index_question.php?id=<?= $quiz['quiz_id'] ?>">Modifier</a>
-						<br/>
+					<div class="element">
+						
+						<div id="elementInt">
+						
+						<strong><FONT size="6"><?= $quiz['quiz_nom']?></font></strong>
+						<a class="option" href="index_question.php?id=<?= $quiz['quiz_id'] ?>">Modifier</a><br/><br/>
 						Affichage d'un trait :
-						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile">Facile </a>
-						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen">Moyen </a>
-						<a class="QuizTitle" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile">Difficile</a>
-						<br/>
-						Affichage question par question :
-						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile&num=0&score=0&tps=<?=time()?>">Facile </a>
-						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen&num=0&score=0&tps=<?=time()?>">Moyen </a>
-						<a class="QuizTitle" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile&num=1&score=0&tps=<?=time()?>">Difficile</a>
+						<a class="option" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile">Facile</a>   
+						<a class="option" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen">Moyen</a>      
+						<a class="option" href="quiz.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile">Difficile</a>
 						<br/><br/>
-					</article>
+						Affichage question par question :
+						<a class="option" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=facile&num=1&score=0&tps=<?=time()?>">Facile</a>      
+						<a class="option" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=moyen&num=1&score=0&tps=<?=time()?>">Moyen</a>      
+						<a class="option" href="quiz1par1.php?id=<?= $quiz['quiz_id'] ?>&tId=<?=$themeId?>&niv=difficile&num=1&score=0&tps=<?=time()?>">Difficile</a>
+						<br/><br/>
+						
+						</div>
+						
+					</div>
 					
 			<?php } //fin du foreach?>	
 		</div>

@@ -151,11 +151,14 @@
 			
 			else{			
 			?>
-		
-			<div class="container">
-				<?php require_once "includes/header.php"; ?>
+			
+			<?php require_once "includes/header.php"; ?>
+			<div class="containeurGlobal">
+			
 				
-				<div class="jumbotron"><img src="images\chrono.gif" style="float:right;" width="300"></img>
+				<div class="infoBase"><img src="images\chrono.gif" style="float:right;" width="300"></img>
+					
+					<div id="infoBaseInt">
 					
 					<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
 					<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
@@ -164,6 +167,13 @@
 					<p><em>Niveau choisi : <?=$niveau?></em></p>
 					<h5><strong>ATTENTION</strong> le temps est compté !</h5>
 					<hr/>
+					
+					</div>
+					</div>
+					
+					<div class="element">
+		
+					<div id="elementInt">
 					
 					<form action="quiz1par1.php?id=<?= $quizId ?>&tId=<?=$themeId?>&niv=<?=$niveau?>&num=<?=$numQues?>&score=<?=$scoreActu?>&tps=<?=$temps?>" Method="POST">
 				
@@ -194,13 +204,15 @@
 									<label><input type="checkbox" name="rep[]" value="<?= $reponse['rep_cont'] ?>"/> <?= $reponse['rep_cont'] ?></label><br/><?php
 						} } } ?>				
 						
-						<button type="submit" name="validation"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+						<input type="submit" name="validation" value="Valider" class="glyphicon glyphicon-log-in">
 					
 					</form>
+					</div>
+					
 				</div>
 			</div>
 		
 			<?php } //fin du else ?>
-	
+	</div>
 	</body>
 </html>

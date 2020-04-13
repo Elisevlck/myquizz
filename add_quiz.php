@@ -42,8 +42,8 @@
 					//pseudo unique ou non
 					if($nom_exist == 0)			
 					{		
-						$insert_quiz = getDb()->prepare("INSERT INTO quiz(quiz_nom, nbquestions, theme_id) VALUES(?,?,?)");
-						$insert_quiz->execute(array($nom,$nbquestions,$themeId));
+						$insert_quiz = getDb()->prepare("INSERT INTO quiz(quiz_nom, nbquestions, theme_id, createur) VALUES(?,?,?,?)");
+						$insert_quiz->execute(array($nom,$nbquestions,$themeId,$_SESSION['login']));
 						//$erreur = "Votre quiz a bien été créé";
 								
 						$recup_quizid = getDb()->prepare("SELECT * FROM quiz WHERE quiz_nom=?");
@@ -71,12 +71,12 @@
 
                 <div id="connexion">
 				
-				<h1> Thème : <?=$theme['theme_nom']?> </h1>	
+				<strong><FONT size="7"><?=$theme['theme_nom']?></font></strong>
 				
-                <fieldset><legend><strong>Ajouter un quiz</strong></legend><br/> 
+                <fieldset><legend>Ajouter un quiz</legend><br/> 
                 
-					<label for="quiz"><i>Nom du quiz : </i> </label> <input type="text" name="nom" class="form-control" placeholder="Entrez le nom du quiz" required autofocus><br/>
-					<label for="quiz"><i>Nombre de questions : </i> </label> <input type="text" name="nbquestions" class="form-control" placeholder="Valeur par défaut : 10" required autofocus><br/>                                 
+					<label for="quiz"><i>Nom du quiz : </i> </label> <input type="text" name="nom" class="form-control" placeholder="Saisir l'intitulé" required autofocus><br/>
+					<label for="quiz"><i>Nombre de questions : </i> </label> <input type="text" name="nbquestions" class="form-control" placeholder="10 par défaut" required autofocus><br/>                                 
 					<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
 
                 </fieldset>				

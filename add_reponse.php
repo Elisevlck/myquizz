@@ -73,15 +73,28 @@
 		
 		?>		
 		
+		<div class="containeurGlobal">
+		
+			<div class="infoBase">
+					
+				<div id="infoBaseInt">
+					
+					<h1><strong><?=$lequiz['quiz_nom'] ?> </strong></h1>
+					<em>Ajouter les réponses correspondantes </em>
+					
+				</div>
+					
+			</div>
+		
 		<form method="post" action="add_reponse.php?id=<?=$quizId?>&nb=<?=$nbquestions?>">
-
-			<div id="connexion">
-			
-				<fieldset><legend><strong>Ajouter des réponses </strong></legend><br/>
 				
 				<?php 
 				foreach ($questions as $question)
 				{?>				
+					<div class="element">
+			
+					<div id='elementInt'>
+					
 					<h2><strong>Question n° <?=$question['ques_num']?> : </strong></h2><br/>	
 					<h3> Intitulé : <?=$question['ques_cont']?> </h3>
 					<h4> Type : <?=$question['ques_type']?></h4>
@@ -92,7 +105,7 @@
 										
 					<?php if($question['ques_type']=='texte') //QUESTION DE TYPE TEXTE
 					{ ?>
-						<input type="text" name="<?=$id?>/<?=$num?>" class="form-control" placeholder="Entrez la réponse correcte :" required autofocus><br/> 
+						<input type="text" name="<?=$id?>/<?=$num?>" class="texteForme" style="width:90%" placeholder="Entrez la réponse correcte :" required autofocus><br/> 
 						
 					<?php } ?>
 					
@@ -100,10 +113,10 @@
 					
 					<?php if($question['ques_type']=='radio')//QUESTION DE TYPE choix unique
 					{ ?>
-						<input type="text" name="<?=$id?>/<?=$num?>/V" class="form-control" placeholder="Entrez la réponse correcte :" required autofocus><br/> 						
-						<input type="text" name="<?=$id?>/<?=$num?>/F" class="form-control" placeholder="Entrez la réponse facile:" required autofocus><br/> 
-						<input type="text" name="<?=$id?>/<?=$num?>/M" class="form-control" placeholder="Entrez la réponse moyenne:" required autofocus><br/>
-						<input type="text" name="<?=$id?>/<?=$num?>/D" class="form-control" placeholder="Entrez la réponse difficile:" required autofocus><br/>
+						<input type="text" name="<?=$id?>/<?=$num?>/V" class="texteForme" style="width:90%" placeholder="Entrez la réponse correcte :" required autofocus><br/><br/> 
+						<input type="text" name="<?=$id?>/<?=$num?>/F" class="texteForme" style="width:90%" placeholder="Entrez la réponse fausse qui apparaitra au niveau facile :" required autofocus><br/> <br/> 
+						<input type="text" name="<?=$id?>/<?=$num?>/M" class="texteForme" style="width:90%" placeholder="Entrez la réponse fausse qui apparaitra au niveau moyen :" required autofocus><br/><br/> 
+						<input type="text" name="<?=$id?>/<?=$num?>/D" class="texteForme" style="width:90%" placeholder="Entrez la réponse fausse qui apparaitra au niveau difficile :" required autofocus><br/><br/> 
 						
 					<?php } ?>
 					
@@ -112,25 +125,26 @@
 					{ ?>
 												
 						<?php for($k=1; $k<=4; $k++)
-						{ ?>								
-							
-							<select name="<?=$id?>/<?=$num?>/<?=$k?>/estVrai" size="3" >
-								<option value="vrai">Vrai</option>
-								<option value="faux">Faux</option>
-							</select>
-							
+						{ ?>		
+									
+									<select name="<?=$id?>/<?=$num?>/<?=$k?>/estVrai" size="3" >
+										<option value="vrai">Vrai</option>
+										<option value="faux">Faux</option>
+									</select>
+									
 							<select name="<?=$id?>/<?=$num?>/<?=$k?>/niveau" size="3" >
 								<option value="facile">Facile</option>
 								<option value="moyen">Moyen</option>
 								<option value="difficile">Difficile</option> 
 							</select>
 							
-							<input type="text" name="<?=$id?>/<?=$num?>/<?=$k?>" class="form-control" placeholder="Entrez une reponse:" required autofocus><br/> 
+							
+							<input type="text" name="<?=$id?>/<?=$num?>/<?=$k?>" class="texteForme" style="width:80%" placeholder="Entrez l'intitulé de la réponse :" required autofocus><br/> 
 								
 						<?php } 
 					} ?>
 					
-					<hr/>
+					<hr/></div></div>
 					
 				<?php } ?>
 		

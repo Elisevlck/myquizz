@@ -25,9 +25,9 @@
 
 	<body>	
 		
-		<div class="container">
+		<?php include "includes/header.php"; ?>
+		<div class="containeurGlobal">
 			
-			<?php include "includes/header.php"; ?>
 			
 			<?php
 
@@ -41,25 +41,32 @@
 		
 		}
 		?>
+			<div class="infoBase">
+				
+				<div id="infoBaseInt">
 			
-			
-				<h1> Quiz : <?=$quizs['quiz_nom'] ?> </h1>
-					<em>Ajout de questions </em><br/>
+				<h1><strong> Quiz : <?=$quizs['quiz_nom'] ?> </strong></h1>
+					
 					
 					<form method="post" action="index_question.php?id=<?=$quizId?>">
-						<input type="text" name="nb" class="form-control" placeholder="Entrez le nombre de questions" required autofocus>
-						<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Ajouter</button>
+						<em>Ajout de questions :</em>
+						<input type="text" name="nb" class="formTexte" placeholder="Saisir un nombre" required autofocus>
+						<em>... questions</em>
+						<button type="submit" name="validation" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Ajouter</button>           	     
+						<a class="option" href="suppr_question.php?id=<?= $quizId ?>">Suppression de questions</a>
 					</form>
 					
-					<a class="QuizTitle" href="suppr_question.php?id=<?= $quizId ?>">Suppression de questions</a>
-				<br/><br/><br/>
-				
-				<h3> Liste des questions associés : </h3>
+				</div>
+			</div>
 				
 				<?php foreach ($questions as $question) { ?>
 				
-					<article>
-						<p><em><?= $question['ques_cont']?></em> <a class="QuizTitle" href="modif_question.php?id=<?= $quiz['quiz_id'] ?>">Modifier</a><br/>
+					<div class="element">
+						
+						<div id="elementInt">
+						
+						<strong><?= $question['ques_cont']?></strong> 
+						<a class="QuizTitle" href="modif_question.php?id=<?= $quizId?>&num=<?= $question['ques_id']?>">Modifier</a><br/>
 						
 						<?php
 							$stmt4 = getDb()->prepare('select * from reponse where ques_id=?');
@@ -68,15 +75,16 @@
 							
 							foreach ($reponses as $reponse){ 
 								if ($reponse['rep_estVrai']=='vrai')
-									echo '<strong>'.$reponse['rep_cont'].'</strong>';
+									echo '<font color=red><strong>'.$reponse['rep_cont'].'</strong></font>';
 								else 
 									echo $reponse['rep_cont'].'';
 								echo ' ';
 							}
 							?>
 							
-							</p>
-					</article>
+							
+					</div>
+					</div>
 				<?php } ?>				
 				
 				
