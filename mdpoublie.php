@@ -36,13 +36,13 @@
 					$destinataire = $_POST['email'];
 					$envoyeur ='dubozemma@gmail.com';
 					$sujet = 'Mot de passe oublié';
-					$message = "Bonjour !\r\Votre mot de passe est $nvpassword !";
+					$message = "Bonjour !\rVotre mot de passe est $nvpassword !";
 					$headers = 'From: '.$envoyeur."\r\n".
 							   'Reply-To: '.$envoyeur."\r\n".'X-Mailer: PHP/'. phpversion();
 							
 					$envoye=mail($destinataire, $sujet, $message, $headers);
 							
-					redirect('login.php');											
+													
 				}
 				else
 				{
@@ -55,11 +55,11 @@
 			 
 			<form method="post" action="mdpoublie.php">
 
-				<div id="connexion">
-					<fieldset><legend><strong>Mot de passe oublié</strong></legend><br/>
+				<div id="mdpoublie">
+					<fieldset><legend><strong>Mot de passe oublié</strong></legend><br/><br/>
 				   
 						<label for="login"><i> Adresse mail : </i></label><input type="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" class="form-control" placeholder="Entrez votre adresse mail" required>
-					    <br/>
+					    <br/><br/><br/>
 						
 						<button type="submit" name="mdpoublie" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Récupérer mon mot de passe</button>
 						<br/>

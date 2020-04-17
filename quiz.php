@@ -1,41 +1,44 @@
 <?php
 	require_once "includes/function.php";
 	session_start();
+	verifConnexion();
 
 	$quizId = $_GET['id'];
+	$_SESSION['quiz']= $_GET['id'];
 	$niveau = $_GET['niv'];
-	$themeId=$_GET['tId'];
+	$_SESSION['niveau']=$_GET['niv'];
+	$themeId=$_SESSION['theme'];
 	
-	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
-	$stmt->execute(array($quizId));
-	$quizs = $stmt->fetch(); 
+	$recup_quiz = getDb()->prepare('select * from quiz where quiz_id=?');
+	$recup_quiz->execute(array($quizId));
+	$quizs = $recup_quiz->fetch(); 
 	
-	$stmt2 = getDb()->prepare('select * from question where quiz_id=?');
-	$stmt2->execute(array($quizId));
-	$questions = $stmt2->fetchAll();
+	$recup_ques = getDb()->prepare('select * from question where quiz_id=?');
+	$recup_ques->execute(array($quizId));
+	$questions = $recup_ques->fetchAll();
 	shuffle($questions);	
 	
-	if ($niveau=="facile") {
-	
-	$stmt3 = getDb()->prepare('select * from reponse where rep_niveau=?');
-	$stmt3->execute(array($niveau));
-	$reponses = $stmt3->fetchAll(); 
+	if ($niveau=="facile") 
+	{
+    	$recup_rep = getDb()->prepare('select * from reponse where rep_niveau=?');
+    	$recup_rep->execute(array($niveau));
+    	$reponses = $recup_rep->fetchAll(); 
 	}	
-	if ($niveau=="moyen") {
-	
-	$stmt3 = getDb()->prepare('select * from reponse where rep_niveau=? OR rep_niveau="facile"');
-	$stmt3->execute(array($niveau));
-	$reponses = $stmt3->fetchAll(); 
+	if ($niveau=="moyen") 
+	{
+    	$recup_rep = getDb()->prepare('select * from reponse where rep_niveau=? OR rep_niveau="facile"');
+    	$recup_rep->execute(array($niveau));
+    	$reponses = $recup_rep->fetchAll(); 
 	}	
-	if ($niveau=="difficile") {
-	
-	$stmt3 = getDb()->prepare('select * from reponse');
-	$stmt3->execute(array());
-	$reponses = $stmt3->fetchAll();
+	if ($niveau=="difficile") 
+	{
+    	$recup_rep = getDb()->prepare('select * from reponse');
+    	$recup_rep->execute(array());
+    	$reponses = $recup_rep->fetchAll();
 	}
-	$stmt4 = getDb()->prepare('select * from theme where theme_id =?');
-	$stmt4->execute(array($themeId));
-	$themes = $stmt4->fetch(); //	
+	$recup_theme = getDb()->prepare('select * from theme where theme_id =?');
+	$recup_theme->execute(array($themeId));
+	$themes = $recup_theme->fetch(); //	
 	shuffle($reponses);
 ?>
 
@@ -56,57 +59,78 @@
 
 			<div class="infoBase"><img src="images\chrono.gif" style="float:right;" width="300"></img>
 			
-			<div id="infoBaseInt">
-				
-				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
-				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
-				<p><em>Thème : <?= $themes['theme_nom'] ?></em></p>
-				<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
-				<p><em>Niveau choisi : <?=$niveau?></em></p>
-				<h5><strong>ATTENTION</strong> le temps est compté !</h5>
-				<hr/>
-			
+    			<div id="infoBaseInt">
+    				
+    				<h2><strong><?= $quizs['quiz_nom'] ?></strong></h2>
+    				<p><em>Nombre de questions : <?= $quizs['nbquestions'] ?> questions</em></p>
+    				<p><em>Thème : <?= $themes['theme_nom'] ?></em></p>
+    				<p><em><small>Date de création : <?= $quizs['datecreation'] ?></small></em></p>
+    				<p><em>Niveau choisi : <?=$niveau?></em></p>
+    				<h5><strong>ATTENTION</strong> le temps est compté !</h5>
+    				<hr/>
+    			
+    			</div>
 			</div>
-			</div>
 				
 				
-				<form action="resultat.php?id=<?= $quizs['quiz_id'] ?>&tId=<?=$themeId?>&niv=<?= $niveau?>" Method="POST">
+				<form action="resultat.php" Method="POST">
 				
 					<?php $i=1;
 						$debut=time();
 					?>
 								
-					<?php foreach ($questions as $question) { ?>
+					<?php foreach ($questions as $question) 
+					{ ?>
 					
 						<div class="element">
 						
 						<div id="elementInt">
 						
-						<em><?=$i?>) <?= $question['ques_cont'] ?></em><br/><?php
+						<em><strong><?=$i?>) <?= $question['ques_cont'] ?></strong></em><br/><?php
+						
+						$extension=strrchr($question['ques_media'],'.');
+                	    $extensionsImg = array('.jpg', '.JPG','.jpeg','.JPEG', '.gif', '.GIF', '.PNG', '.png');	
+                            			 
+                        if(in_array($extension, $extensionsImg)) 
+                	    {
+                		    echo '<img class="imgQues" src="'.$question['ques_media'].'" alt="photopays" title="Nommez ce pays"/><br/><br/>';
+                		}
+                		if (($extension=='.mp4') OR ($extension=='.MP4'))
+                		{
+                		   echo '<video src='.$question['ques_media']." controls width="."400"."></video><br/>";
+                		}
+                		if (($extension=='.mp3') OR ($extension=='.MP3'))
+                		{
+                		   echo '<audio src='.$question['ques_media']." controls width="."400"."></audio><br/>";
+                		}
 						
 						// type texte
 						if ($question['ques_type']=="texte"){?>
-							<input type="text" name='<?= $question["ques_id"]?>' size="17" /><br/>
+							<input type="text" name='<?= $question["ques_id"]?>' class="texteForme" style="width:60%" placeholder="Entrez votre réponse" required autofocus/><br/>
 						<?php }							
 										
 						// type radio					
-						if ($question['ques_type']=="radio"){
+						if ($question['ques_type']=="radio")
+						{
 									
-							foreach ($reponses as $reponse) { 
+							foreach ($reponses as $reponse) 
+							{ 
 									
 									if ($reponse['ques_id']==$question['ques_id']){ ?>
 										
-										<label><input type="radio" name='<?= $question["ques_id"]?>' value=" <?= $reponse['rep_cont'] ?>"/> <?= $reponse['rep_cont'] ?></label><?php
+										<label><input type="radio" name='<?= $question["ques_id"]?>' value=" <?= $reponse['rep_cont'] ?>" require autofocus/> <?= $reponse['rep_cont'] ?></label><?php
 								
 								
 						} } }
 						
 						// type checkbox					
-						if ($question['ques_type']=="checkbox"){?>
+						if ($question['ques_type']=="checkbox")
+						{?>
 							<?php
-							foreach ($reponses as $reponse) { 
+							foreach ($reponses as $reponse) 
+							{ 
 								if ($reponse['ques_id']==$question['ques_id']){ ?>
-									<label><input type="checkbox" name="reponse<?=$question["ques_id"]?>[]" value=" <?= $reponse['rep_cont'] ?>"/> <?= $reponse['rep_cont'] ?></label><?php
+									<label><input type="checkbox" name="reponse<?=$question["ques_id"]?>[]" value=" <?= $reponse['rep_cont'] ?>" required autofocus/> <?= $reponse['rep_cont'] ?></label><?php
 						} } } 							
 						$i++;						
 						?>
@@ -115,7 +139,8 @@
 				
 				<?php 		  } ?>			
 				
-				<button type="submit" name="validation" value="<?=$debut?>"><><span class="glyphicon glyphicon-log-in"></span> Valider</button>
+				<br/>
+				<button type="submit" name="validation" value="<?=$debut?>" style="align-item:center" class="boutonC"><span class="glyphicon glyphicon-log-in"></span> Valider</button><br/>
 				
 			
 			</form>

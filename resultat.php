@@ -1,10 +1,11 @@
 <?php
 	require_once "includes/function.php";
 	session_start();
+	verifConnexion();
 	
-	$quizId = $_GET['id'];
-	$niveau = $_GET['niv'];
-	$themeId=$_GET['tId'];
+	$quizId = $_SESSION['quiz'];
+    $niveau = $_SESSION['niveau'];
+	$themeId=$_SESSION['theme'];
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?'); // récupère toutes les informations du quiz 
 	$stmt->execute(array($quizId));
@@ -67,7 +68,7 @@
 					if ($question['ques_type']=="radio")
 						$bonnerep['rep_cont']=" ".$bonnerep['rep_cont'];
 					
-					if ($_POST[$id]==$bonnerep['rep_cont'])
+					if (strtolower($_POST[$id])==$bonnerep['rep_cont'])
 						$point=1;
 					//echo "Votre réponse : ".$_POST[$id]." donc ".$point." point(s)<br/>";
 				}
@@ -143,7 +144,8 @@
 				$score=$score+$point;
 			}//--------------------------FIN DU FOREACH QUESTION
 			
-			//echo "Le score est : ".$score.'/'.$nbQues;
+			echo "Le score est : ".$score.'/'.$quizs['nbquestions'];
+			echo '<br/>';
 			$rapport_score = $score/$nbQues;
 			$nbr = round($rapport_score, 3);
 			echo "Taux de réussite : ".$nbr*100 .' %<br/>';
@@ -173,7 +175,7 @@
 				
 				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
 				echo '<br/>';
-				echo "Avec pour chronomètre : ".$chrono['part_temps'];
+				echo "Avec pour chronomètre : ".$chrono['part_temps']." secondes.";
 			
 			}
 			else
@@ -182,7 +184,8 @@
 			}
 			
 			?>
-			<br/><a class="option" href="page1.php">Retour à l'acceuil</a>
+			<br/><a class="option" href="index_resultat.php?id=<?=$quizId?>">Voir la correction</a><br/>
+			<br/><a class="option" href="index.php">Retour à l'accueil</a>
 			
 		
 		</div>
@@ -190,5 +193,9 @@
 		
 		
 	</body>
+	
+	<?php require "includes/footer.php";
+	require "includes/scripts.php";?>
+	
 </html>	
 

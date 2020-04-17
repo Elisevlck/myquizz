@@ -1,12 +1,13 @@
 <?php
 	require_once "includes/function.php";
 	session_start();
+	verifConnexion();
 
-	$quizId = $_GET['id'];
-	$niveau = $_GET['niv'];
-	$themeId=$_GET['tId'];
-	$numQues=$_GET['num'];
-	$scoreActu=$_GET['score'];
+	$quizId = $_SESSION['quiz'];
+	$niveau = $_SESSION['niveau'];
+	$themeId=$_SESSION['theme'];
+	$page=$_SESSION['page'];
+	$scoreActu=$_SESSION['score'];
 	
 	$stmt = getDb()->prepare('select * from quiz where quiz_id=?');
 	$stmt->execute(array($quizId));
@@ -34,9 +35,11 @@
 		
 			<div id="connexion">
 			
-				<h1> Correction : <?=$quizs['quiz_nom']?> </h1>
+				<h1> Résultat : <?=$quizs['quiz_nom']?> </h1>
 				
 			<?php
+			
+			unset($_SESSION['quesIds']);
 			
 			//echo "Le score est : ".$scoreActu.'/'.$quizs['nbquestions'];
 			echo '<br/>';
@@ -46,7 +49,7 @@
 			echo "Taux de réussite : ".$nbr*100 .' %';
 
 			echo '<br/>';
-			$debut = $_GET['tps'];			
+			$debut = $_SESSION['temps'];			
 			$time=time()- $debut;
 			echo  "Chronomètre : ".$time." secondes\n";				
 			echo '<br/>';
@@ -70,10 +73,9 @@
 				$resultat->execute(array("1.000"));
 				$chrono=$resultat->fetch();
 				
-				
 				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
 				echo '<br/>';
-				echo "Avec pour chronomètre : ".$chrono['part_temps'];
+				echo "Avec pour chronomètre : ".$chrono['part_temps']." secondes";
 			
 			}
 			else
@@ -81,9 +83,11 @@
 				echo "Votre meilleur taux de réussite à ce quizz est de : ".$parties['part_score']*100 .' %';
 			}
 			?>
-			
 			<br/>
-			<a class="option" href="page1.php">Retour à l'acceuil</a>
+			<br/><a class="option" href="index.php">Retour à l'acceuil</a><br/>
+			<br/><a class="option" href="index_resultat.php?id=<?=$quizId?>">Voir la correction</a><br/>
+			
+			
 				
 			</div>
 		</div>

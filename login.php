@@ -1,20 +1,24 @@
 <?php 
-		require_once "includes/function.php";		
-		session_start();
-		$quizs = getDb()->query('select * from utilisateur'); 
+	require_once "includes/function.php";		
+	session_start();
+	$recup_utilisateurs = getDb()->prepare('select * from utilisateur'); 
+	$recup_utilisateurs->execute(array());
+	$utilisateurs=$recup_utilisateurs->fetchAll();
 ?>
 
 <!DOCTYPE html>
 
 <html>
 	
-	<?php $pageTitle="Connexion";
-	require_once "includes/head.php"; ?>		
+	<?php 
+	$pageTitle="Connexion";
+	require_once "includes/head.php"; 
+	?>		
 	
 	<body>
 	
 		<?php
-		require_once"includes/header.php"; 	
+		require_once "includes/header.php"; 	
 
 		//formulaire rempli
 		if(!empty($_POST['login']) AND !empty($_POST['password']) AND !empty($_POST['role']))
@@ -47,9 +51,8 @@
 						{	
 							$_SESSION['role'] = $roleconnect;
 							$_SESSION['email'] = $resultat['ut_mail'];					
-								
-							redirect('profil.php');
 							
+							header("Location:index.php");
 						}
 						//si ut est joueur			
 						else
@@ -57,10 +60,9 @@
 								
 							$_SESSION['role'] = $roleconnect;	
 							$_SESSION['email'] = $resultat['ut_mail'];								
-							$resultat['lastlogin'] = time();							
-								
-							redirect('profil.php');
-								
+							$resultat['lastlogin'] = time();
+							header("Location:index.php");
+
 						}				
 					}
 					else
@@ -86,42 +88,45 @@
 ?>
 
 		<div class="conteneurconex">
-			 
-			<form method="post" action="login.php">
-
-				<div id="connexion">
-					<fieldset><legend><strong>Qui êtes-vous ?</strong></legend>
+		
+            <form method="post" action="login.php">
+                
+			<div id="connexion">
+			    
+				<fieldset><legend><strong>Qui êtes-vous ?</strong></legend>
 						
-						<input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
-						<input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
+					<input type="radio" name="role" value="administrateur"/><label for="admin">Administrateur</label>
+					<input type="radio" name="role" value="joueur"/><label for="joueur">Joueur</label><br/>
 
-						<label for="login"><i>Login : </i> </label> <input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus>				 
-					    <br/>
-					   
-						<label for="login"><i> Mot de passe : </i></label><input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
-						<br/>
+					<label for="login"><i>Login : </i> </label> 
+					<input type="text" name="login" class="form-control" placeholder="Entrez votre login" required autofocus><br/>	
+					  
+					<label for="login"><i> Mot de passe : </i></label>
+					<input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required><br/><br/>
 						
-						<a href="mdpoublie.php"><i>Mot de passe oublié ?</i></a><br />
-						<a href="inscription.php"><i>Nouveau sur le compte ? Inscrivez-vous</i></a>
-						<br/>
-						<br/>
+					<a href="mdpoublie.php"><i>Mot de passe oublié ?</i></a><br /><br/>
+					<a href="inscription.php"><i>Nouveau sur le compte ? Inscrivez-vous</i></a>	<br/><br/>
 						
-						<button type="submit" name="connexion" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Se connecter</button>
-						<br/>
-
-					</fieldset>	
-				</div>  							
+			        <button type="bouton" name="connexion" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Se connecter</button><br/>
+					
+				</fieldset>	
+					
+			</div>  
+			
 			</form>
+			
 		</div>
 		
-			<?php
-			if(isset($msg))
-			{
-				echo '<font color="blue"; text-align:center;>'.$msg."</font>";
-			}?>	
+		<?php
+	    if(isset($msg))
+	    {
+			 echo '<font color="blue"; text-align:center;>'.$msg."</font>"; 
+		} 
+		?> 
+		
+	</body>
 	
 	<?php require_once"includes/footer.php"; ?>
 	<?php require_once"includes/scripts.php"; ?>		
 		
-	</body>
-    </html>
+</html>

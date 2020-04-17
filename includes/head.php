@@ -6,11 +6,6 @@
 
 	  <link rel="stylesheet" href="css/style.css"/>
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-      <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-   
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>	  
+      <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">	
+    
 </head>

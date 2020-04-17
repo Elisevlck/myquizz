@@ -1,13 +1,14 @@
+<?php 
+	require_once "includes/function.php";		
+	session_start();
+	verifConnexion();
+	$quizs = getDb()->query('select * from utilisateur'); 	
+	include "includes/head.php";
+?>
+      
 <!DOCTYPE html>
 
-<html>
-<?php 
-		require_once "includes/function.php";		
-		session_start();
-		$quizs = getDb()->query('select * from utilisateur'); 	
-		include "includes/head.php";?>
-      
-	
+<html>	
 	
 <?php include "includes/header.php";
 		
@@ -29,7 +30,7 @@ if(isset($_SESSION['login']))
 	
 	if(isset($_POST['newpseudo']) AND !empty($_POST['newpseudo']) AND $_POST['newpseudo'] != $user['ut_nom']) 						   
 	{
-		if($userexist == 1)  
+		if($userexist == 0)  
 		{							   
 			$newpseudo = trim($_POST['newpseudo']);
 			$insertpseudo = getDb()->prepare("UPDATE utilisateur SET ut_nom = ? WHERE ut_nom=?");
@@ -41,24 +42,22 @@ if(isset($_SESSION['login']))
 		{
 			$msg = "Login déjà utilisé !";								
 		}
-						
-						
 	}
 						 
 	if(isset($_POST['newmail']) AND !empty($_POST['newmail']) AND $_POST['newmail'] != $user['ut_mail']) 					   
 	{
 						   
-						   if($mailexist == 1)
-							{
-								  $newmail = trim($_POST['newmail']);
-								  $insertmail = getDb()->prepare("UPDATE utilisateur SET ut_mail = ? WHERE ut_nom=?");
-								  $insertmail->execute(array($newmail, $user['ut_nom']));
+		if($mailexist == 0)
+		{
+			 $newmail = trim($_POST['newmail']);
+			 $insertmail = getDb()->prepare("UPDATE utilisateur SET ut_mail = ? WHERE ut_nom=?");
+			 $insertmail->execute(array($newmail, $user['ut_nom']));
 					
-							}
-							else
-							{
-								$msg = "Mail déjà utilisé !";
-							}
+		}
+		else
+		{
+			$msg = "Mail déjà utilisé !";
+		}
 					 
 	}
 						 
@@ -83,7 +82,7 @@ if(isset($_SESSION['login']))
 	if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name'])) 	
 	{
 		//taille max de la photo
-		$tailleMax = 2097152;
+		$tailleMax = 200000;
 		//extension autorisée
 		$extensionsValides = array('jpg', 'jpeg', 'gif', 'png');					
 						   
@@ -129,8 +128,10 @@ if(isset($_SESSION['login']))
   
    <body>
        
+       <div class="containeurGlobal">
         
-            <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" action="" enctype="multipart/form-data">
+            
 			<div class="edition" align="center">
 				<h2><strong>Edition de mon profil</strong></h2><br /><br />
                <label>Pseudo :</label>
@@ -142,35 +143,35 @@ if(isset($_SESSION['login']))
                <label>Confirmer votre mot de passe :</label>
 					<input type="text" name="newmdp2" placeholder="Confirmation du mot de passe" /><br /><br />
 		
-			   <button type="submit" name="edition" class="boutonC"><span class="glyphicon glyphicon-log-in"></span>Editer mon profil</button>
+			   <button type="submit" name="edition" class="boutonc"><span class="glyphicon glyphicon-log-in"></span>Editer mon profil</button>
 				<br/>
 				<br/>				
 				<a href="logout.php"> Reconnectez-vous pour actualiser vos données</a><br/><br/>	
-	
 			
-		</div>
+		    </div>
 		
-		<div class="editionavatar" align="center">
-			<h2><strong>Modifier mon avatar<strong/></h2><br /><br />
-				<label>Avatar :</label>
-				<input type="file" name="avatar" /> <br/><br/>
-				<input type="submit" value="Mettre à jour mon avatar !" /> 
-     
+    		<div class="editionavatar" align="center">
+    		    
+    			<h2><strong>Modifier mon avatar<strong/></h2><br /><br />
+    			<label>Avatar :</label>
+    			<input type="file" name="avatar" /> <br/><br/>
+    			<input type="submit" value="Mettre à jour mon avatar !" /> 
+         
+    		</div>
+		
 		</div>
 		</form>
 	</body>
 	
 	  
-<?php
+     <?php
 			 
-
-			if(isset($msg))
-			{
-				echo '<font color="blue"; text-align:center;>'.$msg."</font>";
-			}
-	
-			include('includes/scripts.php');
-?>	
+	if(isset($msg))
+	{
+		echo '<font color="blue"; text-align:center;>'.$msg."</font>";
+	}
+	include('includes/scripts.php');
+?>	    
 
 </html>
 

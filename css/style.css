@@ -1,27 +1,17 @@
-
+.imgQues
+{
+    width:20%;
+    height:auto;
+    margin-left:auto;
+    margin-right:auto;
+}
 
 .footer 
-
 {
     border-top: 1px solid #ccc;
     padding-top: 10px;
     margin-bottom: 10px;
     text-align: center;
-}
-
-.quizTitle:hover,
-.quizTitle:focus {
-    text-decoration: none;
-}
-
-.quizContent {
-    text-align: justify;
-}
-
-.quizImage {
-    border-radius: 7px;
-    border: 4px solid white;
-    box-shadow: 1px 1px 10px #555;
 }
 
 body
@@ -38,12 +28,15 @@ header
     color:white;
     list-style:none;
     text-align:center;
+
+
 }
 
 header nav
 {
+    
     color : white;
-   
+    font-size:1.2vw;
 }
 
 header nav ul
@@ -52,8 +45,7 @@ header nav ul
     margin:0;
     padding:0;
     display:flex;
-
-    
+    width:100%;
 }
 
 header nav ul li
@@ -61,29 +53,30 @@ header nav ul li
     margin:0;
     padding:0;
     width:100%;
-    height:100px;
+    height:15%;
     text-align:center;
     background-color:black;
     line-height:100px;
-    
     font-weight:bold;
-    font-size:20px;
     align-items:center;
-    
-}
-header nav li
-{
- 
-    display: inline-block;
-    margin:0px 19px;
-    padding:10px;    
+
 
 }
+
+header nav li
+{
+    display: inline-block;
+    margin:0px 19px;
+    padding:10px; 
+    width:100%;
+
+}
+
 header nav ul li a
 {
     display:block;
 	text-align:center;
-    
+	width:100%;
 }
 
 header nav ul li a:hover
@@ -94,69 +87,69 @@ header nav ul li a:hover
 .sous
 {
     display : flex;
+    position:absolute;
+    margin-left:auto;
+	margin-right:auto;
+	width:33%;
     flex-direction:column-reverse;
    
 }
 
 .link
 {
-
     color:white;
-    font-size:18px;
     margin-left:auto;
 	margin-right:auto;
-    font-weight:bold;   
+    font-weight:bold;
+
+
 
 }
 
 .link:hover
-
 {
+
     color: white; 
+    overflow: hidden;
+}
+header nav ul li ul 
+{
+   
 
 }
 
 header nav ul li ul li
 {
-
-
     display:none;
-
-
-    
 }
 
 header nav ul li:hover ul li 
 
 {
-
     display:flex;
     background-color:black;
-    height:60px;
+    height:50%;
     width:100%;
     line-height:60px;
 	margin-left:auto;
 	margin-right:auto;
-	position:relative;
+	 z-index: 1;
 
 
 }
 
 nav ul::after
 {
-	
 	content:"";
 	display:table;
 	clear:both;
+
 }
 
 .bouton
-
 {
-	display:block;
-	width:170px;
-	height : 100px;
-	line-height:70px;
+	width:30%;
+	height: 13%;
 	text-align:center;
 	vertical-align:middle;
 	color:white;
@@ -164,10 +157,10 @@ nav ul::after
 	float:right;
 	background-color:black;
 	font-family : Courier New;
-	margin-right : 5em;
-	margin-top: 20em;
+	margin-right : 9vw;
+	margin-top: 20%;
 	font-weight:bold;
-	font-size:large;
+	font-size:80%;
 }
 
 .bouton:hover 
@@ -179,8 +172,12 @@ nav ul::after
 
 #carousel
 {
-    
-    margin-left : 50px;
+    margin-top:inherit;
+    margin-left : 10%;
+    position: absolute; 
+    z-index: 2;
+
+
 }
 
 
@@ -189,11 +186,12 @@ nav ul::after
     display: flex;
     align-items:center;   
     background: #EFEFEF;
-    width : 80%;
+    width : 95%;
     height: 600px;
-    margin-left :20px;
-    border-radius: 20px;
-    margin-top : 170px;
+    margin-left :auto;
+    margin-right :auto;
+    border-radius:20px;
+    margin-top :9vw;
 }
 
 
@@ -206,22 +204,23 @@ footer
 
 .description
 {
-
     color:black;
     font-family:Courier New, Courier, monospace;
     text-align:center;
-    margin-left:15%;
+    margin-left:5%;
     align-items:center;
-    font-size:18px;
+    font-size:100%;
 }
 
-#logo{
+#logo
+{
     margin-left:0;
     padding-left:15px;
     background-color:black;
 }
 
-.option {
+.option 
+{
 	padding: 4px 10px;
 	background: black;
 	color: white;
@@ -232,18 +231,20 @@ footer
 	align-items:center; 
 }
 
-a.option:hover {
+a.option:hover 
+{
 	background: red;
 	color: white;
 }
 
 .containeurGlobal
 {
-	padding-right: 10px;
-	padding-left: 10px;
-	margin-left:10px;
+	display: block;
+    margin-left: 10px;
 	margin-right:10px;
+    text-align:center;
 	align-items:center;
+	font-family:Courier New,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
 }
 
 .infoBase
@@ -254,11 +255,12 @@ a.option:hover {
   margin-top:10px;  
   border-radius: 10px;   
   display: flex;  
-  background-color: rgba(255, 0, 0, .1);
+  background-color: RGBA(255, 0, 0, .1);
   font-size:medium;
   align-items:center;  
+  padding-left:10px;
+  padding-top:10px;
 }
-
 
 #infoBaseInt
 {
@@ -280,9 +282,40 @@ a.option:hover {
   background-color: lightgray;
   border-radius: 10px;   
   display: block;
-  padding-top:5px;
-  padding-bottom:5px;
+  padding-top:20px;
+  padding-bottom:20px;
 }
+
+.elementG
+{
+	font-family : Courier New;
+    align-items:center;   
+    background: #EFEFEF;
+    width : 20%;
+    height: auto;
+    margin-left :10px;
+    border-radius: 20px;
+    margin-top : 10px;
+	float:left;
+	padding-top:10px;
+}
+
+.elementD
+{
+	font-family : Courier New;
+	align-items:center;   
+    background: #EFEFEF;
+    width : 60%;
+    height: auto;
+    margin-right :10px;
+    border-radius: 20px;
+    margin-top : 10px;
+	float:right;
+	padding-top:10px;
+	padding-bottom:auto;
+	
+}
+
 #elementInt
 {
     display: block;
@@ -299,30 +332,76 @@ a.option:hover {
 }
 
 
+
+.element
+{
+  margin-left:auto;   
+  margin-right:auto;
+  display: block;
+}
+
 .conteneurconex
 {
 	font-family:Courier New,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
-    margin-left:auto;   
+    margin-left:auto;
     margin-right:auto;
-    margin-top : 40px;
+    margin-top : 3vw;
     border-radius: 20px;   
-    width : 400px;
-    height: 470px;
-    display: flex;
-    align-items:center;   
+    width : 40%;
+    height: auto;
+    display: block;
+    align-items:center; 
     background: #EFEFEF;
 }
 
-
+.conteneurconex2
+{
+	font-family:Courier New,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
+    margin-left:500px;
+    margin-top : 40px;
+    margin-bottom : 40px;
+    padding-bottom : 40px;
+    border-radius: 20px;   
+    width : 500px;
+    height: auto;
+    display: block;
+    align-items:center; 
+    background: #EFEFEF;
+}
 
 #connexion
 {
+    padding-top:2vw;
+    padding-bottom:2vw;
     display: block;
-    margin-left: 40px;
-	padding-left:1px;
+    text-align:center;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    align-items:center;  
+	font-family:Courier New,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	vertical-align:middle;
+}
+
+#mdpoublie
+{
+    display: block;
+	padding-top:10%;
+	margin-left:2vw;
+	margin-right:2vw;
+	padding-bottom:2vw;
     text-align:center;
 	font-family:Courier New,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	
+}
+
+#inscription
+{
+    display: block;
+    margin-left:2vw;
+	margin-right:2vw;
+	padding-top:1vw;
+	padding-bottom:2vw;
+    text-align:center;
+	font-family:Courier New,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .monprofil
@@ -330,47 +409,56 @@ a.option:hover {
 
 	color:black;
     font-family:Courier New, Courier, monospace;
-	
-	margin-top: 60px;
+	margin-top: 5%;
     font-size:18px;
-    margin-left:500px;
+    margin-left:35%;
 	text-align:center;
 }
 
 .edition
 {
-	
 	font-family : Courier New;
+	font-size:90%;
     align-items:center;   
     background: #EFEFEF;
-    width : 40%;
-    height: 500px;
-    margin-left :50px;
+    width : 45%;
+    height: 80%;
+    margin-left :2vw;
     border-radius: 20px;
-    margin-top : 200px;
+    margin-top : 8%;
 	float:left;
-	
-	padding-top:40px;
-	
-   
+	padding-top:2vw;
 }
 
 .editionavatar
 {
 	font-family : Courier New;
+	font-size:90%;
 	align-items:center;   
     background: #EFEFEF;
-    width : 40%;
-    height: 500px;
-    margin-right :50px;
+    width : 45%;
+    height: 80%;
+    margin-top : 8%;
+    margin-right :2vw;
     border-radius: 20px;
-    margin-top : 200px;
 	float:right;
-	
-	padding-top:100px;
-	padding-bottom:auto;
-	
+	padding-top:10%;
+
 	
 }
+
+.stat
+{
+    font-family : Courier New;
+    text-align:center;
+   
+}
+.histo
+{
+    margin-top:4vw;
+    font-family : Courier New;
+	text-align:center;
+}
+
 
 
